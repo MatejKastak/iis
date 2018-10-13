@@ -16,7 +16,7 @@ class Accessory(models.Model):
     description = models.CharField(max_length=500)
 
     def __str__(self):
-        return 'Accessory = ' + 'name: ' + self.name + 'manufactured: ' + self.manufactured + 'description: ' + self.description
+        return 'Accessory = ' + 'name: ' + self.name + 'manufactured: ' + str(self.manufactured) + 'description: ' + self.description
 
 # klient
 class Customer(models.Model):

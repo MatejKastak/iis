@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+# from .models import * ??
+from .models import CostumeTemplate, Accessory, Customer
+
+admin.site.register(CostumeTemplate)
+admin.site.register(Accessory)
+admin.site.register(Customer)
