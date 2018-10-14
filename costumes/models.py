@@ -59,7 +59,7 @@ class EmployeeAtStore(models.Model):
     store_id = models.ForeignKey(Store, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'EmployeeAtStore = ' + ' employee_id: ' + self.employee_id + ' store_id: ' + self.store_id
+        return 'EmployeeAtStore = ' + ' employee_id: ' + str(self.employee_id) + ' store_id: ' + str(self.store_id)
 
 # spravca
 class Manager(models.Model): # TODO: Manager, idk if Admin/Administrator would colide with something internal in django?
@@ -68,7 +68,7 @@ class Manager(models.Model): # TODO: Manager, idk if Admin/Administrator would c
     tel_num = models.CharField(max_length=10)
 
     def __str__(self):
-        return 'Manager = ' + ' employee_id: ' + self.employee_id + ' email: ' + self.email + ' tel_num: ' + self.tel_num
+        return 'Manager = ' + ' employee_id: ' + str(self.employee_id) + ' email: ' + self.email + ' tel_num: ' + self.tel_num
 
 # kostym
 class Costume(models.Model):
@@ -80,7 +80,7 @@ class Costume(models.Model):
     costume_template = models.ForeignKey(CostumeTemplate, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'Costume = ' + ' color: ' + self.color + ' size: ' + self.size + ' manufactured: ' + str(self.manufactured) + ' wear_out: ' + self.wear_out + ' employee_manage: ' + self.employee_manage + ' costume_template: ' + self.costume_template
+        return 'Costume = ' + ' color: ' + self.color + ' size: ' + self.size + ' manufactured: ' + str(self.manufactured) + ' wear_out: ' + self.wear_out + ' employee_manage: ' + str(self.employee_manage) + ' costume_template: ' + str(self.costume_template)
 
 # vypozicka
 class Borrowing(models.Model):
@@ -93,7 +93,7 @@ class Borrowing(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'Borrowing = ' + ' event: ' + self.event + ' borrowed_date: ' + str(self.borrowed_date) + ' return_date: ' + str(self.return_date) + ' borrowing_expiration: ' + str(self.borrowing_expiration) + ' final_price: ' + self.final_price + ' employee_borrowed: ' + self.employee_borrowed + ' customer: ' + self.customer
+        return 'Borrowing = ' + ' event: ' + self.event + ' borrowed_date: ' + str(self.borrowed_date) + ' return_date: ' + str(self.return_date) + ' borrowing_expiration: ' + str(self.borrowing_expiration) + ' final_price: ' + self.final_price + ' employee_borrowed: ' + str(self.employee_borrowed) + ' customer: ' + str(self.customer)
 
 # doplnok_vztahuje_sa_k
 class AccessoryToBorrowing(models.Model):
@@ -101,7 +101,7 @@ class AccessoryToBorrowing(models.Model):
     borrowing_id = models.ForeignKey(Borrowing, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'AccessoryToBorrowing = ' + ' accessory_id: ' + self.accessory_id + ' borrowing_id: ' + self.borrowing_id
+        return 'AccessoryToBorrowing = ' + ' accessory_id: ' + str(self.accessory_id) + ' borrowing_id: ' + str(self.borrowing_id)
 
 # kostym_vztahuje_sa_k
 class CostumeToBorrowing(models.Model):
@@ -109,7 +109,7 @@ class CostumeToBorrowing(models.Model):
     borrowing_id = models.ForeignKey(Borrowing, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'CostumeToBorrowing = ' + ' costume_id: ' + self.costume_id + ' borrowing_id: ' + self.borrowing_id
+        return 'CostumeToBorrowing = ' + ' costume_id: ' + str(self.costume_id) + ' borrowing_id: ' + str(self.borrowing_id)
 
 # patri_k
 class AccessoryToCostumeTemplate(models.Model):
