@@ -1,94 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
-<head>
-	<title>{% block title %}IIS{% endblock %}</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="{% static 'costumes/images/icons/favicon.ico' %}"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/bootstrap/css/bootstrap.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/animate/animate.css' %}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/css-hamburgers/hamburgers.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/animsition/css/animsition.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/select2/select2.min.css' %}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/daterangepicker/daterangepicker.css' %}">
-<!--===============================================================================================-->
-</head>
-<body>
+  {% load static %}
+  <head>
+    <title>{% block title %}IIS{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->	
+    <link rel="icon" type="image/png" href="{% static 'costumes/images/icons/favicon.ico' %}"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'costumes/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'costumes/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/animate/animate.css' %}">
+    <!--===============================================================================================-->	
+    <link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/css-hamburgers/hamburgers.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/animsition/css/animsition.min.css' %}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/select2/select2.min.css' %}">
+    <!--===============================================================================================-->	
+    <link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/daterangepicker/daterangepicker.css' %}">
+    <!--===============================================================================================-->
+  </head>
+  <body>
 
-	{% block nav %}
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a class="navbar-brand" href="#">IIS</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"></span>
+    {% block nav %}
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+      <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+
+	<ul class="navbar-nav mr-auto">
+
+	  <li class="nav-item active">
+
+	    <a class="nav-link" href="#">Gallery</a>
+
+	  </li>
+
+	  <li class="nav-item">
+
+	    <a class="nav-link" href="#">Costumes</a>
+
+	  </li>
+
+	  <li class="nav-item">
+
+	    <a class="nav-link" href="#">Accessories</a>
+
+	  </li>
+
+	  <li class="nav-item">
+
+	    <a class="nav-link" href="#">Stores</a>
+
+	  </li>
+
+	</ul>
+
+      </div>
+
+      <div class="mx-auto order-0">
+
+	<a class="navbar-brand mx-auto" href="#">IIS-project</a>
+
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+
+	  <span class="navbar-toggler-icon"></span>
+
 	</button>
 
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-	    <ul class="navbar-nav mr-auto">
-	    <li class="nav-item active">
-		<a class="nav-link" href="#">Gallery<span class="sr-only">(current)</span></a>
-	    </li>
-	    <li class="nav-item">
-		<a class="nav-link" href="#">Costumes</a>
-	    </li>
-	    <li class="nav-item">
-		<a class="nav-link" href="#">Accessories</a>
-	    </li>
-	    <li class="nav-item">
-		<a class="nav-link" href="#">My profile</a>
-	    </li>
-	    <li class="nav-item">
-		<a class="nav-link" href="#">Settings</a>
-	    </li>
-	    <!-- DROPDOWN TEMPLATE
-	    <li class="nav-item dropdown">
-		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		Dropdown
-		</a>
-		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		<a class="dropdown-item" href="#">Action</a>
-		<a class="dropdown-item" href="#">Another action</a>
-		<div class="dropdown-divider"></div>
-		<a class="dropdown-item" href="#">Something else here</a>
-		</div>
-	    </li>
-	    -->
-	    <li class="nav-item">
-		<a class="nav-link disabled" href="#">Add new costume</a>
-	    </li>
-	    </ul>
-	    <form class="form-inline my-2 my-lg-0">
-	    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-	    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-	    </form>
-	</div>
-	</nav>
-	{% endblock %}
+      </div>
 
-	{% block content %}<p> Here will be a site content </p>{% endblock %}
+      <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
 
-	{% block footer %}{% endblock %}
+	<ul class="navbar-nav ml-auto">
 
-	<script src="{% static 'costumes/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
-	<script src="{% static 'costumes/vendor/animsition/js/animsition.min.js' %}"></script>
-	<script src="{% static 'costumes/vendor/bootstrap/js/popper.js' %}"></script>
-	<script src="{% static 'costumes/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
-	<script src="{% static 'costumes/vendor/select2/select2.min.js' %}"></script>
-	<script src="{% static 'costumes/vendor/daterangepicker/moment.min.js' %}"></script>
-	<script src="{% static 'costumes/vendor/daterangepicker/daterangepicker.js' %}"></script>
-	<script src="{% static 'costumes/vendor/countdowntime/countdowntime.js' %}"></script>
-	<script src="{% static 'costumes/js/main.js' %}"></script>
+	  <li class="nav-item">
 
-</body>
+	    <a class="nav-link" href="#">Add new costume</a>
+
+	  </li>
+
+	  <li class="nav-item">
+
+	    <a class="nav-link" href="#">Profile</a>
+
+	  </li>
+
+	  <li class="nav-item">
+
+	    <a class="nav-link" href="#">Settings</a>
+
+	  </li>
+
+	</ul>
+
+      </div>
+
+    </nav>
+    {% endblock %}
+
+    {% block content %}<p> Here will be a site content </p>{% endblock %}
+
+    {% block footer %}{% endblock %}
+
+    <script src="{% static 'costumes/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'costumes/vendor/animsition/js/animsition.min.js' %}"></script>
+    <script src="{% static 'costumes/vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'costumes/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'costumes/vendor/select2/select2.min.js' %}"></script>
+    <script src="{% static 'costumes/vendor/daterangepicker/moment.min.js' %}"></script>
+    <script src="{% static 'costumes/vendor/daterangepicker/daterangepicker.js' %}"></script>
+    <script src="{% static 'costumes/vendor/countdowntime/countdowntime.js' %}"></script>
+    <script src="{% static 'costumes/js/main.js' %}"></script>
+
+  </body>
 </html>
