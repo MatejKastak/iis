@@ -27,6 +27,18 @@
         column-count: 10;
     }
 }
+
+.card-columns {
+    margin-top: 1rem;
+}
+
+.list-group-item {
+    padding: .25rem 1rem;
+}
+
+.card-body {
+    padding: 1rem;
+}
 /*//////////////////////////////////////////////////////////////////
 [ FONT ]*/
 

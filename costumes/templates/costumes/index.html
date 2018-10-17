@@ -3,11 +3,11 @@
 {% block title %}IIS - gallery{% endblock %}
 
 {% block content %}
-{% for costume in costumes.all %}
 <!-- TODO: On hover change color?-->
 <!-- TODO: Width and size overall-->
 <div class="container">
   <div class="card-columns">
+    {% for costume in costumes.all %}
     <a href="{% url 'costumes' costume.id %}">
       <div class="card">
 	<img class="card-img-top img-fluid" src="http://placehold.it/500x500" alt="Card image cap">
@@ -26,7 +26,31 @@
 	</div>
       </div>
     </a>
+    {% endfor %}
   </div>
 </div>
-{% endfor %}
+
+<!-- TODO: On hover change color?-->
+<!-- TODO: Width and size overall-->
+<div class="container">
+  <div class="card-columns">
+    {% for accessory in accessories.all %}
+    <a href="{% url 'accessories' accessory.id %}">
+      <div class="card">
+	<img class="card-img-top img-fluid" src="http://placehold.it/500x500" alt="Card image cap">
+	<div class="card-body">
+	  <h4 class="card-title">{{accessory.name}}</h4>
+	  <p class="card-text">Description: {{accessory.description}}</p>
+	</div>
+	<ul class="list-group list-group-flush">
+	  <li class="list-group-item">Manufactured: {{accessory.manufactured}}</li>
+	</ul>
+	<div class="card-body">
+	  <a href="{% url 'accessories' accessory.id %}" class="btn btn-primary">Borrow</a>
+	</div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
