@@ -15,7 +15,8 @@ def costumes_gallery(request):
     return render(request, 'costumes/index.html', context)
 
 def accessories(request, accessory_id):
-    raise Http404('NOT YET IMPLEMENTED')
+    accessory = get_object_or_404(Accessory, pk=accessory_id)
+    return render(request, 'costumes/accessory.html', {'accessory': accessory})
 
 def accessories_gallery(request):
     context = {'accessories': Accessory.objects}
