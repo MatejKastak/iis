@@ -4,16 +4,16 @@ from django.shortcuts import render
 def index(request):
     return render(request, 'costumes/index.html')
 
-def costume(request, costume_id):
+def costumes(request, costume_id):
     raise Http404('NOT YET IMPLEMENTED')
 
-def costume_gallery(request):
+def costumes_gallery(request):
     raise Http404('NOT YET IMPLEMENTED')
 
-def accessory(request, accessory_id):
+def accessories(request, accessory_id):
     raise Http404('NOT YET IMPLEMENTED')
 
-def accessory_gallery(request):
+def accessories_gallery(request):
     raise Http404('NOT YET IMPLEMENTED')
 
 def basket(request):
