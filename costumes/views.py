@@ -1,8 +1,11 @@
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+
+from .models import *
 
 def index(request):
-    return render(request, 'costumes/index.html')
+    context = {'costumes': Costume.objects}
+    return render(request, 'costumes/index.html', context)
 
 def costumes(request, costume_id):
     raise Http404('NOT YET IMPLEMENTED')

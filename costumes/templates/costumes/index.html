@@ -3,16 +3,30 @@
 {% block title %}IIS - gallery{% endblock %}
 
 {% block content %}
+{% for costume in costumes.all %}
+<!-- TODO: On hover change color?-->
+<!-- TODO: Width and size overall-->
 <div class="container">
   <div class="card-columns">
-    <div class="card">
-      <img class="card-img-top img-fluid" src="http://placehold.it/500x500" alt="Card image cap">
-      <div class="card-block">
-	<h4 class="card-title">Costume name</h4>
-	<p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-	<a href="#" class="btn btn-primary">Borrow</a>
+    <a href="{% url 'costumes' costume.id %}">
+      <div class="card">
+	<img class="card-img-top img-fluid" src="http://placehold.it/500x500" alt="Card image cap">
+	<div class="card-body">
+	  <h4 class="card-title">Costume name</h4>
+	  <p class="card-text">Description: </p>
+	</div>
+	<ul class="list-group list-group-flush">
+	  <li class="list-group-item">Size: {{costume.size}}</li>
+	  <li class="list-group-item">Color: {{costume.color}}</li>
+	  <li class="list-group-item">Manufacturer: TODO</li>
+	  <li class="list-group-item">Material: TODO</li>
+	</ul>
+	<div class="card-body">
+	  <a href="{% url 'costumes' costume.id %}" class="btn btn-primary">Borrow</a>
+	</div>
       </div>
-    </div>
+    </a>
   </div>
 </div>
+{% endfor %}
 {% endblock %}

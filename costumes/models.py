@@ -72,6 +72,7 @@ class Manager(models.Model): # TODO: Manager, idk if Admin/Administrator would c
 
 # kostym
 class Costume(models.Model):
+    # TODO: Every costume should have a photo
     color = models.CharField(max_length=100)
     size = models.CharField(max_length=100) # TODO: 100 chars?
     manufactured = models.DateTimeField('date created')
