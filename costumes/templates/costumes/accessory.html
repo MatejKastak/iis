@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Accessory detail{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 1rem;">
+  <div class="row">
+    <h1 class="detail-site-header">{{accessory.name}}</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <img src="http://placehold.it/500x500" class="img-fluid" alt="Accessory image">
+    </div>
+    <div class="col-sm">
+      <p>Description: {{accessory.description}}</p>
+      <p>Price: TODO$</p>
+      <p>Best with costume: TODO</p>
+      <button class="btn btn-primary" type="submit">Add to basket</button>
+      <!-- TODO: Edit should be possible only if the user has privileges to do it-->
+      <button class="btn btn-primary" type="submit">Edit</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
