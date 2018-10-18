@@ -2,6 +2,7 @@ from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 
 from .models import *
+from .forms import LoginForm
 
 def index(request):
     context = {'costumes': Costume.objects, 'accessories': Accessory.objects}
@@ -24,6 +25,16 @@ def accessories_gallery(request):
 
 def basket(request):
     raise Http404('NOT YET IMPLEMENTED')
+
+def login(request):
+    return render(request, 'registration/login.html')
+
+def login_script(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            return index(request)
+    raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST')
 
 def user(request):
     raise Http404('NOT YET IMPLEMENTED')
