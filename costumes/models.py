@@ -14,7 +14,7 @@ class CostumeTemplate(models.Model):
 # doplnok
 class Accessory(models.Model):
     name = models.CharField(max_length=100)
-    manufactured = models.DateTimeField('date created')
+    manufactured = models.DateField('date created')
     description = models.CharField(max_length=500)
 
     def __str__(self):
@@ -75,7 +75,7 @@ class Costume(models.Model):
     # TODO: Every costume should have a photo
     color = models.CharField(max_length=100)
     size = models.CharField(max_length=100) # TODO: 100 chars?
-    manufactured = models.DateTimeField('date created')
+    manufactured = models.DateField('date created')
     wear_out = models.CharField(max_length=100)
     employee_manage = models.ForeignKey(Employee, on_delete=models.CASCADE)
     costume_template = models.ForeignKey(CostumeTemplate, on_delete=models.CASCADE)
@@ -86,8 +86,8 @@ class Costume(models.Model):
 # vypozicka
 class Borrowing(models.Model):
     event = models.CharField(max_length=100)
-    borrowed_date = models.DateTimeField('date borrowed')
-    return_date = models.DateTimeField('date to return')
+    borrowed_date = models.DateTimeField('time borrowed')
+    return_date = models.DateField('date to return')
     borrowing_expiration = models.DateTimeField('?') # TODO: ?
     final_price = models.IntegerField(default=0)
     employee_borrowed = models.ForeignKey(Employee, on_delete=models.CASCADE)
