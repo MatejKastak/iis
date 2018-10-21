@@ -103,9 +103,15 @@
 	  </li>
 
 	  {% if logged_in %}
+
 	  <li class="nav-item">
 
-	    <!-- TODO: Add number of elements in basket?-->
+	    <a class="nav-link" href="{% url 'borrowings_gallery' %}">Borrowings</a>
+
+	  </li>
+
+	  <li class="nav-item">
+
 	    <a class="btn btn-secondary" href="/basket">My basket{% if basket_num %} ({{basket_num}}){% endif %}</a>
 
 	  </li>
