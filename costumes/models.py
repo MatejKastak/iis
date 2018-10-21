@@ -16,6 +16,7 @@ class Accessory(models.Model):
     name = models.CharField(max_length=100)
     manufactured = models.DateField('date created')
     description = models.CharField(max_length=500)
+    picture = models.ImageField(upload_to='accessory_images/', default='default_images/default.png')
 
     def __str__(self):
         return 'Accessory = ' + ' name: ' + self.name + ' manufactured: ' + str(self.manufactured) + ' description: ' + self.description

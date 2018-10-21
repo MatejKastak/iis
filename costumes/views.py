@@ -23,6 +23,10 @@ def accessories_gallery(request):
     context = {'accessories': Accessory.objects}
     return render(request, 'costumes/index.html', context)
 
+def accessories_edit(request, accessory_id):
+    accessory = get_object_or_404(Accessory, pk=accessory_id)
+    return render(request, 'costumes/accessory_edit.html', {'accessory': accessory})
+
 def basket(request):
     raise Http404('NOT YET IMPLEMENTED')
 
