@@ -9,7 +9,7 @@ class CostumeTemplate(models.Model):
     description = models.CharField(max_length=1000)
 
     def __str__(self):
-        return 'CostumeTemplate = ' + ' costume_type: ' + self.costume_type + ' manufacturer: ' + self.manufacturer + ' material: ' + self.material + ' description: ' + self.description
+        return 'CostumeTemplate = ' + ' name: ' + self.name + ' manufacturer: ' + self.manufacturer + ' material: ' + self.material + ' description: ' + self.description
 
 # doplnok
 class Accessory(models.Model):
@@ -80,7 +80,8 @@ class Costume(models.Model):
     manufactured = models.DateField('date created')
     wear_out = models.CharField(max_length=100)
     employee_manage = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    costume_template = models.ForeignKey(CostumeTemplate, on_delete=models.CASCADE)
+    # costume_template = models.ForeignKey(CostumeTemplate, on_delete=models.CASCADE)
+    costume_template = models.OneToOneField(CostumeTemplate, on_delete=models.CASCADE)
     picture = models.ImageField(upload_to='costume_images/', default='default_images/default.png')
     price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)], default=1)
 
