@@ -1,8 +1,8 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
 from .models import *
-from .forms import LoginForm
+from .forms import *
 
 def index(request):
     context = {'costumes': Costume.objects, 'accessories': Accessory.objects}
@@ -25,7 +25,15 @@ def accessories_gallery(request):
 
 def accessories_edit(request, accessory_id):
     accessory = get_object_or_404(Accessory, pk=accessory_id)
-    return render(request, 'costumes/accessory_edit.html', {'accessory': accessory})
+    if request.method == 'POST':
+        form = AccessoryForm(request.POST, instance=accessory)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/accessories/' + str(accessory_id))
+    else:
+        form = AccessoryForm(instance=accessory)
+            
+    return render(request, 'costumes/accessory_edit.html', {'form': form, 'accessory': accessory})
 
 def basket(request):
     raise Http404('NOT YET IMPLEMENTED')

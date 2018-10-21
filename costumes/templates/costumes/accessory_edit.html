@@ -3,7 +3,14 @@
 {% block title %}Accessory detail{% endblock %}
 
 {% block content %}
-<form action="{% url 'accessories_edit' accessory.pk}">
-
+<div class="container">
+  <div class="row">
+    <h1 class="detail-site-header">{{accessory.name}}</h1>
+  </div>
+<form action="{% url 'accessories_edit' accessory.pk %}" method="post">
+  {% csrf_token %}
+  {{ form }}
+  <input class="btn btn-primary" type="submit" value="Submit">
 </form>
+</div>
 {% endblock %}

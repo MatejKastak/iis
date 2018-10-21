@@ -6,7 +6,7 @@ class LoginForm(forms.Form):
     email = forms.CharField(label='email', max_length=100)
     password = forms.CharField(label='password', max_length=100)
 
-class AccessoryFormt(forms.ModelForm):
+class AccessoryForm(forms.ModelForm):
     class Meta:
         model = Accessory
         fields = '__all__'
