@@ -19,9 +19,10 @@
 	<li class="list-group-item">{{ct.name}}</li>
 	{% endfor %}
       </ul>
-      <button class="btn btn-primary" type="submit">Add to basket</button>
+      <!-- TODO: This should be a post request -->
+      <a class="btn btn-primary" href="#" role="button">Add to basket</a>
       <!-- TODO: Edit should be possible only if the user has privileges to do it-->
-      <button class="btn btn-primary" type="submit">Edit</button>
+      <a class="btn btn-primary" href="{% url 'accessories_edit' accessory.pk %}" role="button">Edit</a>
     </div>
   </div>
 </div>
