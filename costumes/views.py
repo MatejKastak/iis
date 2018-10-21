@@ -9,11 +9,24 @@ def index(request):
     return render(request, 'costumes/index.html', context)
 
 def costumes(request, costume_id):
-    raise Http404('NOT YET IMPLEMENTED')
+    costume = get_object_or_404(Costume, pk=costume_id)
+    return render(request, 'costumes/costume.html', {'costume': costume})
 
 def costumes_gallery(request):
     context = {'costumes': Costume.objects}
     return render(request, 'costumes/index.html', context)
+
+def costumes_edit(request, costume_id):
+    costume = get_object_or_404(Costume, pk=costume_id)
+    if request.method == 'POST':
+        form = CostumeForm(request.POST, instance=costume)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/costumes/' + str(costume_id))
+    else:
+        form = CostumeForm(instance=costume)
+            
+    return render(request, 'costumes/costume_edit.html', {'form': form, 'costume': costume})
 
 def accessories(request, accessory_id):
     accessory = get_object_or_404(Accessory, pk=accessory_id)

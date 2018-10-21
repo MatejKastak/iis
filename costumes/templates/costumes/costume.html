@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Costume detail{% endblock %}
+
+{% block content %}
+<div class="container" style="padding-top: 1rem;">
+  <div class="row">
+    <h1 class="detail-site-header">{{costume.costume_template.name}}</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <img src="{{ costume.picture.url }}" class="img-fluid" alt="Costume image">
+    </div>
+    <div class="col-sm">
+      <p>Description: {{costume.costume_template.description}}</p>
+      <p>Size: {{costume.size}}</p>
+      <p>Color: {{costume.color}}</p>
+      <p>Material: {{costume.costume_template.material}}</p>
+      <p>Price: {{costume.price}} €</p>
+      <p>Manufactured: {{costume.manufactured}}</p>
+      <p>Manufacturer: {{costume.costume_template.manufacturer}}</p>
+      <p>Wear-out: {{costume.wear_out}}</p>
+      <ul class="list-group">
+	{% for accessory in costume.costume_template.accessory_set.all %}
+	<li class="list-group-item">{{accessory.name}}</li>
+	{% endfor %}
+      </ul>
+      <!-- TODO: This should be a post request -->
+      <a class="btn btn-primary" href="#" role="button">Add to basket</a>
+      <!-- TODO: Edit should be possible only if the user has privileges to do it-->
+      <a class="btn btn-primary" href="{% url 'costumes_edit' costume.pk %}" role="button">Edit</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
