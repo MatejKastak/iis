@@ -10,7 +10,7 @@
     {% for costume in costumes.all %}
     <a href="{% url 'costumes' costume.id %}">
       <div class="card">
-	<img class="card-img-top img-fluid" src="http://placehold.it/500x500" alt="Card image cap">
+	<img class="card-img-top img-fluid" src="{{costume.picture.url}}" alt="Card image cap">
 	<div class="card-body">
 	  <h4 class="card-title">Costume name</h4>
 	  <p class="card-text">Description: </p>

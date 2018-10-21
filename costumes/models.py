@@ -80,6 +80,7 @@ class Costume(models.Model):
     wear_out = models.CharField(max_length=100)
     employee_manage = models.ForeignKey(Employee, on_delete=models.CASCADE)
     costume_template = models.ForeignKey(CostumeTemplate, on_delete=models.CASCADE)
+    picture = models.ImageField(upload_to='costume_images/', default='default_images/default.png')
 
     def __str__(self):
         return 'Costume = ' + ' color: ' + self.color + ' size: ' + self.size + ' manufactured: ' + str(self.manufactured) + ' wear_out: ' + self.wear_out + ' employee_manage: ' + str(self.employee_manage) + ' costume_template: ' + str(self.costume_template)
