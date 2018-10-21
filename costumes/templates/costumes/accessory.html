@@ -14,7 +14,11 @@
     <div class="col-sm">
       <p>Description: {{accessory.description}}</p>
       <p>Price: {{accessory.price}} €</p>
-      <p>Best with costume: TODO</p>
+      <ul class="list-group">
+	{% for ct in accessory.belongs_to_costume.all %}
+	<li class="list-group-item">{{ct.name}}</li>
+	{% endfor %}
+      </ul>
       <button class="btn btn-primary" type="submit">Add to basket</button>
       <!-- TODO: Edit should be possible only if the user has privileges to do it-->
       <button class="btn btn-primary" type="submit">Edit</button>
