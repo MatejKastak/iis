@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 # vzor_kostymu
 class CostumeTemplate(models.Model):
@@ -17,6 +18,7 @@ class Accessory(models.Model):
     manufactured = models.DateField('date created')
     description = models.CharField(max_length=500)
     picture = models.ImageField(upload_to='accessory_images/', default='default_images/default.png')
+    price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)], default=1)
 
     def __str__(self):
         return 'Accessory = ' + ' name: ' + self.name + ' manufactured: ' + str(self.manufactured) + ' description: ' + self.description
@@ -81,6 +83,7 @@ class Costume(models.Model):
     employee_manage = models.ForeignKey(Employee, on_delete=models.CASCADE)
     costume_template = models.ForeignKey(CostumeTemplate, on_delete=models.CASCADE)
     picture = models.ImageField(upload_to='costume_images/', default='default_images/default.png')
+    price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)], default=1)
 
     def __str__(self):
         return 'Costume = ' + ' color: ' + self.color + ' size: ' + self.size + ' manufactured: ' + str(self.manufactured) + ' wear_out: ' + self.wear_out + ' employee_manage: ' + str(self.employee_manage) + ' costume_template: ' + str(self.costume_template)
