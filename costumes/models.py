@@ -3,8 +3,7 @@ from django.core.validators import MinValueValidator
 
 # vzor_kostymu
 class CostumeTemplate(models.Model):
-    # TODO: Rename to name
-    costume_type = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)
     manufacturer = models.CharField(max_length=100)
     material = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
@@ -75,8 +74,8 @@ class Manager(models.Model): # TODO: Manager, idk if Admin/Administrator would c
 
 # kostym
 class Costume(models.Model):
-    # TODO: Every costume should have a photo
     color = models.CharField(max_length=100)
+    # TODO: Change to choices
     size = models.CharField(max_length=100) # TODO: 100 chars?
     manufactured = models.DateField('date created')
     wear_out = models.CharField(max_length=100)
@@ -93,7 +92,7 @@ class Borrowing(models.Model):
     event = models.CharField(max_length=100)
     borrowed_date = models.DateTimeField('time borrowed')
     return_date = models.DateField('date to return')
-    borrowing_expiration = models.DateTimeField('?') # TODO: ?
+    borrowing_expiration = models.DateTimeField('?') # TODO: Inverval?
     final_price = models.IntegerField(default=0)
     employee_borrowed = models.ForeignKey(Employee, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
