@@ -34,9 +34,9 @@
 		<div class="container-login100">
 			<form action="register/script" method="POST">
 				{% csrf_token %}
-				{% if login_exists %}
+				{% if user_exists %}
 				<div class="form-group">
-					<label for="exampleInput">This user exists</label>
+					<label for="exampleInput" class="btn btn-danger">This user already exists</label>
 				</div>
 				{% endif %}
 				<div class="form-group">

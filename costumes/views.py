@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from django.shortcuts import redirect
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
 
 from .models import *
 from .forms import *
@@ -54,17 +56,26 @@ def accessories_edit(request, accessory_id):
 def basket(request):
     raise Http404('NOT YET IMPLEMENTED')
 
-def login(request):
+def login_page(request):
+    if "invalid_login" in getMessages(request):
+        return render(request, 'registration/login.html', {"invalid_login":True})
     return render(request, 'registration/login.html')
 
 def login_script(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            return index(request)
+            user = authenticate(request, username=form.data['login'], password=form.data['password'])
+            if user is None:
+                list(messages.get_messages(request))
+                messages.add_message(request, messages.INFO, "invalid_login")
+                return HttpResponseRedirect('/login')
+            return redirect(index)
     raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST')
 
 def register(request):
+    if "user_exists" in getMessages(request):
+        return render(request, 'registration/sign_up.html', {"user_exists":True})
     return render(request, 'registration/sign_up.html')
 
 def register_script(request):
@@ -76,14 +87,14 @@ def register_script(request):
             try:
                 user = User.objects.create_user(form.data['login'])
             except IntegrityError:
-                return redirect(register)
-                return render(request, 'registration/sign_up.html', { "login_exists":True})
+                messages.add_message(request, messages.INFO, "user_exists")
+                return HttpResponseRedirect('/register')
             user.first_name = form.data['first_name']
             user.last_name = form.data['last_name']
             user.email = form.data['email']
             user.set_password(form.data['password'])
             user.save()
-            return index(request)
+            return redirect(index)
     raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST')
 
 def user(request):
@@ -103,3 +114,11 @@ def stores_gallery(request):
 
 def stores(request, store_id):
     raise Http404('NOT YET IMPLEMENTED')
+
+def getMessages(request):
+    storage = messages.get_messages(request)
+    msgs = []
+    for msg in messages.get_messages(request):
+        msgs.append(str(msg))
+    storage.used = True
+    return msgs
