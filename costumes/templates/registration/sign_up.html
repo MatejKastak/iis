@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+	<title>Login V18</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'costumes/images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'costumes/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'costumes/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/animate/animate.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/css-hamburgers/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/animsition/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/daterangepicker/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'costumes/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'costumes/css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body style="background-color: #666666;">
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<form action="register/script" method="POST">
+				{% csrf_token %}
+				{% if login_exists %}
+				<div class="form-group">
+					<label for="exampleInput">This user exists</label>
+				</div>
+				{% endif %}
+				<div class="form-group">
+					<label for="exampleInput">*First Name</label>
+					<input name="first_name" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="exampleInput">*Last Name</label>
+					<input name="last_name" class="form-control" required>
+				</div>
+				<div class="form-group">
+					<label for="exampleInput">*Login</label>
+					<input name="login" class="form-control" required>
+				</div>
+				<div class="form-group">
+				  <label for="exampleInputEmail1">*Email address</label>
+				  <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="someone@example.com" required>
+				</div>
+				<div class="form-group">
+				  <label for="exampleInputPassword1">*Password</label>
+				  <input minlength="6" name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+				  <small class="form-text text-muted">Must be atleast 6 characters long</small>
+				</div>
+
+				<button type="submit" class="btn btn-primary btn-block">Register</button>
+				<small class="form-text text-muted">Fields markd as * are required</small>
+			  </form>
+		</div>
+	</div>
+	
+	<script src="{% static 'costumes/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'costumes/vendor/animsition/js/animsition.min.js' %}"></script>
+	<script src="{% static 'costumes/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'costumes/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'costumes/vendor/select2/select2.min.js' %}"></script>
+	<script src="{% static 'costumes/vendor/daterangepicker/moment.min.js' %}"></script>
+	<script src="{% static 'costumes/vendor/daterangepicker/daterangepicker.js' %}"></script>
+	<script src="{% static 'costumes/vendor/countdowntime/countdowntime.js' %}"></script>
+	<script src="{% static 'costumes/js/main.js' %}"></script>
+
+</body>
+</html>
