@@ -110,10 +110,12 @@ def borrowings(request, borrowing_id):
     raise Http404('NOT YET IMPLEMENTED')
 
 def stores_gallery(request):
-    raise Http404('NOT YET IMPLEMENTED')
+    context = {'stores': Store.objects}
+    return render(request, 'costumes/stores.html', context)
 
 def stores(request, store_id):
-    raise Http404('NOT YET IMPLEMENTED')
+    store = get_object_or_404(Store, pk=store_id)
+    return render(request, 'costumes/store.html', {'store': store})
 
 def getMessages(request):
     storage = messages.get_messages(request)

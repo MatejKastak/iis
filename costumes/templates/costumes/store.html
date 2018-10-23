@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}IIS - gallery{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm">
+      <!-- TODO: Stores should have images? -->
+      <img src="http://www.placehold.it/500x500"/>
+    </div>
+    <div class="col-sm">
+      <h1>City: {{store.city}}</h1>
+      <p>Street: {{store.street}}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
