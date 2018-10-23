@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from django.shortcuts import redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 from .models import *
 from .forms import *
@@ -55,6 +55,10 @@ def accessories_edit(request, accessory_id):
 
 def basket(request):
     raise Http404('NOT YET IMPLEMENTED')
+
+def logout_page(request):
+    logout(request)
+    return HttpResponseRedirect('/gallery')
 
 def login_page(request):
     if "invalid_login" in getMessages(request):
