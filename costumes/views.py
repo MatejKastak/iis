@@ -1,6 +1,6 @@
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.db.utils import IntegrityError
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -71,9 +71,9 @@ def login_script(request):
         if form.is_valid():
             user = authenticate(request, username=form.data['login'], password=form.data['password'])
             if user is None:
-                list(messages.get_messages(request))
                 messages.add_message(request, messages.INFO, "invalid_login")
                 return HttpResponseRedirect('/login')
+            login(request, user)
             return redirect(index)
     raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST')
 
@@ -86,8 +86,6 @@ def register_script(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
-            if len(form.data['password']) < 6:
-                Http404('UNEXPECTED SHORT PASSWORD')
             try:
                 user = User.objects.create_user(form.data['login'])
             except IntegrityError:
@@ -98,6 +96,9 @@ def register_script(request):
             user.email = form.data['email']
             user.set_password(form.data['password'])
             user.save()
+            group, is_created = Group.objects.get_or_create(name="customers")
+            group.user_set.add(user)
+            login(request, user)
             return redirect(index)
     raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST')
 
