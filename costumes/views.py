@@ -9,16 +9,21 @@ from django.contrib.auth import authenticate, login, logout
 from .models import *
 from .forms import *
 
+
+
 def index(request):
     context = {'costumes': Costume.objects, 'accessories': Accessory.objects}
+    add_user_context(request, context)
     return render(request, 'costumes/index.html', context)
 
 def costumes(request, costume_id):
     costume = get_object_or_404(Costume, pk=costume_id)
+    add_user_context(request, context)
     return render(request, 'costumes/costume.html', {'costume': costume})
 
 def costumes_gallery(request):
     context = {'costumes': Costume.objects}
+    add_user_context(request, context)
     return render(request, 'costumes/index.html', context)
 
 def costumes_edit(request, costume_id):
@@ -35,10 +40,12 @@ def costumes_edit(request, costume_id):
 
 def accessories(request, accessory_id):
     accessory = get_object_or_404(Accessory, pk=accessory_id)
+    add_user_context(request, context)
     return render(request, 'costumes/accessory.html', {'accessory': accessory})
 
 def accessories_gallery(request):
     context = {'accessories': Accessory.objects}
+    add_user_context(request, context)
     return render(request, 'costumes/index.html', context)
 
 def accessories_edit(request, accessory_id):
@@ -116,11 +123,14 @@ def borrowings(request, borrowing_id):
 
 def stores_gallery(request):
     context = {'stores': Store.objects}
+    add_user_context(request, context)
     return render(request, 'costumes/stores.html', context)
 
 def stores(request, store_id):
     store = get_object_or_404(Store, pk=store_id)
-    return render(request, 'costumes/store.html', {'store': store})
+    context = {'store': store}
+    add_user_context(request, context)
+    return render(request, 'costumes/store.html', context)
 
 def getMessages(request):
     storage = messages.get_messages(request)
@@ -129,3 +139,8 @@ def getMessages(request):
         msgs.append(str(msg))
     storage.used = True
     return msgs
+
+def add_user_context(request, context):
+    if request.user.is_authenticated:
+        context["logged_in"] = True
+        context["login"] = request.user.username
