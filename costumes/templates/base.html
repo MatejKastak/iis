@@ -89,11 +89,11 @@
 
 	  </li>
 	  {% endif %}
-    {% if logged_in %}
+    {% if request.user.is_active %}
 
     <li class="nav-item">
 
-      <a class="nav-link" href="/user">Profile (logged as: {{login}})</a>
+      <a class="nav-link" href="/user">Profile (logged as: {{ request.user.username}})</a>
       
     </li>
     
