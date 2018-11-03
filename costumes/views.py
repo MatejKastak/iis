@@ -1,10 +1,11 @@
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group, Permission
 from django.db.utils import IntegrityError
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required, permission_required
 
 from .models import *
 from .forms import *
@@ -124,6 +125,12 @@ def stores(request, store_id):
     store = get_object_or_404(Store, pk=store_id)
     context = {'store': store}
     return render(request, 'costumes/store.html', context)
+
+
+@login_required(login_url="/login")
+@permission_required('costumes.change_employee', raise_exception=True)
+def manage_staff(request):
+    return render(request, 'manage/manage_staff.html')
 
 def getMessages(request):
     storage = messages.get_messages(request)

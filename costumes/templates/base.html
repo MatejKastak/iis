@@ -82,13 +82,28 @@
 
 	<ul class="navbar-nav ml-auto">
 
-	  {% if is_employee %}
-	  <li class="nav-item">
+	  {% if request.user.is_staff %}
+    
+      {% for group in request.user.groups.all %}
+        {% if group.name == "manager" %}
+	        <li class="nav-item">
 
-	    <a class="nav-link" href="#">Add new costume</a>
+            <a class="nav-link" href="/manage_staff">Manage shop</a>
 
-	  </li>
-	  {% endif %}
+          </li>
+        {% endif %}
+        {% if group.name == "staff" %}
+	        <li class="nav-item">
+
+            <a class="nav-link" href="#">Add new costume</a>
+
+          </li>
+        {% endif %}
+      {% endfor %}
+
+    {% endif %}
+    
+
     {% if request.user.is_authenticated %}
 
     <li class="nav-item">
