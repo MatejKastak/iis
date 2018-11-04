@@ -1,6 +1,14 @@
 from django.db import models
 from django.core.validators import MinValueValidator
 
+# pobocka
+class Store(models.Model):
+    street = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+
+    def __str__(self):
+        return 'Store = ' + ' street: ' + self.street + ' city: ' + self.city
+
 # vzor_kostymu
 class CostumeTemplate(models.Model):
     name = models.CharField(max_length=100)
@@ -21,16 +29,14 @@ class Accessory(models.Model):
     belongs_to_costume = models.ManyToManyField(CostumeTemplate)
 
     def __str__(self):
-        return 'Accessory = ' + ' name: ' + self.name + ' manufactured: ' + str(self.manufactured) + ' description: ' + self.description
+        return 'Accessory = ' + ' name: ' + self.name + ' manufactured: ' + str(self.manufactured) + ' description: ' + self.description + ' price: ' + str(self.price)
 
 # klient
 class Customer(models.Model):
-    # TODO: kliets should have logins? Prob uniq
     first_name = models.CharField(max_length=100)
     second_name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
-    # TODO: is CharField the right type for this variable?
     tel_num = models.CharField(max_length=10)
 
     def __str__(self):
@@ -38,34 +44,17 @@ class Customer(models.Model):
 
 # zamestnanec
 class Employee(models.Model):
-    # TODO: r_cislo as ID?
     login = models.CharField(max_length=100)
-    # TODO: check django authentication
-    password = models.CharField(max_length=100) # TODO: Too long?
+    password = models.CharField(max_length=100)
     first_name = models.CharField(max_length=100)
     second_name = models.CharField(max_length=100)
+    store = models.ForeignKey(Store, on_delete=models.CASCADE)
 
     def __str__(self):
         return 'Employee = ' + ' login: ' + self.login + ' password: ' + self.password + ' first_name: ' + self.first_name + ' second_name: ' + self.second_name
 
-# pobocka
-class Store(models.Model):
-    street = models.CharField(max_length=100)
-    city = models.CharField(max_length=100)
-
-    def __str__(self):
-        return 'Store = ' + ' street: ' + self.street + ' city: ' + self.city
-
-# pracovnik na pobocke
-class EmployeeAtStore(models.Model):
-    employee_id = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    store_id = models.ForeignKey(Store, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return 'EmployeeAtStore = ' + ' employee_id: ' + str(self.employee_id) + ' store_id: ' + str(self.store_id)
-
 # spravca
-class Manager(models.Model): # TODO: Manager, idk if Admin/Administrator would colide with something internal in django?
+class Manager(models.Model):
     employee_id = models.ForeignKey(Employee, on_delete=models.CASCADE)
     email = models.CharField(max_length=100)
     tel_num = models.CharField(max_length=10)
@@ -75,19 +64,26 @@ class Manager(models.Model): # TODO: Manager, idk if Admin/Administrator would c
 
 # kostym
 class Costume(models.Model):
+    COSTUME_SIZE = (
+        ('XS', 'XS - Extra Small'),
+        ('S', 'S - Small'),
+        ('M', 'M - Medium'),
+        ('L', 'L - Large'),
+        ('XL', 'XL - Extra Large'),
+        ('XXL', 'XXL - Extra Extra Large'),
+    )
     color = models.CharField(max_length=100)
-    # TODO: Change to choices
-    size = models.CharField(max_length=100) # TODO: 100 chars?
+    size = models.CharField(max_length=2, choices=COSTUME_SIZE)
     manufactured = models.DateField('date created')
     wear_out = models.CharField(max_length=100)
     employee_manage = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    # costume_template = models.ForeignKey(CostumeTemplate, on_delete=models.CASCADE)
-    costume_template = models.OneToOneField(CostumeTemplate, on_delete=models.CASCADE)
+    costume_template = models.ForeignKey(CostumeTemplate, on_delete=models.CASCADE)
     picture = models.ImageField(upload_to='costume_images/', default='default_images/default.png')
     price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)], default=1)
+    store = models.ForeignKey(Store, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'Costume = ' + ' color: ' + self.color + ' size: ' + self.size + ' manufactured: ' + str(self.manufactured) + ' wear_out: ' + self.wear_out + ' employee_manage: ' + str(self.employee_manage) + ' costume_template: ' + str(self.costume_template)
+        return 'Costume = ' + ' color: ' + self.color + ' size: ' + self.size + ' manufactured: ' + str(self.manufactured) + ' wear_out: ' + self.wear_out + ' employee_manage: ' + str(self.employee_manage) + ' costume_template: ' + str(self.costume_template) + ' store: ' + str(self.store)
 
 # vypozicka
 class Borrowing(models.Model):
@@ -98,30 +94,8 @@ class Borrowing(models.Model):
     final_price = models.IntegerField(default=0)
     employee_borrowed = models.ForeignKey(Employee, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    costume = models.ManyToManyField(Costume, blank=True) # TODO: How to handle empty borrowing?
+    accessory = models.ManyToManyField(Accessory, blank=True)
 
     def __str__(self):
-        return 'Borrowing = ' + ' event: ' + self.event + ' borrowed_date: ' + str(self.borrowed_date) + ' return_date: ' + str(self.return_date) + ' borrowing_expiration: ' + str(self.borrowing_expiration) + ' final_price: ' + self.final_price + ' employee_borrowed: ' + str(self.employee_borrowed) + ' customer: ' + str(self.customer)
-
-# doplnok_vztahuje_sa_k
-class AccessoryToBorrowing(models.Model):
-    accessory_id = models.ForeignKey(Accessory, on_delete=models.CASCADE)
-    borrowing_id = models.ForeignKey(Borrowing, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return 'AccessoryToBorrowing = ' + ' accessory_id: ' + str(self.accessory_id) + ' borrowing_id: ' + str(self.borrowing_id)
-
-# kostym_vztahuje_sa_k
-class CostumeToBorrowing(models.Model):
-    costume_id = models.ForeignKey(Costume, on_delete=models.CASCADE)
-    borrowing_id = models.ForeignKey(Borrowing, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return 'CostumeToBorrowing = ' + ' costume_id: ' + str(self.costume_id) + ' borrowing_id: ' + str(self.borrowing_id)
-
-# patri_k
-class AccessoryToCostumeTemplate(models.Model):
-    accessory_id = models.ForeignKey(Accessory, on_delete=models.CASCADE)
-    costume_template_id = models.ForeignKey(CostumeTemplate, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return 'AccessoryToCostumeTemplate = ' + ' accessory_id: ' + str(self.accessory_id) + ' costume_template_id: ' + str(self.costume_template_id)
+        return 'Borrowing = ' + ' event: ' + self.event + ' borrowed_date: ' + str(self.borrowed_date) + ' return_date: ' + str(self.return_date) + ' borrowing_expiration: ' + str(self.borrowing_expiration) + ' final_price: ' + self.final_price + ' employee_borrowed: ' + str(self.employee_borrowed) + ' customer: ' + str(self.customer) + ' costume: ' + str(self.costume) + ' accessory: ' + str(self.accessory)
