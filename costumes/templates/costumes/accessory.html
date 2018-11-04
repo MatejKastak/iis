@@ -14,6 +14,8 @@
     <div class="col-sm">
       <p>Description: {{accessory.description}}</p>
       <p>Price: {{accessory.price}} €</p>
+      <p>Store: {{accessory.store.city}}</p>
+      <p>Best with costume: </p>
       <ul class="list-group">
 	{% for ct in accessory.belongs_to_costume.all %}
 	<li class="list-group-item">{{ct.name}}</li>

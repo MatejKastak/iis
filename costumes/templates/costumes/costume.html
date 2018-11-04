@@ -20,6 +20,7 @@
       <p>Manufactured: {{costume.manufactured}}</p>
       <p>Manufacturer: {{costume.costume_template.manufacturer}}</p>
       <p>Wear-out: {{costume.wear_out}}</p>
+      <p>Store: {{costume.store.city}}</p>
       <ul class="list-group">
 	{% for accessory in costume.costume_template.accessory_set.all %}
 	<li class="list-group-item">{{accessory.name}}</li>

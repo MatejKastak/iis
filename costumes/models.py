@@ -26,7 +26,8 @@ class Accessory(models.Model):
     description = models.CharField(max_length=500)
     picture = models.ImageField(upload_to='accessory_images/', default='default_images/default.png')
     price = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)], default=1)
-    belongs_to_costume = models.ManyToManyField(CostumeTemplate)
+    belongs_to_costume = models.ManyToManyField(CostumeTemplate, blank=True)
+    store = models.ForeignKey(Store, on_delete=models.CASCADE)
 
     def __str__(self):
         return 'Accessory = ' + ' name: ' + self.name + ' manufactured: ' + str(self.manufactured) + ' description: ' + self.description + ' price: ' + str(self.price)
