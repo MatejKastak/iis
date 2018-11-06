@@ -30,6 +30,8 @@
       <a class="btn btn-primary" href="#" role="button">Add to basket</a>
       <!-- TODO: Edit should be possible only if the user has privileges to do it-->
       <a class="btn btn-primary" href="{% url 'costumes_edit' costume.pk %}" role="button">Edit</a>
+      <a class="btn btn-primary" href="{% url 'costumes_delete' costume.pk %}" role="button">Delete</a>
+      <a class="btn btn-primary" href="{% url 'costumes_duplicate' costume.pk %}" role="button">Duplicate</a>
     </div>
   </div>
 </div>

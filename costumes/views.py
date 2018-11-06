@@ -37,6 +37,22 @@ def costumes_edit(request, costume_id):
             
     return render(request, 'costumes/costume_edit.html', {'form': form, 'costume': costume})
 
+def costumes_duplicate(request, costume_id):
+    raise Http404('NOT YET IMPLEMENTED')
+    costume = get_object_or_404(Costume, pk=costume_id)
+    if request.method == 'POST':
+        form = CostumeForm(request.POST, instance=costume)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/costumes/' + str(costume_id))
+    else:
+        form = CostumeForm(instance=costume)
+
+    return render(request, 'costumes/costume_edit.html', {'form': form, 'costume': costume})
+
+def costumes_delete(request, costume_id):
+    raise Http404('NOT YET IMPLEMENTED')
+
 def accessories(request, accessory_id):
     accessory = get_object_or_404(Accessory, pk=accessory_id)
     return render(request, 'costumes/accessory.html', {'accessory': accessory})
@@ -56,6 +72,22 @@ def accessories_edit(request, accessory_id):
         form = AccessoryForm(instance=accessory)
             
     return render(request, 'costumes/accessory_edit.html', {'form': form, 'accessory': accessory})
+
+def accessories_duplicate(request, accessory_id):
+    raise Http404('NOT YET IMPLEMENTED')
+    accessory = get_object_or_404(Accessory, pk=accessory_id)
+    if request.method == 'POST':
+        form = AccessoryForm(request.POST, instance=accessory)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/accessories/' + str(accessory_id))
+    else:
+        form = AccessoryForm(instance=accessory)
+
+    return render(request, 'costumes/accessory_edit.html', {'form': form, 'accessory': accessory})
+
+def accessories_delete(request, accessory_id):
+    raise Http404('NOT YET IMPLEMENTED')
 
 def basket(request):
     raise Http404('NOT YET IMPLEMENTED')
