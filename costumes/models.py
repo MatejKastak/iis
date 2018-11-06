@@ -5,9 +5,11 @@ from django.core.validators import MinValueValidator
 class Store(models.Model):
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
+    opened_from = models.CharField(max_length=5, default='08:00')
+    opened_to = models.CharField(max_length=5, default='18:00')
 
     def __str__(self):
-        return 'Store = ' + ' street: ' + self.street + ' city: ' + self.city
+        return 'Store = ' + ' street: ' + self.street + ' city: ' + self.city + ' opened_from: ' + self.opened_from + ' opened_to: ' + self.opened_to
 
 # vzor_kostymu
 class CostumeTemplate(models.Model):
