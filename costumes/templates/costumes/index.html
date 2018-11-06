@@ -70,17 +70,13 @@
     </div>
     <div class="col-lg-9">
 
-      <div class="card-columns">
-	{% for costume in costumes %}
-	{% include "costumes/costume_card.html" with costume=costume %}
-	{% endfor %}
-      </div>
+      {% for costume in costumes %}
+      {% include "costumes/costume_card.html" with costume=costume %}
+      {% endfor %}
 
-      <div class="card-columns">
-	{% for accessory in accessories %}
-	{% include "costumes/accessory_card.html" with accessory=accessory %}
-	{% endfor %}
-      </div>
+      {% for accessory in accessories %}
+      {% include "costumes/accessory_card.html" with accessory=accessory %}
+      {% endfor %}
 
     </div>
   </div>

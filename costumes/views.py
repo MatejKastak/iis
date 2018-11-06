@@ -10,8 +10,6 @@ from django.contrib.auth.decorators import login_required, permission_required
 from .models import *
 from .forms import *
 
-
-
 def index(request):
     context = {'costumes': Costume.objects.all(),
                'accessories': Accessory.objects.all(),

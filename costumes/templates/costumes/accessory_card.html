@@ -1,17 +1,16 @@
 <!-- TODO: On hover change color?-->
 <!-- TODO: Width and size overall-->
-<a href="{% url 'accessories' accessory.id %}">
-  <div class="card">
-    <img class="card-img-top img-fluid" src="{{accessory.picture.url}}" alt="Card image cap">
-    <div class="card-body">
-      <h4 class="card-title">{{accessory.name}}</h4>
-      <p class="card-text">Description: {{accessory.description}}</p>
+<div class="col-lg-4 col-md-6 mb-4">
+  <a href="{% url 'accessories' accessory.id %}">
+    <div class="card h-100">
+      <img class="card-img-top img-fluid" src="{{accessory.picture.url}}" alt="Card image cap">
+      <div class="card-body">
+	<h4 class="card-title">{{accessory.name}}</h4>
+	<p class="card-text">Description: {{accessory.description}}</p>
+      </div>
+      <div class="card-footer">
+	<p class="card-text">{{accessory.price}} €</small>
+      </div>
     </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">Manufactured: {{accessory.manufactured}}</li>
-    </ul>
-    <div class="card-body">
-      <a href="{% url 'accessories' accessory.id %}" class="btn btn-primary">Borrow</a>
-    </div>
-  </div>
-</a>
+  </a>
+</div>
