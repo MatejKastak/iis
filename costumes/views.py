@@ -13,7 +13,10 @@ from .forms import *
 
 
 def index(request):
-    context = {'costumes': Costume.objects, 'accessories': Accessory.objects}
+    context = {'costumes': Costume.objects.all(),
+               'accessories': Accessory.objects.all(),
+               'stores': Store.objects.all(),
+               'sizes': Costume.COSTUME_SIZE}
     return render(request, 'costumes/index.html', context)
 
 def costumes(request, costume_id):
@@ -21,7 +24,7 @@ def costumes(request, costume_id):
     return render(request, 'costumes/costume.html', {'costume': costume})
 
 def costumes_gallery(request):
-    context = {'costumes': Costume.objects}
+    context = {'costumes': Costume.objects.all()}
     return render(request, 'costumes/index.html', context)
 
 def costumes_edit(request, costume_id):
@@ -41,7 +44,7 @@ def accessories(request, accessory_id):
     return render(request, 'costumes/accessory.html', {'accessory': accessory})
 
 def accessories_gallery(request):
-    context = {'accessories': Accessory.objects}
+    context = {'accessories': Accessory.objects.all()}
     return render(request, 'costumes/index.html', context)
 
 def accessories_edit(request, accessory_id):
