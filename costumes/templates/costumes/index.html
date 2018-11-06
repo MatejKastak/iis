@@ -3,54 +3,41 @@
 {% block title %}IIS - gallery{% endblock %}
 
 {% block content %}
-<!-- TODO: On hover change color?-->
-<!-- TODO: Width and size overall-->
 <div class="container">
-  <div class="card-columns">
-    {% for costume in costumes.all %}
-    <a href="{% url 'costumes' costume.id %}">
-      <div class="card">
-	<img class="card-img-top img-fluid" src="{{costume.picture.url}}" alt="Card image cap">
-	<div class="card-body">
-	  <h4 class="card-title">{{costume.costume_template.name}}</h4>
-	  <p class="card-text">Description: {{costume.costume_template.description}}</p>
+  <div class="row">
+    <div class="col-lg-3">
+      <h1 class="my-4">Borrow a costume!</h1>
+      <form>
+	<div class="list-group">
+	  <a href="#" class="list-group-item">Costumes</a>
+	  <a href="#" class="list-group-item">Accessories</a>
 	</div>
-	<ul class="list-group list-group-flush">
-	  <li class="list-group-item">Size: {{costume.size}}</li>
-	  <li class="list-group-item">Color: {{costume.color}}</li>
-	  <li class="list-group-item">Manufacturer: {{costume.costume_template.manufacturer}}</li>
-	  <li class="list-group-item">Material: {{costume.costume_template.material}}</li>
-	</ul>
-	<div class="card-body">
-	  <a href="{% url 'costumes' costume.id %}" class="btn btn-primary">Borrow</a>
+	<div class="list-group">
+	  <div class="form-check list-group-item">
+	    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+	    <label class="form-check-label" for="defaultCheck1">
+	      Store 1
+	    </label>
+	  </div>
 	</div>
-      </div>
-    </a>
-    {% endfor %}
-  </div>
-</div>
+	<button type"submit" class="btn btn-primary">Filter</button>
+      </form>
+    </div>
+    <div class="col-lg-9">
 
-<!-- TODO: On hover change color?-->
-<!-- TODO: Width and size overall-->
-<div class="container">
-  <div class="card-columns">
-    {% for accessory in accessories.all %}
-    <a href="{% url 'accessories' accessory.id %}">
-      <div class="card">
-	<img class="card-img-top img-fluid" src="{{accessory.picture.url}}" alt="Card image cap">
-	<div class="card-body">
-	  <h4 class="card-title">{{accessory.name}}</h4>
-	  <p class="card-text">Description: {{accessory.description}}</p>
-	</div>
-	<ul class="list-group list-group-flush">
-	  <li class="list-group-item">Manufactured: {{accessory.manufactured}}</li>
-	</ul>
-	<div class="card-body">
-	  <a href="{% url 'accessories' accessory.id %}" class="btn btn-primary">Borrow</a>
-	</div>
+      <div class="card-columns">
+	{% for costume in costumes.all %}
+	{% include "costumes/costume_card.html" with costume=costume %}
+	{% endfor %}
       </div>
-    </a>
-    {% endfor %}
+
+      <div class="card-columns">
+	{% for accessory in accessories.all %}
+	{% include "costumes/accessory_card.html" with accessory=accessory %}
+	{% endfor %}
+      </div>
+
+    </div>
   </div>
 </div>
 {% endblock %}

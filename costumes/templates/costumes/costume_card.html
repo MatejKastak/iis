@@ -1,0 +1,18 @@
+<a href="{% url 'costumes' costume.id %}">
+  <div class="card h-100">
+    <img class="card-img-top img-fluid" src="{{costume.picture.url}}" alt="Card image cap">
+    <div class="card-body">
+      <h4 class="card-title">{{costume.costume_template.name}}</h4>
+      <p class="card-text">Description: {{costume.costume_template.description}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Size: {{costume.size}}</li>
+      <li class="list-group-item">Color: {{costume.color}}</li>
+      <li class="list-group-item">Manufacturer: {{costume.costume_template.manufacturer}}</li>
+      <li class="list-group-item">Material: {{costume.costume_template.material}}</li>
+    </ul>
+    <div class="card-body">
+      <a href="{% url 'costumes' costume.id %}" class="btn btn-primary">Borrow</a>
+    </div>
+  </div>
+</a>
