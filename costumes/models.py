@@ -91,14 +91,19 @@ class Costume(models.Model):
 # vypozicka
 class Borrowing(models.Model):
     event = models.CharField(max_length=100)
-    borrowed_date = models.DateTimeField('time borrowed')
+    borrowed_date = models.DateField('time borrowed')
     return_date = models.DateField('date to return')
-    borrowing_expiration = models.DateTimeField('?') # TODO: Inverval?
+    borrowing_expiration = models.DurationField('borrowed for duration')
     final_price = models.IntegerField(default=0)
     employee_borrowed = models.ForeignKey(Employee, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    costume = models.ManyToManyField(Costume, blank=True) # TODO: How to handle empty borrowing?
+    costume = models.ManyToManyField(Costume, blank=True)
     accessory = models.ManyToManyField(Accessory, blank=True)
+
+    # Handling empty borrowing
+    def clean(self):
+        if not (self.costume or self.accessory):
+            raise ValidationError('You must specify either accessory or costume for borrowing.')
 
     def __str__(self):
         return 'Borrowing = ' + ' event: ' + self.event + ' borrowed_date: ' + str(self.borrowed_date) + ' return_date: ' + str(self.return_date) + ' borrowing_expiration: ' + str(self.borrowing_expiration) + ' final_price: ' + self.final_price + ' employee_borrowed: ' + str(self.employee_borrowed) + ' customer: ' + str(self.customer) + ' costume: ' + str(self.costume) + ' accessory: ' + str(self.accessory)
