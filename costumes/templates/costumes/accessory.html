@@ -15,18 +15,20 @@
       <p>Description: {{accessory.description}}</p>
       <p>Price: {{accessory.price}} €</p>
       <p>Store: {{accessory.store.city}}</p>
-      <p>Best with costume: </p>
-      <ul class="list-group">
+      <div class="list-group">
+	<p class="list-group-item list-group-item-dark">Best with costume:</p>
 	{% for ct in accessory.belongs_to_costume.all %}
 	<li class="list-group-item">{{ct.name}}</li>
 	{% endfor %}
-      </ul>
+      </div>
       <!-- TODO: This should be a post request -->
-      <a class="btn btn-primary" href="#" role="button">Add to basket</a>
-      <!-- TODO: Edit should be possible only if the user has privileges to do it-->
-      <a class="btn btn-primary" href="{% url 'accessories_edit' accessory.pk %}" role="button">Edit</a>
-      <a class="btn btn-primary" href="{% url 'accessories_delete' accessory.pk %}" role="button">Delete</a>
-      <a class="btn btn-primary" href="{% url 'accessories_duplicate' accessory.pk %}" role="button">Duplicate</a>
+      <div class="my-2">
+	<a class="btn btn-primary" href="#" role="button">Add to basket</a>
+	<!-- TODO: Edit should be possible only if the user has privileges to do it-->
+	<a class="btn btn-primary" href="{% url 'accessories_edit' accessory.pk %}" role="button">Edit</a>
+	<a class="btn btn-primary" href="{% url 'accessories_delete' accessory.pk %}" role="button">Delete</a>
+	<a class="btn btn-primary" href="{% url 'accessories_duplicate' accessory.pk %}" role="button">Duplicate</a>
+      </div>
     </div>
   </div>
 </div>

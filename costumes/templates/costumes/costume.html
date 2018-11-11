@@ -21,17 +21,20 @@
       <p>Manufacturer: {{costume.costume_template.manufacturer}}</p>
       <p>Wear-out: {{costume.wear_out}}</p>
       <p>Store: {{costume.store.city}}</p>
-      <ul class="list-group">
+      <div class="list-group">
+	<p class="list-group-item list-group-item-dark">Best with accessories:</p>
 	{% for accessory in costume.costume_template.accessory_set.all %}
-	<li class="list-group-item">{{accessory.name}}</li>
+	<a href="{% url 'accessories' accessory.pk %}"><li class="list-group-item">{{accessory.name}}</li></a>
 	{% endfor %}
-      </ul>
-      <!-- TODO: This should be a post request -->
-      <a class="btn btn-primary" href="#" role="button">Add to basket</a>
-      <!-- TODO: Edit should be possible only if the user has privileges to do it-->
-      <a class="btn btn-primary" href="{% url 'costumes_edit' costume.pk %}" role="button">Edit</a>
-      <a class="btn btn-primary" href="{% url 'costumes_delete' costume.pk %}" role="button">Delete</a>
-      <a class="btn btn-primary" href="{% url 'costumes_duplicate' costume.pk %}" role="button">Duplicate</a>
+      </div>
+      <div class="my-2">
+	<!-- TODO: This should be a post request -->
+	<a class="btn btn-primary" href="#" role="button">Add to basket</a>
+	<!-- TODO: Edit should be possible only if the user has privileges to do it-->
+	<a class="btn btn-primary" href="{% url 'costumes_edit' costume.pk %}" role="button">Edit</a>
+	<a class="btn btn-primary" href="{% url 'costumes_delete' costume.pk %}" role="button">Delete</a>
+	<a class="btn btn-primary" href="{% url 'costumes_duplicate' costume.pk %}" role="button">Duplicate</a>
+      </div>
     </div>
   </div>
 </div>

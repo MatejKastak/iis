@@ -6,15 +6,59 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
+from django.db.models import Q
+
+import logging
 
 from .models import *
 from .forms import *
+
+logger = logging.getLogger(__name__)
 
 def index(request):
     context = {'costumes': Costume.objects.all(),
                'accessories': Accessory.objects.all(),
                'stores': Store.objects.all(),
                'sizes': Costume.COSTUME_SIZE}
+
+    costumes = Costume.objects.none()
+    accessories = Accessory.objects.none()
+
+    stores = Store.objects.all()
+    sizes = Costume.COSTUME_SIZE
+
+    size_q = Q()
+    store_q = Q()
+    aval_q = Q()
+
+    if request.method == 'GET':
+
+        if request.GET.get('type'):
+            if 'a' in request.GET.getlist('type'):
+                accessories = Accessory.objects.all()
+            if 'c' in request.GET.getlist('type'):
+                costumes = Costume.objects.all()
+
+        if request.GET.get('aval'):
+            if 'aval' in request.GET.getlist('aval'):
+                pass # TODO
+            if 'borrowed' in request.GET.getlist('aval'):
+                pass # TODO
+
+        if request.GET.get('store'):
+            print(request.GET.getlist('store'))
+            store_q = Q(store__city__in=request.GET.getlist('store'))
+
+        if request.GET.get('size'):
+            print(request.GET.getlist('size'))
+            size_q = Q(size__in=request.GET.getlist('size'))
+
+    costumes = costumes.filter(size_q & store_q)
+
+    context = {'costumes': costumes,
+               'accessories': accessories,
+               'stores': stores,
+               'sizes': sizes}
     return render(request, 'costumes/index.html', context)
 
 def costumes(request, costume_id):
