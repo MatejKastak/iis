@@ -44,24 +44,6 @@
 
 	  </li>
 
-	  <li class="nav-item">
-
-	    <a class="nav-link" href="/costumes">Costumes</a>
-
-	  </li>
-
-	  <li class="nav-item">
-
-	    <a class="nav-link" href="/accessories">Accessories</a>
-
-	  </li>
-
-	  <li class="nav-item">
-
-	    <a class="nav-link" href="/stores">Stores</a>
-
-	  </li>
-
 	</ul>
 
       </div>
@@ -82,41 +64,48 @@
 
 	<ul class="navbar-nav ml-auto">
 
+	  <li class="nav-item">
+
+	    <a class="nav-link" href="/stores">Stores</a>
+
+	  </li>
+
+
 	  {% if request.user.is_staff %}
-    
-      {% for group in request.user.groups.all %}
-        {% if group.name == "manager" %}
-	        <li class="nav-item">
+	  
+	  {% for group in request.user.groups.all %}
+	  {% if group.name == "manager" %}
+	  <li class="nav-item">
 
-            <a class="nav-link" href="/manage_staff">Manage shop</a>
+	    <a class="nav-link" href="/manage_staff">Manage shop</a>
 
-          </li>
-        {% endif %}
-        {% if group.name == "employee" %}
-	        <li class="nav-item">
+	  </li>
+	  {% endif %}
+	  {% if group.name == "employee" %}
+	  <li class="nav-item">
 
-            <a class="nav-link" href="#">Add new costume</a>
+	    <a class="nav-link" href="#">Add new costume</a>
 
-          </li>
-        {% endif %}
-      {% endfor %}
+	  </li>
+	  {% endif %}
+	  {% endfor %}
 
-    {% endif %}
-    
+	  {% endif %}
+	  
 
-    {% if request.user.is_authenticated %}
+	  {% if request.user.is_authenticated %}
 
-    <li class="nav-item">
+	  <li class="nav-item">
 
-      <a class="nav-link" href="/user">Profile (logged as: {{ request.user.username}})</a>
-      
-    </li>
-    
-    <li class="nav-item">
+	    <a class="nav-link" href="/user">Profile (logged as: {{ request.user.username}})</a>
+	    
+	  </li>
+	  
+	  <li class="nav-item">
 
-        <a class="nav-link" href="/settings">Settings</a>
-  
-    </li>
+	    <a class="nav-link" href="/settings">Settings</a>
+	    
+	  </li>
 
 	  <li class="nav-item">
 
@@ -135,13 +124,13 @@
 	    <a class="nav-link" href="/logout">Log out</a>
 
 	  </li>
-    {% else %}
-    <li class="nav-item">
+	  {% else %}
+	  <li class="nav-item">
 
 	    <a class="nav-link" href="/register">Register</a>
 
-    </li>
-    
+	  </li>
+	  
 	  <li class="nav-item">
 
 	    <a class="nav-link" href="/login">Login</a>
