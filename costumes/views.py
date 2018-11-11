@@ -176,6 +176,8 @@ def register_script(request):
             user.email = form.data['email']
             user.set_password(form.data['password'])
             user.save()
+            customer = Customer(user=user)
+            customer.save()
             group, is_created = Group.objects.get_or_create(name="customers")
             group.user_set.add(user)
             login(request, user)
@@ -207,7 +209,8 @@ def stores(request, store_id):
 @login_required(login_url="/login")
 @permission_required('costumes.change_employee', raise_exception=True)
 def manage_staff(request):
-    return render(request, 'manage/manage_staff.html')
+    context = {'users': User.objects.all()}
+    return render(request, 'manage/manage_staff.html', context)
 
 def getMessages(request):
     storage = messages.get_messages(request)

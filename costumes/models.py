@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from django.contrib.auth.models import User
 
 # pobocka
 class Store(models.Model):
@@ -36,34 +37,32 @@ class Accessory(models.Model):
 
 # klient
 class Customer(models.Model):
-    first_name = models.CharField(max_length=100)
-    second_name = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     address = models.CharField(max_length=100)
-    email = models.CharField(max_length=100)
     tel_num = models.CharField(max_length=10)
 
     def __str__(self):
-        return 'Customer = ' + ' first_name: ' + self.first_name + ' second_name: ' + self.second_name + ' address: ' + self.address + ' email: ' + self.email + ' tel_num: ' + self.tel_num
+        return 'Customer = ' +  ' address: ' + self.address + ' tel_num: ' + self.tel_num
 
 # zamestnanec
 class Employee(models.Model):
-    login = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
-    first_name = models.CharField(max_length=100)
-    second_name = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    address = models.CharField(max_length=100)
+    tel_num = models.CharField(max_length=10)
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'Employee = ' + ' login: ' + self.login + ' password: ' + self.password + ' first_name: ' + self.first_name + ' second_name: ' + self.second_name
+        return 'Employee = ' +  ' address: ' + self.address + ' tel_num: ' + self.tel_num
 
 # spravca
 class Manager(models.Model):
-    employee_id = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    email = models.CharField(max_length=100)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    address = models.CharField(max_length=100)
     tel_num = models.CharField(max_length=10)
+    store = models.ForeignKey(Store, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'Manager = ' + ' employee_id: ' + str(self.employee_id) + ' email: ' + self.email + ' tel_num: ' + self.tel_num
+        return 'Manager = ' +  ' address: ' + self.address + ' tel_num: ' + self.tel_num
 
 # kostym
 class Costume(models.Model):
