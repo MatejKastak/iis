@@ -92,7 +92,7 @@
 
           </li>
         {% endif %}
-        {% if group.name == "staff" %}
+        {% if group.name == "employee" %}
 	        <li class="nav-item">
 
             <a class="nav-link" href="#">Add new costume</a>
@@ -135,7 +135,13 @@
 	    <a class="nav-link" href="/logout">Log out</a>
 
 	  </li>
-	  {% else %}
+    {% else %}
+    <li class="nav-item">
+
+	    <a class="nav-link" href="/register">Register</a>
+
+    </li>
+    
 	  <li class="nav-item">
 
 	    <a class="nav-link" href="/login">Login</a>
