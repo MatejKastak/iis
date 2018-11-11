@@ -3,7 +3,7 @@
 {% block title %}IIS - gallery{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container my-3">
   <div class="row">
     <div class="col-lg-3">
       <h1 class="my-4">Borrow a costume!</h1>
@@ -12,13 +12,13 @@
 	<div class="form-group">
 	  <label>Type</label>
 	  <div class="form-check">
-	    <input class="form-check-input" type="checkbox" value="a" name="type">
+	    <input class="form-check-input" type="checkbox" value="a" name="type" {{accessories_checked}}>
 	    <label class="form-check-label" for="defaultCheck1">
 	      Accessories
 	    </label>
 	  </div>
 	  <div class="form-check">
-	    <input class="form-check-input" type="checkbox" value="c" name="type">
+	    <input class="form-check-input" type="checkbox" value="c" name="type" {{costumes_checked}}>
 	    <label class="form-check-label" for="defaultCheck1">
 	      Costumes
 	    </label>
@@ -28,13 +28,13 @@
 	<div class="form-group">
 	  <label>Availability</label>
 	  <div class="form-check">
-	    <input class="form-check-input" type="checkbox" value="aval" name="aval">
+	    <input class="form-check-input" type="checkbox" value="aval" name="aval" {{available_checked}}>
 	    <label class="form-check-label" for="defaultCheck1">
 	      Available
 	    </label>
 	  </div>
 	  <div class="form-check">
-	    <input class="form-check-input" type="checkbox" value="borrowed" name="aval">
+	    <input class="form-check-input" type="checkbox" value="borrowed" name="aval" {{borrowed_checked}}>
 	    <label class="form-check-label" for="defaultCheck1">
 	      Borrowed
 	    </label>
@@ -45,7 +45,7 @@
 	  <label>Stores</label>
 	  {% for store in stores %}
 	  <div class="form-check">
-	    <input class="form-check-input" type="checkbox" value="{{store.city}}" name="store">
+	    <input class="form-check-input" type="checkbox" value="{{store.pk}}" name="store" >
 	    <label class="form-check-label" for="defaultCheck1">
 	      {{store.city}}, {{store.street}}
 	    </label>
@@ -68,7 +68,20 @@
 	<button type="submit" class="btn btn-primary">Filter</button>
       </form>
     </div>
+
     <div class="col-lg-9">
+
+      {% if request.user.is_staff %}
+      {% for group in request.user.groups.all %}
+      {% if group.name == "employee" %}
+      <div class="col-lg-9 mb-2">
+	<a class="btn btn-success" href="/add_costume" role="button">Add new costume</a>
+	<a class="btn btn-success" href="/add_costume_template" role="button">Add new costume template</a>
+	<a class="btn btn-success" href="/add_accessory" role="button">Add new accessory</a>
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
 
       {% for costume in costumes %}
       {% include "costumes/costume_card.html" with costume=costume %}

@@ -6,6 +6,8 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic.edit import CreateView
 from django.db.models import Q
 
 import logging
@@ -16,10 +18,7 @@ from .forms import *
 logger = logging.getLogger(__name__)
 
 def index(request):
-    context = {'costumes': Costume.objects.all(),
-               'accessories': Accessory.objects.all(),
-               'stores': Store.objects.all(),
-               'sizes': Costume.COSTUME_SIZE}
+    context = dict()
 
     costumes = Costume.objects.none()
     accessories = Accessory.objects.none()
@@ -33,32 +32,53 @@ def index(request):
 
     if request.method == 'GET':
 
+        if not request.GET:
+            context.update({
+                'accessories_checked': 'checked',
+                'costumes_checked': 'checked',
+                'available_checked': 'checked',
+            })
+            costumes = Costume.objects.all()
+            accessories = Accessory.objects.all()
+
         if request.GET.get('type'):
             if 'a' in request.GET.getlist('type'):
                 accessories = Accessory.objects.all()
+                context['accessories_checked'] = 'checked'
+            else:
+                context.pop('accessories_checked', None)
+
             if 'c' in request.GET.getlist('type'):
                 costumes = Costume.objects.all()
+                context['costumes_checked'] = 'checked'
+            else:
+                context.pop('costumes_checked', None)
 
         if request.GET.get('aval'):
             if 'aval' in request.GET.getlist('aval'):
-                pass # TODO
+                # TODO
+                context['available_checked'] = 'checked'
+            else:
+                context.pop('available_checked', None)
+
             if 'borrowed' in request.GET.getlist('aval'):
-                pass # TODO
+                # TODO
+                context['borrowed_checked'] = 'checked'
+            else:
+                context.pop('borrowed_checked', None)
 
         if request.GET.get('store'):
-            print(request.GET.getlist('store'))
-            store_q = Q(store__city__in=request.GET.getlist('store'))
+            store_q = Q(store__pk__in=request.GET.getlist('store'))
 
         if request.GET.get('size'):
-            print(request.GET.getlist('size'))
             size_q = Q(size__in=request.GET.getlist('size'))
 
     costumes = costumes.filter(size_q & store_q)
 
-    context = {'costumes': costumes,
+    context.update({'costumes': costumes,
                'accessories': accessories,
                'stores': stores,
-               'sizes': sizes}
+               'sizes': sizes})
     return render(request, 'costumes/index.html', context)
 
 def costumes(request, costume_id):
@@ -200,11 +220,29 @@ def stores_gallery(request):
     context = {'stores': Store.objects}
     return render(request, 'costumes/stores.html', context)
 
+class add_costume(LoginRequiredMixin, CreateView):
+    login_url = '/login'
+    redirect_field_name = '/add_costume'
+    model = Costume
+    fields = '__all__'
+
+class add_costume_template(LoginRequiredMixin, CreateView):
+    login_url = '/login'
+    form_class = CostumeForm
+    redirect_field_name = '/add_costume_template'
+    model = CostumeTemplate
+    fields = '__all__'
+
+class add_accessory(LoginRequiredMixin, CreateView):
+    login_url = '/login'
+    redirect_field_name = '/add_costume'
+    model = Accessory
+    fields = '__all__'
+
 def stores(request, store_id):
     store = get_object_or_404(Store, pk=store_id)
     context = {'store': store}
     return render(request, 'costumes/store.html', context)
-
 
 @login_required(login_url="/login")
 @permission_required('costumes.change_employee', raise_exception=True)

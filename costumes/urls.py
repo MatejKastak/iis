@@ -12,17 +12,18 @@ urlpatterns = [
     path('register/script', views.register_script, name='register'),
     path('manage_staff', views.manage_staff, name='manage_staff'),
 
-    path('costumes', views.costumes_gallery, name='costumes_gallery'),
     path('costumes/<int:costume_id>', views.costumes, name='costumes'),
     path('costumes/<int:costume_id>/edit', views.costumes_edit, name='costumes_edit'),
     path('costumes/<int:costume_id>/delete', views.costumes_delete, name='costumes_delete'),
     path('costumes/<int:costume_id>/duplicate', views.costumes_duplicate, name='costumes_duplicate'),
+    path('add_costume', views.add_costume.as_view(), name='add_costume'),
+    path('add_costume_template', views.add_costume_template.as_view(), name='add_costume_template'),
 
-    path('accessories', views.accessories_gallery, name='accessories_gallery'),
     path('accessories/<int:accessory_id>', views.accessories, name='accessories'),
     path('accessories/<int:accessory_id>/edit', views.accessories_edit, name='accessories_edit'),
     path('accessories/<int:accessory_id>/delete', views.accessories_delete, name='accessories_delete'),
     path('accessories/<int:accessory_id>/duplicate', views.accessories_duplicate, name='accessories_duplicate'),
+    path('add_accessory', views.add_accessory.as_view(), name='add_accessory'),
 
     path('basket', views.basket, name='backet'),
     path('user', views.user, name='user'),
