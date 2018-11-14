@@ -244,11 +244,50 @@ def stores(request, store_id):
     context = {'store': store}
     return render(request, 'costumes/store.html', context)
 
+
 @login_required(login_url="/login")
 @permission_required('costumes.change_employee', raise_exception=True)
-def manage_staff(request):
+def manage_employee(request):
     context = {'users': User.objects.all()}
-    return render(request, 'manage/manage_staff.html', context)
+    return render(request, 'manage/manage_employee.html', context)
+
+
+@login_required(login_url="/login")
+@permission_required('costumes.change_manager', raise_exception=True)
+def manage_manager(request):
+    context = {'users': User.objects.all()}
+    return render(request, 'manage/manage_manager.html', context)
+
+
+@login_required(login_url="/login")
+@permission_required('costumes.change_manager', raise_exception=True)
+def edit_manager(request, manager_id):
+    context = {}
+    context['manager'] = User.objects.get(pk=manager_id)
+    context['store'] = Store.objects.all()
+    return render(request, 'manage/edit_manager.html', context)
+
+
+@login_required(login_url="/login")
+@permission_required('costumes.change_manager', raise_exception=True)
+def edit_manager_script(request):
+    if request.method == 'POST':
+        form = EditManagerForm(request.POST)
+        if form.is_valid():
+            u = User.objects.get(id=int(form.data.get('id')))
+            m = Manager.objects.get(user=u)
+            u.first_name = form.data.get('first_name')
+            u.last_name = form.data.get('last_name')
+            u.email = form.data.get('email')
+            m.address = form.data.get('address')
+            m.tel_num = form.data.get('tel_num')
+            if form.data.get('store'):
+                m.store = int(form.data.get('store'))
+            u.save()
+            m.save()
+            return redirect(manage_manager)
+    raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST')
+
 
 def getMessages(request):
     storage = messages.get_messages(request)
