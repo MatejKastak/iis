@@ -71,26 +71,32 @@
 	  </li>
 
 
-	  {% if request.user.is_staff %}
-	  
-	  {% for group in request.user.groups.all %}
-	  {% if group.name == "manager" %}
-	  <li class="nav-item">
+  {% if user.manager or user.employee %}
+  <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Staff actions
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    {% for group in request.user.groups.all %}
 
-	    <a class="nav-link" href="/manage_staff">Manage shop</a>
+      {% if group.name == "super_manager" %}
+        <a class="dropdown-item" href="/manage_manager">Manage manager</a>
+        <a class="dropdown-item" href="/manage_store">Manage store</a>
+      {% endif %}
 
-	  </li>
-	  {% endif %}
-	  {% if group.name == "employee" %}
-	  <li class="nav-item">
+	    {% if group.name == "manager" %}
+	      <a class="dropdown-item" href="/manage_employee">Manage employee</a>
+      {% endif %}
 
-	    <a class="nav-link" href="#">Add new costume</a>
+	    {% if group.name == "employee" %}
+	      <a class="dropdown-item" href="#">Add new costume</a>
+      {% endif %}
+      
+    {% endfor %}
+    </div>
+    </div>
+  {% endif %}
 
-	  </li>
-	  {% endif %}
-	  {% endfor %}
-
-	  {% endif %}
 	  
 
 	  {% if request.user.is_authenticated %}

@@ -10,7 +10,10 @@ urlpatterns = [
     path('login/script', views.login_script, name='login'),
     path('register', views.register, name='register'),
     path('register/script', views.register_script, name='register'),
-    path('manage_staff', views.manage_staff, name='manage_staff'),
+    path('manage_employee', views.manage_employee, name='manage_employee'),
+    path('manage_manager', views.manage_manager, name='manage_manager'),
+    path('edit_manager/<int:manager_id>', views.edit_manager, name='manage_manager'),
+    path('edit_manager/script', views.edit_manager_script, name='manage_manager'),
 
     path('costumes/<int:costume_id>', views.costumes, name='costumes'),
     path('costumes/<int:costume_id>/edit', views.costumes_edit, name='costumes_edit'),
