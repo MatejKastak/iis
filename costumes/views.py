@@ -101,6 +101,19 @@ def costumes_edit(request, costume_id):
             
     return render(request, 'costumes/costume_edit.html', {'form': form, 'costume': costume})
 
+def borrowings_edit(request, borrowing_id):
+    borrowing = get_object_or_404(Borrowing, pk=borrowing_id)
+    if request.method == 'POST':
+        form = BorrowingForm(request.POST, instance=borrowing)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/borrowings/' + str(borrowing_id))
+    else:
+        form = BorrowingForm(instance=borrowing)
+
+    return render(request, 'borrowings/borrowing_edit.html', {'form': form, 'borrowing': borrowing})
+
+
 def costumes_duplicate(request, costume_id):
     raise Http404('NOT YET IMPLEMENTED')
     costume = get_object_or_404(Costume, pk=costume_id)
@@ -113,6 +126,9 @@ def costumes_duplicate(request, costume_id):
         form = CostumeForm(instance=costume)
 
     return render(request, 'costumes/costume_edit.html', {'form': form, 'costume': costume})
+
+def borrowings_delete(request, borrowing_id):
+    raise Http404('NOT YET IMPLEMENTED')
 
 def costumes_delete(request, costume_id):
     raise Http404('NOT YET IMPLEMENTED')

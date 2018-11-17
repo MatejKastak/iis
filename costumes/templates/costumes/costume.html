@@ -20,7 +20,7 @@
       <p>Manufactured: {{costume.manufactured}}</p>
       <p>Manufacturer: {{costume.costume_template.manufacturer}}</p>
       <p>Wear-out: {{costume.wear_out}}</p>
-      <p>Store: {{costume.store.city}}</p>
+      <p>Store: <a href="{% url 'stores' costume.store.pk %}">{{costume.store.city}}</a></p>
       <div class="list-group">
 	<p class="list-group-item list-group-item-dark">Best with accessories:</p>
 	{% for accessory in costume.costume_template.accessory_set.all %}
@@ -37,11 +37,21 @@
       </div>
     </div>
   </div>
+  <!-- TODO: Show only employees or managers -->
   <div class="row">
     <div class="col-sm">
       <div class="list-group">
 	<p class="list-group-item list-group-item-dark">Borrowings with this costume:</p>
-	<li class="list-group-item">Test</li>
+	{% for borrowing in costume.borrowing_set.all %}
+	<a href="{% url 'borrowings' borrowing.pk %}"><li class="list-group-item">
+	    Number: {{borrowing.pk}}
+	    Event: {{borrowing.event}}
+	    Costumes: {{borrowing.costume.all|length}}
+	    Accesories: {{borrowing.accessory.all|length}}
+	    From: {{borrowing.borrowed_date}}
+	    To: {{borrowing.return_date}}
+	</li></a>
+	{% endfor %}
       </div>
     </div>
   </div>

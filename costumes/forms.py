@@ -7,6 +7,11 @@ class LoginForm(Form):
     login = forms.CharField(label='login', max_length=100)
     password = forms.CharField(label='password', max_length=100)
 
+class BorrowingForm(ModelForm):
+    class Meta:
+        model = Borrowing
+        fields = '__all__'
+
 class CostumeForm(ModelForm):
     class Meta:
         model = Costume
