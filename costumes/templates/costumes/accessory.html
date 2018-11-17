@@ -3,7 +3,7 @@
 {% block title %}Accessory detail{% endblock %}
 
 {% block content %}
-<div class="container" style="padding-top: 1rem;">
+<div class="container my-3">
   <div class="row">
     <h1 class="detail-site-header">{{accessory.name}}</h1>
   </div>
@@ -28,6 +28,14 @@
 	<a class="btn btn-primary" href="{% url 'accessories_edit' accessory.pk %}" role="button">Edit</a>
 	<a class="btn btn-primary" href="{% url 'accessories_delete' accessory.pk %}" role="button">Delete</a>
 	<a class="btn btn-primary" href="{% url 'accessories_duplicate' accessory.pk %}" role="button">Duplicate</a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <div class="list-group">
+	<p class="list-group-item list-group-item-dark">Borrowings with this accessory:</p>
+	<li class="list-group-item">Test</li>
       </div>
     </div>
   </div>

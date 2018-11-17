@@ -89,7 +89,7 @@ class Costume(models.Model):
 
 # vypozicka
 class Borrowing(models.Model):
-    event = models.CharField(max_length=100)
+    event = models.CharField(max_length=100, blank=True)
     borrowed_date = models.DateField('time borrowed')
     return_date = models.DateField('date to return')
     borrowing_expiration = models.DurationField('borrowed for duration')
@@ -105,4 +105,5 @@ class Borrowing(models.Model):
             raise ValidationError('You must specify either accessory or costume for borrowing.')
 
     def __str__(self):
-        return 'Borrowing = ' + ' event: ' + self.event + ' borrowed_date: ' + str(self.borrowed_date) + ' return_date: ' + str(self.return_date) + ' borrowing_expiration: ' + str(self.borrowing_expiration) + ' final_price: ' + self.final_price + ' employee_borrowed: ' + str(self.employee_borrowed) + ' customer: ' + str(self.customer) + ' costume: ' + str(self.costume) + ' accessory: ' + str(self.accessory)
+        return 'Borrowing = ' + ' event: ' + self.event + ' borrowed_date: ' + str(self.borrowed_date) + ' return_date: ' + str(self.return_date) + ' borrowing_expiration: ' + str(self.borrowing_expiration) + ' final_price: ' + str(self.final_price) + ' employee_borrowed: ' + str(self.employee_borrowed) + ' customer: ' + str(self.customer) + ' costume: ' + str(self.costume) + ' accessory: ' + str(self.accessory)
+

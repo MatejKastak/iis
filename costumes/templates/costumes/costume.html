@@ -3,7 +3,7 @@
 {% block title %}Costume detail{% endblock %}
 
 {% block content %}
-<div class="container" style="padding-top: 1rem;">
+<div class="container my-3">
   <div class="row">
     <h1 class="detail-site-header">{{costume.costume_template.name}}</h1>
   </div>
@@ -34,6 +34,14 @@
 	<a class="btn btn-primary" href="{% url 'costumes_edit' costume.pk %}" role="button">Edit</a>
 	<a class="btn btn-primary" href="{% url 'costumes_delete' costume.pk %}" role="button">Delete</a>
 	<a class="btn btn-primary" href="{% url 'costumes_duplicate' costume.pk %}" role="button">Duplicate</a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <div class="list-group">
+	<p class="list-group-item list-group-item-dark">Borrowings with this costume:</p>
+	<li class="list-group-item">Test</li>
       </div>
     </div>
   </div>

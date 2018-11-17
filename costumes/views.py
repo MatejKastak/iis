@@ -211,10 +211,19 @@ def settings(request):
     raise Http404('NOT YET IMPLEMENTED')
 
 def borrowings_gallery(request):
-    raise Http404('NOT YET IMPLEMENTED')
+    context = dict()
+    if False:
+        # TODO: Check if user is employee or manager
+        pass
+    else:
+        context.update({'borrowings': Borrowing.objects.all()})
+    return render(request, 'costumes/borrowings.html', context)
 
 def borrowings(request, borrowing_id):
-    raise Http404('NOT YET IMPLEMENTED')
+    # TODO: Check permissions
+    borrowing = get_object_or_404(Borrowing, pk=borrowing_id)
+    context = {'borrowing': borrowing}
+    return render(request, 'costumes/borrowing.html', context)
 
 def stores_gallery(request):
     context = {'stores': Store.objects}

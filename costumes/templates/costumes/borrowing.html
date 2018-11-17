@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Borrowing detail{% endblock %}
+
+{% block content %}
+<div class="container my-3">
+  <div class="row">
+    <h1 class="detail-site-header">Borrowing no. {{borrowing.pk}}</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <div class="list-group">
+
+	<p class="list-group-item list-group-item-dark">Costumes borrowed:</p>
+	{% for costume in borrowing.costume.all %}
+	<a href="{% url 'costumes' costume.pk %}"><li class="list-group-item">{{costume.costume_template.name}}</li></a>
+	{% endfor %}
+
+	<p class="list-group-item list-group-item-dark">Accessories borrowed:</p>
+	{% for accessory in borrowing.accessory.all %}
+	<a href="{% url 'accessories' accessory.pk %}"><li class="list-group-item">{{accessory.name}}</li></a>
+	{% endfor %}
+
+      </div>
+    </div>
+    <div class="col-sm">
+      <p>Event: {{borrowing.event}}</p>
+      <p>From: {{borrowing.borrowed_date}}</p>
+      <p>To: {{borrowing.return_date}}</p>
+      <p>Price: {{borrowing.final_price}} €</p>
+      <p>Customer: {{borrowing.customer.user.username}}</p>
+      <p>Employee: {{borrowing.employee_borrowed.user.username}}</p>
+      <!-- TODO: Priviledges -->
+      <div class="my-2">
+	<a class="btn btn-primary" href="#" role="button">Edit</a>
+	<a class="btn btn-primary" href="#" role="button">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
