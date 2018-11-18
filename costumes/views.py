@@ -131,7 +131,9 @@ def borrowings_delete(request, borrowing_id):
     raise Http404('NOT YET IMPLEMENTED')
 
 def costumes_delete(request, costume_id):
-    raise Http404('NOT YET IMPLEMENTED')
+    costume = get_object_or_404(Costume, pk=costume_id)
+    costume.delete()
+    return HttpResponseRedirect('/')
 
 def accessories(request, accessory_id):
     accessory = get_object_or_404(Accessory, pk=accessory_id)
@@ -167,7 +169,10 @@ def accessories_duplicate(request, accessory_id):
     return render(request, 'costumes/accessory_edit.html', {'form': form, 'accessory': accessory})
 
 def accessories_delete(request, accessory_id):
-    raise Http404('NOT YET IMPLEMENTED')
+    # TODO: Has permission
+    accessory = get_object_or_404(Accessory, pk=accessory_id)
+    accessory.delete()
+    return HttpResponseRedirect('/')
 
 def basket(request):
     raise Http404('NOT YET IMPLEMENTED')
