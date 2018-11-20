@@ -16,11 +16,17 @@ class CostumeForm(ModelForm):
     class Meta:
         model = Costume
         fields = '__all__'
+        widgets = {
+            'manufactured': DateInput(attrs={'type': 'date'})
+        }
 
 class AccessoryForm(ModelForm):
     class Meta:
         model = Accessory
         fields = '__all__'
+        widgets = {
+            'manufactured': DateInput(attrs={'type': 'date'})
+        }
 
 class RegisterForm(Form):
     first_name = forms.CharField(label='firs_name', max_length=50)

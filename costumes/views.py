@@ -255,20 +255,19 @@ class add_costume(LoginRequiredMixin, CreateView):
     login_url = '/login'
     redirect_field_name = '/add_costume'
     model = Costume
-    fields = '__all__'
+    form_class = CostumeForm
 
 class add_costume_template(LoginRequiredMixin, CreateView):
     login_url = '/login'
     form_class = CostumeForm
     redirect_field_name = '/add_costume_template'
     model = CostumeTemplate
-    fields = '__all__'
 
 class add_accessory(LoginRequiredMixin, CreateView):
     login_url = '/login'
     redirect_field_name = '/add_costume'
     model = Accessory
-    fields = '__all__'
+    form_class = AccessoryForm
 
 def stores(request, store_id):
     store = get_object_or_404(Store, pk=store_id)
