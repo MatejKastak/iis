@@ -74,6 +74,7 @@ def index(request):
             size_q = Q(size__in=request.GET.getlist('size'))
 
     costumes = costumes.filter(size_q & store_q)
+    accessories = accessories.filter(store_q)
 
     context.update({'costumes': costumes,
                'accessories': accessories,
