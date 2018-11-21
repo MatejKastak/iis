@@ -6,7 +6,7 @@
 <div class="container my-3">
   <ul class="list-group list-group-flush">
     {% for borrowing in borrowings %}
-    <a href="{% url 'borrowings' borrowing.pk %}"><li class="list-group-item">
+    <a href="{% url 'borrowing' borrowing.pk %}"><li class="list-group-item">
 	Number: {{borrowing.pk}}
 	Event: {{borrowing.event}}
 	Costumes: {{borrowing.costume.all|length}}

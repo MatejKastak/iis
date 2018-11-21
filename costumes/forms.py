@@ -11,13 +11,17 @@ class BorrowingForm(ModelForm):
     class Meta:
         model = Borrowing
         fields = '__all__'
+        widgets = {
+            'borrowed_date': DateInput(attrs={'type': 'date'}),
+            'return_date': DateInput(attrs={'type': 'date'}),
+        }
 
 class CostumeForm(ModelForm):
     class Meta:
         model = Costume
         fields = '__all__'
         widgets = {
-            'manufactured': DateInput(attrs={'type': 'date'})
+            'manufactured': DateInput(attrs={'type': 'date'}),
         }
 
 class AccessoryForm(ModelForm):
@@ -25,7 +29,7 @@ class AccessoryForm(ModelForm):
         model = Accessory
         fields = '__all__'
         widgets = {
-            'manufactured': DateInput(attrs={'type': 'date'})
+            'manufactured': DateInput(attrs={'type': 'date'}),
         }
 
 class RegisterForm(Form):

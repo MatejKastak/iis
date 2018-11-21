@@ -127,7 +127,7 @@ def borrowings_edit(request, borrowing_id):
     else:
         form = BorrowingForm(instance=borrowing)
 
-    return render(request, 'borrowings/borrowing_edit.html', {'form': form, 'borrowing': borrowing})
+    return render(request, 'costumes/borrowing_edit.html', {'form': form, 'borrowing': borrowing})
 
 
 def costumes_duplicate(request, costume_id):
@@ -144,7 +144,9 @@ def costumes_duplicate(request, costume_id):
     return render(request, 'costumes/costume_edit.html', {'form': form, 'costume': costume})
 
 def borrowings_delete(request, borrowing_id):
-    raise Http404('NOT YET IMPLEMENTED')
+    borrowing = get_object_or_404(Borrowing, pk=borrowing_id)
+    borrowing.delete()
+    return HttpResponseRedirect('/')
 
 def costumes_delete(request, costume_id):
     costume = get_object_or_404(Costume, pk=costume_id)

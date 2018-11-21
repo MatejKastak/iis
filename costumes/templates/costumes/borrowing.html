@@ -32,8 +32,8 @@
       <p>Employee: {{borrowing.employee_borrowed.user.username}}</p>
       <!-- TODO: Priviledges -->
       <div class="my-2">
-	<a class="btn btn-primary" href="#" role="button">Edit</a>
-	<a class="btn btn-primary" href="#" role="button">Delete</a>
+	<a class="btn btn-primary" href="{% url 'borrowing_edit' borrowing.pk %}" role="button">Edit</a>
+	<a class="btn btn-primary" href="{% url 'borrowing_delete' borrowing.pk %}" role="button">Delete</a>
       </div>
     </div>
   </div>

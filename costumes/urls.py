@@ -32,9 +32,9 @@ urlpatterns = [
     path('user', views.user, name='user'),
     path('settings', views.settings, name='setting'),
     path('borrowings', views.borrowings_gallery, name='borrowings_gallery'),
-    path('borrowings/<int:borrowing_id>', views.borrowings, name='borrowings'),
-    path('borrowings/<int:accessory_id>/edit', views.borrowings_edit, name='borrowings_edit'),
-    path('borrowings/<int:accessory_id>/delete', views.borrowings_delete, name='borrowings_delete'),
+    path('borrowings/<int:borrowing_id>', views.borrowings, name='borrowing'),
+    path('borrowings/<int:borrowing_id>/edit', views.borrowings_edit, name='borrowing_edit'),
+    path('borrowings/<int:borrowing_id>/delete', views.borrowings_delete, name='borrowing_delete'),
     path('stores', views.stores_gallery, name='stores_gallery'),
     path('stores/<int:store_id>', views.stores, name='stores'),
 ]
