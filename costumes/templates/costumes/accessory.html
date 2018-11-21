@@ -25,9 +25,8 @@
       <div class="my-2">
 	<a class="btn btn-primary" href="#" role="button">Add to basket</a>
 	<!-- TODO: Edit should be possible only if the user has privileges to do it-->
-	<a class="btn btn-primary" href="{% url 'accessories_edit' accessory.pk %}" role="button">Edit</a>
-	<a class="btn btn-primary" href="{% url 'accessories_delete' accessory.pk %}" role="button">Delete</a>
-	<a class="btn btn-primary" href="{% url 'accessories_duplicate' accessory.pk %}" role="button">Duplicate</a>
+	<a class="btn btn-success" href="{% url 'accessories_edit' accessory.pk %}" role="button">Edit</a>
+	<a class="btn btn-danger" href="{% url 'accessories_delete' accessory.pk %}" role="button">Delete</a>
       </div>
     </div>
   </div>
