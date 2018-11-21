@@ -24,7 +24,9 @@ def index(request):
     accessories = Accessory.objects.none()
 
     stores = Store.objects.all()
+    stores_checked = dict()
     sizes = Costume.COSTUME_SIZE
+    sizes_checked = dict()
 
     size_q = Q()
     store_q = Q()
@@ -33,6 +35,13 @@ def index(request):
     if request.method == 'GET':
 
         if not request.GET:
+
+            for size in sizes:
+                sizes_checked[size[0]] = 'checked'
+
+            for store in stores:
+                stores_checked[store.pk] = 'checked'
+
             context.update({
                 'accessories_checked': 'checked',
                 'costumes_checked': 'checked',
@@ -69,9 +78,13 @@ def index(request):
 
         if request.GET.get('store'):
             store_q = Q(store__pk__in=request.GET.getlist('store'))
+            for s in request.GET.getlist('store'):
+                stores_checked[int(s)] = 'checked'
 
         if request.GET.get('size'):
             size_q = Q(size__in=request.GET.getlist('size'))
+            for s in request.GET.getlist('size'):
+                sizes_checked[s] = 'checked'
 
     costumes = costumes.filter(size_q & store_q)
     accessories = accessories.filter(store_q)
@@ -79,6 +92,8 @@ def index(request):
     context.update({'costumes': costumes,
                'accessories': accessories,
                'stores': stores,
+               'stores_checked': stores_checked,
+               'sizes_checked': sizes_checked,
                'sizes': sizes})
     return render(request, 'costumes/index.html', context)
 
