@@ -101,8 +101,13 @@ class Borrowing(models.Model):
 
     # Handling empty borrowing
     def clean(self):
-        if not (self.costume or self.accessory):
-            raise ValidationError('You must specify either accessory or costume for borrowing.')
+        # Recursion error
+        # if not (self.costume or self.accessory):
+            # raise ValidationError('You must specify either accessory or costume for borrowing.')
+        # TODO: Check if at least one costume or accessory is present
+        # TODO: Check if borrowed_date < return_date
+        # Those checks are neccessary for the edit form
+        pass
 
     def __str__(self):
         return 'Borrowing = ' + ' event: ' + self.event + ' borrowed_date: ' + str(self.borrowed_date) + ' return_date: ' + str(self.return_date) + ' borrowing_expiration: ' + str(self.borrowing_expiration) + ' final_price: ' + str(self.final_price) + ' employee_borrowed: ' + str(self.employee_borrowed) + ' customer: ' + str(self.customer) + ' costume: ' + str(self.costume) + ' accessory: ' + str(self.accessory)

@@ -21,12 +21,12 @@
       <p>Manufacturer: {{costume.costume_template.manufacturer}}</p>
       <p>Wear-out: {{costume.wear_out}}</p>
       <p>Store: <a href="{% url 'stores' costume.store.pk %}">{{costume.store.city}}</a></p>
-      <div class="list-group">
-	<p class="list-group-item list-group-item-dark">Best with accessories:</p>
+      <ul class="list-group my-1">
+	<li class="list-group-item list-group-item-dark">Best with accessories:</li>
 	{% for accessory in costume.costume_template.accessory_set.all %}
-	<a href="{% url 'accessories' accessory.pk %}"><li class="list-group-item">{{accessory.name}}</li></a>
+	<li class="list-group-item"><a href="{% url 'accessories' accessory.pk %}">{{accessory.name}}</a></li>
 	{% endfor %}
-      </div>
+      </ul>
       <div class="my-2">
 	<!-- TODO: This should be a post request -->
 	<a class="btn btn-primary" href="#" role="button">Add to basket</a>
@@ -39,19 +39,19 @@
   <!-- TODO: Show only employees or managers -->
   <div class="row">
     <div class="col-sm">
-      <div class="list-group">
-	<p class="list-group-item list-group-item-dark">Borrowings with this costume:</p>
+      <ul class="list-group">
+	<li class="list-group-item list-group-item-dark">Borrowings with this costume:</li>
 	{% for borrowing in costume.borrowing_set.all %}
-	<a href="{% url 'borrowing' borrowing.pk %}"><li class="list-group-item">
+	<li class="list-group-item"><a href="{% url 'borrowing' borrowing.pk %}">
 	    Number: {{borrowing.pk}}
 	    Event: {{borrowing.event}}
 	    Costumes: {{borrowing.costume.all|length}}
 	    Accesories: {{borrowing.accessory.all|length}}
 	    From: {{borrowing.borrowed_date}}
 	    To: {{borrowing.return_date}}
-	</li></a>
+	</a></li>
 	{% endfor %}
-      </div>
+      </ul>
     </div>
   </div>
 </div>

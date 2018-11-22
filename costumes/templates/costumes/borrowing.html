@@ -9,19 +9,19 @@
   </div>
   <div class="row">
     <div class="col-sm">
-      <div class="list-group">
+      <ul class="list-group">
 
-	<p class="list-group-item list-group-item-dark">Costumes borrowed:</p>
+	<li class="list-group-item list-group-item-dark">Costumes borrowed:</li>
 	{% for costume in borrowing.costume.all %}
-	<a href="{% url 'costumes' costume.pk %}"><li class="list-group-item">{{costume.costume_template.name}}</li></a>
+	<li class="list-group-item"><a href="{% url 'costumes' costume.pk %}">{{costume.costume_template.name}}</a></li>
 	{% endfor %}
 
-	<p class="list-group-item list-group-item-dark">Accessories borrowed:</p>
+	<li class="list-group-item list-group-item-dark">Accessories borrowed:</li>
 	{% for accessory in borrowing.accessory.all %}
-	<a href="{% url 'accessories' accessory.pk %}"><li class="list-group-item">{{accessory.name}}</li></a>
+	<li class="list-group-item"><a href="{% url 'accessories' accessory.pk %}">{{accessory.name}}</a></li>
 	{% endfor %}
 
-      </div>
+      </ul>
     </div>
     <div class="col-sm">
       <p>Event: {{borrowing.event}}</p>
