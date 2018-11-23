@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
 from django.db.models import Q
+from datetime import date
 
 import logging
 
@@ -32,6 +33,7 @@ def index(request):
     size_q = Q()
     store_q = Q()
     aval_q = Q()
+    borrowed_q = Q()
 
     if request.method == 'GET':
 
@@ -65,17 +67,29 @@ def index(request):
                 context.pop('costumes_checked', None)
 
         if request.GET.get('aval'):
-            if 'aval' in request.GET.getlist('aval'):
-                # TODO
+            today = date.today()
+            if 'aval' in request.GET.getlist('aval') and 'borrowed' in request.GET.getlist('aval'):
                 context['available_checked'] = 'checked'
-            else:
-                context.pop('available_checked', None)
-
-            if 'borrowed' in request.GET.getlist('aval'):
-                # TODO
                 context['borrowed_checked'] = 'checked'
             else:
-                context.pop('borrowed_checked', None)
+                if 'aval' in request.GET.getlist('aval'):
+                    context['available_checked'] = 'checked'
+                    aval_q = Q(borrowing__return_date__lte=today)
+                    costumes = costumes.exclude(borrowing__return_date__gt=today)
+                    accessories = accessories.exclude(borrowing__return_date__gt=today)
+                else:
+                    context.pop('available_checked', None)
+
+                if 'borrowed' in request.GET.getlist('aval'):
+                    context['borrowed_checked'] = 'checked'
+                    borrowed_q = Q(borrowing__return_date__gt=today)
+                    costumes = costumes.filter(borrowing__return_date__gt=today)
+                    accessories = accessories.filter(borrowing__return_date__gt=today)
+                else:
+                    context.pop('borrowed_checked', None)
+        else:
+            costumes = Costume.objects.none()
+            accessories = Accessory.objects.none()
 
         if request.GET.get('store'):
             store_q = Q(store__pk__in=request.GET.getlist('store'))
