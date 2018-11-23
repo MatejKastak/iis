@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 
-{% block title %}Add new costume{% endblock %}
+{% load bootstrap4 %}
+
+{% block title %}Add new costume template{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container my-3">
   <div class="row">
-    <h1 class="detail-site-header">{{costume.name}}</h1>
+    <h1 class="detail-site-header">Create new costume template</h1>
   </div>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Save">
-</form>
+  <div class="col-lg-12">
+    <form method="post">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <button class="btn btn-primary" type="submit" value="Save">Create</button>
+    </form>
+  </div>
 </div>
 {% endblock %}
