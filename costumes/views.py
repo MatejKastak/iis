@@ -49,57 +49,60 @@ def index(request):
                 'accessories_checked': 'checked',
                 'costumes_checked': 'checked',
                 'available_checked': 'checked',
+                'borrowed_checked': 'checked',
             })
             costumes = Costume.objects.all()
             accessories = Accessory.objects.all()
 
-        if request.GET.get('type'):
-            if 'a' in request.GET.getlist('type'):
-                accessories = Accessory.objects.all()
-                context['accessories_checked'] = 'checked'
-            else:
-                context.pop('accessories_checked', None)
-
-            if 'c' in request.GET.getlist('type'):
-                costumes = Costume.objects.all()
-                context['costumes_checked'] = 'checked'
-            else:
-                context.pop('costumes_checked', None)
-
-        if request.GET.get('aval'):
-            today = date.today()
-            if 'aval' in request.GET.getlist('aval') and 'borrowed' in request.GET.getlist('aval'):
-                context['available_checked'] = 'checked'
-                context['borrowed_checked'] = 'checked'
-            else:
-                if 'aval' in request.GET.getlist('aval'):
-                    context['available_checked'] = 'checked'
-                    aval_q = Q(borrowing__return_date__lte=today)
-                    costumes = costumes.exclude(borrowing__return_date__gt=today)
-                    accessories = accessories.exclude(borrowing__return_date__gt=today)
-                else:
-                    context.pop('available_checked', None)
-
-                if 'borrowed' in request.GET.getlist('aval'):
-                    context['borrowed_checked'] = 'checked'
-                    borrowed_q = Q(borrowing__return_date__gt=today)
-                    costumes = costumes.filter(borrowing__return_date__gt=today)
-                    accessories = accessories.filter(borrowing__return_date__gt=today)
-                else:
-                    context.pop('borrowed_checked', None)
         else:
-            costumes = Costume.objects.none()
-            accessories = Accessory.objects.none()
 
-        if request.GET.get('store'):
-            store_q = Q(store__pk__in=request.GET.getlist('store'))
-            for s in request.GET.getlist('store'):
-                stores_checked[int(s)] = 'checked'
+            if request.GET.get('type'):
+                if 'a' in request.GET.getlist('type'):
+                    accessories = Accessory.objects.all()
+                    context['accessories_checked'] = 'checked'
+                else:
+                    context.pop('accessories_checked', None)
 
-        if request.GET.get('size'):
-            size_q = Q(size__in=request.GET.getlist('size'))
-            for s in request.GET.getlist('size'):
-                sizes_checked[s] = 'checked'
+                if 'c' in request.GET.getlist('type'):
+                    costumes = Costume.objects.all()
+                    context['costumes_checked'] = 'checked'
+                else:
+                    context.pop('costumes_checked', None)
+
+            if request.GET.get('aval'):
+                today = date.today()
+                if 'aval' in request.GET.getlist('aval') and 'borrowed' in request.GET.getlist('aval'):
+                    context['available_checked'] = 'checked'
+                    context['borrowed_checked'] = 'checked'
+                else:
+                    if 'aval' in request.GET.getlist('aval'):
+                        context['available_checked'] = 'checked'
+                        aval_q = Q(borrowing__return_date__lte=today)
+                        costumes = costumes.exclude(borrowing__return_date__gt=today)
+                        accessories = accessories.exclude(borrowing__return_date__gt=today)
+                    else:
+                        context.pop('available_checked', None)
+
+                    if 'borrowed' in request.GET.getlist('aval'):
+                        context['borrowed_checked'] = 'checked'
+                        borrowed_q = Q(borrowing__return_date__gt=today)
+                        costumes = costumes.filter(borrowing__return_date__gt=today)
+                        accessories = accessories.filter(borrowing__return_date__gt=today)
+                    else:
+                        context.pop('borrowed_checked', None)
+            else:
+                costumes = Costume.objects.none()
+                accessories = Accessory.objects.none()
+
+            if request.GET.get('store'):
+                store_q = Q(store__pk__in=request.GET.getlist('store'))
+                for s in request.GET.getlist('store'):
+                    stores_checked[int(s)] = 'checked'
+
+            if request.GET.get('size'):
+                size_q = Q(size__in=request.GET.getlist('size'))
+                for s in request.GET.getlist('size'):
+                    sizes_checked[s] = 'checked'
 
     costumes = costumes.filter(size_q & store_q)
     accessories = accessories.filter(store_q)
