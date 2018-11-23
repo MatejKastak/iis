@@ -84,13 +84,17 @@
       {% endfor %}
       {% endif %}
 
+      <div class="row">
       {% for costume in costumes %}
       {% include "costumes/costume_card.html" with costume=costume %}
       {% endfor %}
+      </div>
 
+      <div class="row">
       {% for accessory in accessories %}
       {% include "costumes/accessory_card.html" with accessory=accessory %}
       {% endfor %}
+      </div>
 
     </div>
   </div>
