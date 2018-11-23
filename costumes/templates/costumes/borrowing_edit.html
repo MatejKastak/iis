@@ -1,16 +1,20 @@
 {% extends "base.html" %}
 
+{% load bootstrap4 %}
+
 {% block title %}Borrowing edit{% endblock %}
 
 {% block content %}
-<div class="container">
+<div class="container my-3">
   <div class="row">
-    <h1 class="detail-site-header"></h1>
+    <h1 class="detail-site-header">Edit borrowing</h1>
   </div>
-<form action="{% url 'borrowing_edit' borrowing.pk %}" method="post">
-  {% csrf_token %}
-  {{ form }}
-  <input class="btn btn-primary" type="submit" value="Submit">
-</form>
+  <div class="col-lg-12">
+    <form action="{% url 'borrowing_edit' borrowing.pk %}" method="post">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+  </div>
 </div>
 {% endblock %}

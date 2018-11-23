@@ -13,4 +13,4 @@ class BorrowingUserFilter(django_filters.FilterSet):
 
     class Meta:
         model = Borrowing
-        fields = ['event', 'employee_borrowed', 'customer', 'costume', 'accessory']
+        fields = ['event', 'costume', 'accessory']
