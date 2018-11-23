@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load bootstrap4 %}
+
+{% block title %}Add new costume{% endblock %}
+
+{% block content %}
+<div class="container my-3">
+  <div class="row">
+    <h1 class="detail-site-header">Add new store</h1>
+  </div>
+  <div class="col-lg-12">
+    <form method="post">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <button class="btn btn-primary" type="submit" value="Save">Save</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

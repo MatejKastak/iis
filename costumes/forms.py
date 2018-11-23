@@ -32,6 +32,11 @@ class AccessoryForm(ModelForm):
             'manufactured': DateInput(attrs={'type': 'date'}),
         }
 
+class StoreForm(ModelForm):
+    class Meta:
+        model = Store
+        fields = '__all__'
+
 class RegisterForm(Form):
     first_name = forms.CharField(label='firs_name', max_length=50)
     last_name = forms.CharField(label='last_name', max_length=50)

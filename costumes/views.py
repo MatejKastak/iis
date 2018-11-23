@@ -102,10 +102,6 @@ def costumes(request, costume_id):
     costume = get_object_or_404(Costume, pk=costume_id)
     return render(request, 'costumes/costume.html', {'costume': costume})
 
-def costumes_gallery(request):
-    context = {'costumes': Costume.objects.all()}
-    return render(request, 'costumes/index.html', context)
-
 @login_required(login_url="/login")
 # TODO: @permission_required('costumes.accessories_edit', raise_exception=True)
 def costumes_edit(request, costume_id):
@@ -173,10 +169,6 @@ def accessories_delete(request, accessory_id):
 def accessories(request, accessory_id):
     accessory = get_object_or_404(Accessory, pk=accessory_id)
     return render(request, 'costumes/accessory.html', {'accessory': accessory})
-
-def accessories_gallery(request):
-    context = {'accessories': Accessory.objects.all()}
-    return render(request, 'costumes/index.html', context)
 
 def accessories_duplicate(request, accessory_id):
     raise Http404('NOT YET IMPLEMENTED')
@@ -296,11 +288,17 @@ class add_accessory(LoginRequiredMixin, CreateView):
     model = Accessory
     form_class = AccessoryForm
 
+# TODO: Create priviledges 'stores.store_add'
+class add_store(LoginRequiredMixin, CreateView):
+    login_url = '/login'
+    redirect_field_name = '/add_store'
+    model = Store
+    form_class = StoreForm
+
 def stores(request, store_id):
     store = get_object_or_404(Store, pk=store_id)
     context = {'store': store}
     return render(request, 'costumes/store.html', context)
-
 
 @login_required(login_url="/login")
 @permission_required('costumes.change_employee', raise_exception=True)
