@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Costume detail{% endblock %}
+
+{% block content %}
+<div class="container my-3">
+  <div class="row">
+    <h1 class="detail-site-header">{{ct.name}}</h1>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <p>Manufacturer: {{ct.manufacturer}}</p>
+      <p>Material: {{ct.material}}</p>
+      <p>Description: {{ct.description}}</p>
+      <div class="my-2">
+	<!-- TODO: Edit should be possible only if the user has privileges to do it-->
+	<a class="btn btn-success" href="{% url 'costume_templates_edit' ct.pk %}" role="button">Edit</a>
+	<a class="btn btn-danger" href="{% url 'costume_templates_delete' ct.pk %}" role="button">Delete</a>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <ul class="list-group">
+	<li class="list-group-item list-group-item-dark">Costumes with this template:</li>
+	{% for costume in ct.costume_set.all %}
+	<li class="list-group-item"><a href="{% url 'costumes' costume.pk %}">
+	    Size: {{costume.size}}
+	    Color: {{costume.color}}
+	    Price: {{costume.price}} €
+	    Wear-out: {{costume.wear_out}}
+	    Manufactured: {{costume.manufactured}}
+	</a></li>
+	{% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

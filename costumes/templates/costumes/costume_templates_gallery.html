@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% load bootstrap4 %}
+
+{% block title %}IIS - gallery{% endblock %}
+
+{% block content %}
+<div class="container my-3">
+  <form action="" method="get" class="mt-2 mb-4">
+    {% csrf_token %}
+    {% bootstrap_form filter.form %}
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+  <ul class="list-group">
+    <p class="list-group-item list-group-item-dark">Current costume templates in the system:</p>
+    {% for costume_template in filter.qs %}
+    <li class="list-group-item"><a href="{% url 'costume_templates' costume_template.pk %}">
+	Name: {{costume_template.name}}
+	Manufacturer: {{costume_template.manufacturer}}
+	Material: {{costume_template.material}}
+	Description: {{costume_template.description}}
+    </a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

@@ -34,6 +34,11 @@ urlpatterns = [
     path('borrowings/<int:borrowing_id>/edit', views.borrowings_edit, name='borrowing_edit'),
     path('borrowings/<int:borrowing_id>/delete', views.borrowings_delete, name='borrowing_delete'),
 
+    path('costume_templates', views.costume_templates_gallery, name='costume_templates_gallery'),
+    path('costume_templates/<int:ct_id>', views.costume_templates, name='costume_templates'),
+    path('costume_templates/<int:costume_template_id>/edit', views.costume_templates_edit, name='costume_templates_edit'),
+    path('costume_templates/<int:costume_template_id>/delete', views.costume_templates_delete, name='costume_templates_delete'),
+
     path('stores', views.stores_gallery, name='stores_gallery'),
     path('add_store', views.add_store.as_view(success_url='/gallery'), name='add_store'),
     path('stores/<int:store_id>', views.stores, name='stores'),

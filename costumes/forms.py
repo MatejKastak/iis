@@ -16,6 +16,11 @@ class BorrowingForm(ModelForm):
             'return_date': DateInput(attrs={'type': 'date'}),
         }
 
+class CostumeTemplateForm(ModelForm):
+    class Meta:
+        model = CostumeTemplate
+        fields = '__all__'
+
 class CostumeForm(ModelForm):
     class Meta:
         model = Costume

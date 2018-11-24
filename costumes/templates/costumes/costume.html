@@ -30,6 +30,7 @@
       <div class="my-2">
 	<!-- TODO: This should be a post request -->
 	<a class="btn btn-primary" href="#" role="button">Add to basket</a>
+	<a class="btn btn-primary" href="{% url 'costume_templates' costume.costume_template.pk %}" role="button">Show other variants</a>
 	<!-- TODO: Edit should be possible only if the user has privileges to do it-->
 	<a class="btn btn-success" href="{% url 'costumes_edit' costume.pk %}" role="button">Edit</a>
 	<a class="btn btn-danger" href="{% url 'costumes_delete' costume.pk %}" role="button">Delete</a>

@@ -176,6 +176,20 @@ def stores_edit(request, store_id):
     return render(request, 'costumes/store_edit.html', {'form': form, 'store': store})
 
 @login_required(login_url="/login")
+# TODO: @permission_required('costume_templates.accessories_edit', raise_exception=True)
+def costume_templates_edit(request, costume_template_id):
+    costume_template = get_object_or_404(CostumeTemplate, pk=costume_template_id)
+    if request.method == 'POST':
+        form = CostumeTemplateForm(request.POST, instance=costume_template)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/costume_templates/' + str(costume_template_id))
+    else:
+        form = CostumeTemplateForm(instance=costume_template)
+            
+    return render(request, 'costumes/costume_template_edit.html', {'form': form, 'ct': costume_template})
+
+@login_required(login_url="/login")
 # TODO: @permission_required('costumes.borrowing_delete', raise_exception=True)
 def borrowings_delete(request, borrowing_id):
     # TODO: Maybe add confirmation dialog/ can be js?
@@ -202,6 +216,13 @@ def accessories_delete(request, accessory_id):
 def stores_delete(request, store_id):
     store = get_object_or_404(Store, pk=store_id)
     store.delete()
+    return HttpResponseRedirect('/')
+
+@login_required(login_url="/login")
+# TODO: @permission_required('costumes.costume_templates_delete', raise_exception=True)
+def costume_templates_delete(request, costume_template_id):
+    costume_template = get_object_or_404(CostumeTemplate, pk=costume_template_id)
+    costume_template.delete()
     return HttpResponseRedirect('/')
 
 def accessories(request, accessory_id):
@@ -287,6 +308,9 @@ def borrowings_gallery(request):
 
     return render(request, 'costumes/borrowings_gallery.html', {'filter': f})
     
+def costume_templates_gallery(request):
+    f = CostumeTemplateFilter(request.GET, queryset=CostumeTemplate.objects.all())
+    return render(request, 'costumes/costume_templates_gallery.html', {'filter': f})
 
 def borrowings(request, borrowing_id):
     # TODO: Check permissions
@@ -300,6 +324,19 @@ def borrowings(request, borrowing_id):
 
     context = {'borrowing': borrowing}
     return render(request, 'costumes/borrowing.html', context)
+
+def costume_templates(request, ct_id):
+    # TODO: Check permissions
+    costume_template = get_object_or_404(CostumeTemplate, pk=ct_id)
+    if True: # Manager or employee
+        pass
+    else:
+        # Raise permission error
+        pass
+
+    context = {'ct': costume_template}
+    return render(request, 'costumes/costume_template.html', context)
+
 
 def stores_gallery(request):
     context = {'stores': Store.objects}
