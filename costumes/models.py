@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class Store(models.Model):
     street = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
+    num = models.CharField(max_length=100)
     opened_from = models.CharField(max_length=5, default='08:00')
     opened_to = models.CharField(max_length=5, default='18:00')
 
