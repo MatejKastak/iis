@@ -58,3 +58,14 @@ class EditManagerForm(Form):
     tel_num = forms.CharField(label='tel_num', max_length=50, required=False)
     store = forms.CharField(label='store', max_length=50, required=False)
     super_manager = forms.CharField(label='super_manager', max_length=50, required=False)
+
+class CreateManagerForm(Form):
+    login = forms.CharField(label='login', max_length=50)
+    password = forms.CharField(label='password', max_length=50)
+    first_name = forms.CharField(label='first_name', max_length=50, required=False)
+    last_name = forms.CharField(label='last_name', max_length=50, required=False)
+    email = forms.CharField(label='email', max_length=50, required=False)
+    address = forms.CharField(label='address', max_length=50, required=False)
+    tel_num = forms.CharField(label='tel_num', max_length=50, required=False)
+    store = forms.CharField(label='store', max_length=50, required=False)
+    super_manager = forms.CharField(label='super_manager', max_length=50, required=False)

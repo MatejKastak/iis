@@ -394,6 +394,9 @@ def manage_manager(request):
 def edit_manager(request, manager_id):
     context = {}
     context['manager'] = User.objects.get(pk=manager_id)
+    for g in User.objects.get(pk=manager_id).groups.all():
+        if g.name == "super_manager":
+            context['is_super_manager'] = True
     context['store'] = Store.objects.all()
     return render(request, 'manage/edit_manager.html', context)
 
@@ -412,11 +415,76 @@ def edit_manager_script(request):
             m.address = form.data.get('address')
             m.tel_num = form.data.get('tel_num')
             if form.data.get('store'):
-                m.store = int(form.data.get('store'))
+                s = Store.objects.get(id=int(form.data.get('store')))
+                m.store = s
+            if form.data.get('super_manager'):
+                g = Group.objects.get(name="super_manager")
+                g.user_set.add(u)
+                g.save()
+            else:
+                for g in u.groups.all():
+                    if g.name == "super_manager":
+                        u.groups.remove(g)
+                        break
             u.save()
             m.save()
             return redirect(manage_manager)
     raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST')
+
+
+@login_required(login_url="/login")
+@permission_required('costumes.add_manager', raise_exception=True)
+def create_manager(request):
+    context = {}
+    if "manager_exists" in getMessages(request):
+        context['manager_exists'] = True
+    context['store'] = Store.objects.all()
+    return render(request, 'manage/create_manager.html', context)
+
+
+@login_required(login_url="/login")
+@permission_required('costumes.add_manager', raise_exception=True)
+def create_manager_script(request):
+    if request.method == 'POST':
+        form = CreateManagerForm(request.POST)
+        if form.is_valid():
+            try:
+                u = User.objects.create_user(form.data['login'])
+            except IntegrityError:
+                messages.add_message(request, messages.INFO, "manager_exists")
+                return redirect(create_manager)
+            u.set_password(form.data.get("password"))
+            u.first_name = form.data.get("first_name")
+            u.last_name = form.data.get("last_name")
+            u.email_name = form.data.get("email_name")
+            u.save()
+            m = Manager.objects.create(user=u)
+            m.address = form.data.get("address")
+            m.tel_num = form.data.get("tel_num")
+            m.store
+            if form.data.get('store'):
+                s = Store.objects.get(id=int(form.data.get('store')))
+                m.store = s
+            m.save()
+            g = Group.objects.get(name="manager")
+            g.user_set.add(u)
+            g.save()
+            if form.data.get('super_manager'):
+                g = Group.objects.get(name="super_manager")
+                g.user_set.add(u)
+                g.save()
+            return redirect(manage_manager)
+    raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST')
+
+
+@login_required(login_url="/login")
+@permission_required('costumes.delete_manager', raise_exception=True)
+def delete_manager(request):
+    if request.GET.get("id"):
+        u = User.objects.get(id=int(request.GET.get("id")))
+        u.delete()
+        return redirect(manage_manager)
+    return Http404('UNKOWN GET ARGUMENTS FOR THIS REQUEST')
 
 
 def getMessages(request):

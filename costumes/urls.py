@@ -14,6 +14,9 @@ urlpatterns = [
     path('manage_manager', views.manage_manager, name='manage_manager'),
     path('edit_manager/<int:manager_id>', views.edit_manager, name='manage_manager'),
     path('edit_manager/script', views.edit_manager_script, name='manage_manager'),
+    path('create_manager', views.create_manager, name='manage_manager'),
+    path('create_manager/script', views.create_manager_script, name='manage_manager'),
+    path('delete_manager', views.delete_manager, name='manage_manager'),
 
     path('costumes/<int:costume_id>', views.costumes, name='costumes'),
     path('costumes/<int:costume_id>/edit', views.costumes_edit, name='costumes_edit'),
