@@ -75,10 +75,12 @@
       {% if request.user.is_staff %}
       {% for group in request.user.groups.all %}
       {% if group.name == "employee" %}
-      <div class="col-lg-9 mb-2">
-	<a class="btn btn-success" href="/add_costume" role="button">Add new costume</a>
-	<a class="btn btn-success" href="/add_costume_template" role="button">Add new costume template</a>
-	<a class="btn btn-success" href="/add_accessory" role="button">Add new accessory</a>
+      <div class="row">
+	<div class="col-lg-9 mb-2">
+	  <a class="btn btn-success" href="/add_costume" role="button">Add new costume</a>
+	  <a class="btn btn-success" href="/add_costume_template" role="button">Add new costume template</a>
+	  <a class="btn btn-success" href="/add_accessory" role="button">Add new accessory</a>
+	</div>
       </div>
       {% endif %}
       {% endfor %}

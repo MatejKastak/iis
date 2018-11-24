@@ -162,6 +162,20 @@ def accessories_edit(request, accessory_id):
     return render(request, 'costumes/accessory_edit.html', {'form': form, 'accessory': accessory})
 
 @login_required(login_url="/login")
+# TODO: @permission_required('costumes.stores_edit', raise_exception=True)
+def stores_edit(request, store_id):
+    store = get_object_or_404(Store, pk=store_id)
+    if request.method == 'POST':
+        form = StoreForm(request.POST, instance=store)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/stores/' + str(store_id))
+    else:
+        form = StoreForm(instance=store)
+
+    return render(request, 'costumes/store_edit.html', {'form': form, 'store': store})
+
+@login_required(login_url="/login")
 # TODO: @permission_required('costumes.borrowing_delete', raise_exception=True)
 def borrowings_delete(request, borrowing_id):
     # TODO: Maybe add confirmation dialog/ can be js?
@@ -181,6 +195,13 @@ def costumes_delete(request, costume_id):
 def accessories_delete(request, accessory_id):
     accessory = get_object_or_404(Accessory, pk=accessory_id)
     accessory.delete()
+    return HttpResponseRedirect('/')
+
+@login_required(login_url="/login")
+# TODO: @permission_required('stores.stores_delete', raise_exception=True)
+def stores_delete(request, store_id):
+    store = get_object_or_404(Store, pk=store_id)
+    store.delete()
     return HttpResponseRedirect('/')
 
 def accessories(request, accessory_id):
