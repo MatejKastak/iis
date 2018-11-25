@@ -376,6 +376,49 @@ def stores(request, store_id):
     return render(request, 'costumes/store.html', context)
 
 
+@login_required(login_url="/login")
+def edit_user(request):
+    return render(request, 'registration/edit_user.html')
+
+
+@login_required(login_url="/login_user")
+def edit_user_script(request):
+    if request.method == 'POST':
+        form = UserEditForm(request.POST)
+        if form.is_valid():
+            request.user.first_name = form.data.get("first_name")
+            request.user.last_name = form.data.get("last_name")
+            request.user.email = form.data.get("email")
+            request.user.save()
+            return redirect(index)
+    raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST') 
+
+
+@login_required(login_url="/login_user")
+def change_password(request):
+    context = {}
+    if "invalid_password" in getMessages(request):
+        context["invalid_password"] = True
+    return render(request, 'registration/user_change_password.html', context)
+
+
+@login_required(login_url="/login_user")
+def change_password_script(request):
+    if request.method == 'POST':
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid():
+            user = authenticate(request, username=request.user.username, password=form.data.get('old_password'))
+            if user is None:
+                messages.add_message(request, messages.INFO, "invalid_password")
+                return redirect(change_password)
+            else:
+                request.user.set_password(form.data.get('new_password'))
+                request.user.save()
+                return redirect(edit_user)
+    raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST') 
+
+
+
 def getMessages(request):
     storage = messages.get_messages(request)
     msgs = []

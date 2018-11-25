@@ -1,5 +1,6 @@
 from django import forms
 from django.forms import ModelForm, DateInput, Form, PasswordInput
+from django.contrib.auth.models import User
 
 from .models import *
 
@@ -46,7 +47,7 @@ class RegisterForm(Form):
     first_name = forms.CharField(label='firs_name', max_length=50)
     last_name = forms.CharField(label='last_name', max_length=50)
     login = forms.CharField(label='login', max_length=50)
-    email = forms.CharField(label='email', max_length=50)
+    email = forms.CharField(label='email', max_length=50, required=False)
     password = forms.CharField(label='password_1', max_length=50, min_length=6)
 
 class EditManagerForm(Form):
@@ -88,3 +89,13 @@ class CreateEmployeeForm(Form):
     address = forms.CharField(label='address', max_length=50, required=False)
     tel_num = forms.CharField(label='tel_num', max_length=50, required=False)
     store = forms.CharField(label='store', max_length=50, required=False)
+
+
+class UserEditForm(Form):
+    first_name = forms.CharField(label='firs_name', max_length=50)
+    last_name = forms.CharField(label='last_name', max_length=50)
+    email = forms.CharField(label='email', max_length=50, required=False)
+
+class ChangePasswordForm(Form):
+    old_password = forms.CharField(label='old_password', max_length=50, min_length=6)
+    new_password = forms.CharField(label='new_password', max_length=50, min_length=6)

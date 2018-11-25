@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}IIS - manage{% endblock %}
+
+{% block content %}
+
+<div class="container" style="padding-top: 1rem;">
+    <div class="row shadow p-3 mb-5 bg-white rounded border-top align-items-center">
+        <div  style="margin: 0 auto;">
+            <form method="POST" action="/edit_user/script">
+                {% csrf_token %}
+                <label>*First name</label>
+                <input required name="first_name" class="form-control" value="{{ user.first_name }}"><br>
+                <label>*Last name</label>
+                <input required name="last_name" class="form-control" value="{{ user.last_name }}"><br>
+                <label>Email</label>
+                <input name="email" type="email" class="form-control" value="{{ user.email }}"><br>
+                <div style="margin-top:20px;">
+                <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                <a href="/user_change_password"><button type="button" class="btn btn-primary btn-block" style="margin-top:20px;">Change password</button></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
