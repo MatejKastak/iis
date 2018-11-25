@@ -4,11 +4,21 @@
 
 {% block content %}
 <div class="container my-3">
-  <ul class="list-group">
-    <p class="list-group-item list-group-item-dark">Stores you can visit:</p>
-    {% for store in stores.all %}
-    <li class="list-group-item"><a href="{% url 'stores' store.pk %}">City {{store.city}} at {{store.street}} street</a></li>
-    {% endfor %}
-  </ul>
+  <div class="row">
+    <div class="col-lg">
+      <ul class="list-group">
+	<p class="list-group-item list-group-item-dark">Stores you can visit:</p>
+	{% for store in stores.all %}
+	<li class="list-group-item"><a href="{% url 'stores' store.pk %}">City {{store.city}} at {{store.street}} street</a></li>
+	{% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-9 mt-2">
+      <a class="btn btn-success" href="/add_store" role="button">Add new store</a>
+    </div>
+  </div>
 </div>
 {% endblock %}
