@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}IIS - manage{% endblock %}
+
+{% block content %}
+
+<div class="container" style="padding-top: 1rem;">
+    <div class="row shadow p-3 mb-5 bg-white rounded border-top align-items-center">
+        <div  style="margin: 0 auto;">
+            <form method="POST" action="/edit_employee/script">
+                {% csrf_token %}
+                <input hidden name="id" value="{{ employee.id }}">
+                <label>First name</label>
+                <input name="first_name" class="form-control" value="{{ employee.first_name }}"><br>
+                <label>Last name</label>
+                <input name="last_name" class="form-control" value="{{ employee.last_name }}"><br>
+                <label>Email</label>
+                <input name="email" type="email" class="form-control" value="{{ employee.email }}"><br>
+                <label>Address</label>
+                <input name="address" class="form-control" value="{{ employee.employee.address }}"><br>
+                <label>Tel. number</label>
+                <input name="tel_num" class="form-control" value="{{ employee.employee.tel_num }}"><br>
+                <label>Working location</label>
+                <select name="store" class="form-control">
+                    <option disabled selected value>-- select a store --</option>
+                    {% for s in store %}
+                    <option value="{{ s.id }}">{{ s.street }}</option>
+                    {% endfor %}
+                </select>
+                <div style="margin-top:40px;">
+                <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

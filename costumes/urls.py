@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from . import views, views_managment
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -10,13 +10,21 @@ urlpatterns = [
     path('login/script', views.login_script, name='login'),
     path('register', views.register, name='register'),
     path('register/script', views.register_script, name='register'),
-    path('manage_employee', views.manage_employee, name='manage_employee'),
-    path('manage_manager', views.manage_manager, name='manage_manager'),
-    path('edit_manager/<int:manager_id>', views.edit_manager, name='manage_manager'),
-    path('edit_manager/script', views.edit_manager_script, name='manage_manager'),
-    path('create_manager', views.create_manager, name='manage_manager'),
-    path('create_manager/script', views.create_manager_script, name='manage_manager'),
-    path('delete_manager', views.delete_manager, name='manage_manager'),
+
+    path('manage_employee', views_managment.manage_employee, name='manage_employee'),
+    path('manage_manager', views_managment.manage_manager, name='manage_manager'),
+
+    path('edit_manager/<int:manager_id>', views_managment.edit_manager, name='manage_manager'),
+    path('edit_manager/script', views_managment.edit_manager_script, name='manage_manager'),
+    path('create_manager', views_managment.create_manager, name='manage_manager'),
+    path('create_manager/script', views_managment.create_manager_script, name='manage_manager'),
+    path('delete_manager', views_managment.delete_manager, name='manage_manager'),
+
+    path('edit_employee/<int:employee_id>', views_managment.edit_employee, name='manage_employee'),
+    path('edit_employee/script', views_managment.edit_employee_script, name='manage_employee'),
+    path('create_employee', views_managment.create_employee, name='manage_employee'),
+    path('create_employee/script', views_managment.create_employee_script, name='manage_employee'),
+    path('delete_employee', views_managment.delete_employee, name='manage_employee'),
 
     path('costumes/<int:costume_id>', views.costumes, name='costumes'),
     path('costumes/<int:costume_id>/edit', views.costumes_edit, name='costumes_edit'),
