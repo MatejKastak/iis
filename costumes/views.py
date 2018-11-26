@@ -263,6 +263,8 @@ def login_script(request):
                 messages.add_message(request, messages.INFO, "invalid_login")
                 return HttpResponseRedirect('/login')
             login(request, user)
+            request.session['basket_costume'] = []
+            request.session['basket_accessory'] = []
             return redirect(index)
     raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST')
 
@@ -276,14 +278,14 @@ def register_script(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             try:
-                user = User.objects.create_user(form.data['login'])
+                user = User.objects.create_user(form.data.get('login'))
             except IntegrityError:
                 messages.add_message(request, messages.INFO, "user_exists")
                 return HttpResponseRedirect('/register')
-            user.first_name = form.data['first_name']
-            user.last_name = form.data['last_name']
-            user.email = form.data['email']
-            user.set_password(form.data['password'])
+            user.first_name = form.data.get('first_name')
+            user.last_name = form.data.get('last_name')
+            user.email = form.data.get('email')
+            user.set_password(form.data.get('password'))
             user.save()
             customer = Customer(user=user)
             customer.save()
@@ -352,7 +354,7 @@ class add_costume(LoginRequiredMixin, CreateView):
 # TODO: Create priviledges 'costumes.costume_template_add'
 class add_costume_template(LoginRequiredMixin, CreateView):
     login_url = '/login'
-    form_class = CostumeForm
+    form_class = CostumeTemplateForm
     redirect_field_name = '/add_costume_template'
     model = CostumeTemplate
 
@@ -417,6 +419,35 @@ def change_password_script(request):
                 return redirect(edit_user)
     raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST') 
 
+
+@login_required(login_url="/login_user")
+def add_costume_to_basket(request):
+    if request.method == 'GET':
+        if request.GET.get('id'):
+            costume_id = int(request.GET.get('id'))
+            s = request.session['basket_costume']
+            if not costume_id in s:
+                s.append(costume_id)
+            request.session['basket_costume'] = s
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        else:
+            raise Http404('UNKOWN GET ARGUMENTS FOR THIS REQUEST') 
+    raise Http404('EXPECTED GET METHOD') 
+
+
+@login_required(login_url="/login_user")
+def add_accessory_to_basket(request):
+    if request.method == 'GET':
+        if request.GET.get('id'):
+            accessory_id = int(request.GET.get('id'))
+            s = request.session['basket_accessory']
+            if not accessory_id in s:
+                s.append(accessory_id)
+            request.session['basket_accessory'] = s
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        else:
+            raise Http404('UNKOWN GET ARGUMENTS FOR THIS REQUEST')
+    raise Http404('EXPECTED GET METHOD') 
 
 
 def getMessages(request):

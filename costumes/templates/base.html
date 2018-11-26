@@ -119,10 +119,17 @@
 
 	  </li>
 
-    {% if user.employee == None and user.manager == None %}
+    {% if not request.user.employee and not request.user.manager %}
 	  <li class="nav-item">
-
-	    <a class="btn btn-secondary" href="/basket">My basket{% if basket_num %} ({{basket_num}}){% endif %}</a>
+      {% with request.session.basket_costume|length as c_len %}
+      {% with request.session.basket_accessory|length as a_len %}
+      {% if c_len|add:a_len == 0 %}
+      <a class="btn btn-secondary" href="/basket">Basket Empty</a>
+      {% else %}
+      <a class="btn btn-secondary" href="/basket">{{ c_len|add:a_len }} Items in basket</a>
+      {% endif %}
+      {% endwith %}
+      {% endwith %}
 
     </li>
     {% endif %}

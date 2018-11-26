@@ -44,8 +44,8 @@ class StoreForm(ModelForm):
         fields = '__all__'
 
 class RegisterForm(Form):
-    first_name = forms.CharField(label='firs_name', max_length=50)
-    last_name = forms.CharField(label='last_name', max_length=50)
+    first_name = forms.CharField(label='firs_name', max_length=50, required=False)
+    last_name = forms.CharField(label='last_name', max_length=50, required=False)
     login = forms.CharField(label='login', max_length=50)
     email = forms.CharField(label='email', max_length=50, required=False)
     password = forms.CharField(label='password_1', max_length=50, min_length=6)
@@ -92,8 +92,8 @@ class CreateEmployeeForm(Form):
 
 
 class UserEditForm(Form):
-    first_name = forms.CharField(label='firs_name', max_length=50)
-    last_name = forms.CharField(label='last_name', max_length=50)
+    first_name = forms.CharField(label='firs_name', max_length=50, required=False)
+    last_name = forms.CharField(label='last_name', max_length=50, required=False)
     email = forms.CharField(label='email', max_length=50, required=False)
 
 class ChangePasswordForm(Form):

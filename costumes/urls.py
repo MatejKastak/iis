@@ -34,7 +34,7 @@ urlpatterns = [
     path('costumes/<int:costume_id>/edit', views.costumes_edit, name='costumes_edit'),
     path('costumes/<int:costume_id>/delete', views.costumes_delete, name='costumes_delete'),
     path('add_costume', views.add_costume.as_view(success_url='/gallery'), name='add_costume'),
-    path('add_costume_template', views.add_costume_template.as_view(), name='add_costume_template'),
+    path('add_costume_template', views.add_costume_template.as_view(success_url='/costume_templates'), name='add_costume_template'),
 
     path('accessories/<int:accessory_id>', views.accessories, name='accessories'),
     path('accessories/<int:accessory_id>/edit', views.accessories_edit, name='accessories_edit'),
@@ -59,4 +59,7 @@ urlpatterns = [
     path('stores/<int:store_id>', views.stores, name='stores'),
     path('stores/<int:store_id>/edit', views.stores_edit, name='stores_edit'),
     path('stores/<int:store_id>/delete', views.stores_delete, name='stores_delete'),
+
+    path('add_costume_to_basket', views.add_costume_to_basket, name='add_costume_to_basket'),
+    path('add_accessory_to_basket', views.add_accessory_to_basket, name='add_accessory_to_basket')
 ]

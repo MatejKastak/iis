@@ -28,16 +28,19 @@
 	{% endfor %}
       </ul>
       <div class="my-2">
-	<!-- TODO: This should be a post request -->
-	<a class="btn btn-primary" href="#" role="button">Add to basket</a>
+  <!-- TODO: This should be a post request -->
+  {% if request.user.customer %}
+  <a class="btn btn-primary" href="/add_costume_to_basket?id={{ costume.id }}" role="button">Add to basket</a>
+  {% endif %}
 	<a class="btn btn-primary" href="{% url 'costume_templates' costume.costume_template.pk %}" role="button">Show other variants</a>
-	<!-- TODO: Edit should be possible only if the user has privileges to do it-->
+	{% if request.user.employee.id == costume.employee.id %}
 	<a class="btn btn-success" href="{% url 'costumes_edit' costume.pk %}" role="button">Edit</a>
-	<a class="btn btn-danger" href="{% url 'costumes_delete' costume.pk %}" role="button">Delete</a>
+  <a class="btn btn-danger" href="{% url 'costumes_delete' costume.pk %}" role="button">Delete</a>
+  {% endif %}
       </div>
     </div>
   </div>
-  <!-- TODO: Show only employees or managers -->
+  {% if request.user.employee or request.user.manager %}
   <div class="row">
     <div class="col-sm">
       <ul class="list-group">
@@ -55,5 +58,6 @@
       </ul>
     </div>
   </div>
+  {% endif %}
 </div>
 {% endblock %}

@@ -23,7 +23,9 @@
       </ul>
       <!-- TODO: This should be a post request -->
       <div class="my-2">
-	<a class="btn btn-primary" href="#" role="button">Add to basket</a>
+  {% if request.user.customer %}
+  <a class="btn btn-primary" href="add_accessory_to_basket?id={{ accessory.id }}" role="button">Add to basket</a>
+  {% endif %}
 	<!-- TODO: Edit should be possible only if the user has privileges to do it-->
 	<a class="btn btn-success" href="{% url 'accessories_edit' accessory.pk %}" role="button">Edit</a>
 	<a class="btn btn-danger" href="{% url 'accessories_delete' accessory.pk %}" role="button">Delete</a>
@@ -31,6 +33,7 @@
     </div>
   </div>
   <!-- TODO: Show only employees or managers -->
+  {% if request.user.employee or request.user.manager %}
   <div class="row">
     <div class="col-sm">
       <ul class="list-group">
@@ -48,5 +51,6 @@
       </ul>
     </div>
   </div>
+  {% endif %}
 </div>
 {% endblock %}
