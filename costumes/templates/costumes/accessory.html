@@ -21,18 +21,21 @@
 	<li class="list-group-item">{{ct.name}}</li>
 	{% endfor %}
       </ul>
-      <!-- TODO: This should be a post request -->
       <div class="my-2">
   {% if request.user.customer %}
-  <a class="btn btn-primary" href="add_accessory_to_basket?id={{ accessory.id }}" role="button">Add to basket</a>
+    {% if accessory.id in request.session.basket_accessory %}
+      <a class="btn btn-primary disabled" href="#" style="pointer-events: none; display: inline-block;" role="button">Already in basket</a>
+    {% else %}
+      <a class="btn btn-primary" href="/add_accessory_to_basket?id={{ accessory.id }}" role="button">Add to basket</a>
+    {% endif %}
   {% endif %}
-	<!-- TODO: Edit should be possible only if the user has privileges to do it-->
+	{% if request.user.employee or request.user.manager %}
 	<a class="btn btn-success" href="{% url 'accessories_edit' accessory.pk %}" role="button">Edit</a>
-	<a class="btn btn-danger" href="{% url 'accessories_delete' accessory.pk %}" role="button">Delete</a>
+  <a class="btn btn-danger" href="{% url 'accessories_delete' accessory.pk %}" role="button">Delete</a>
+  {% endif %}
       </div>
     </div>
   </div>
-  <!-- TODO: Show only employees or managers -->
   {% if request.user.employee or request.user.manager %}
   <div class="row">
     <div class="col-sm">

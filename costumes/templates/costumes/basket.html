@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Accessory detail{% endblock %}
+
+{% block content %}
+
+<div class="container my-3">
+
+    {% for costume in costumes.all %}
+    <div class="row border-top border-bottom" style="height: 120px;">
+        <div class="col-3">
+            <a href="{% url 'costumes' costume.id %}">
+                <img class="card-img-top" src="{{costume.picture.url}}" alt="Card image cap">
+            </a>
+        </div>
+        <div class="col my-auto">
+            <h5 class="card-title">{{costume.costume_template.name}}</h5>
+        </div>
+        <div class="col my-auto">
+            <h5 class="card-text">{{costume.price}} €</h5>
+        </div>
+        <div class="col my-auto">
+            <h5 class="card-text">at: {{costume.store.street}}</h5>
+        </div>
+        <div class="col my-auto">
+            <a class="btn btn-danger" href="/remove_costume_from_basket?id={{ costume.id }}" role="button">Remove from basket</a>
+        </div>
+      </div>
+    {% endfor %}
+    {% for accessory in accessory.all %}
+    <div class="row border-top border-bottom" style="height: 120px;">
+        <div class="col-3">
+            <a href="{% url 'accessories' accessory.id %}">
+                <img class="card-img-top" src="{{accessory.picture.url}}" alt="Card image cap">
+            </a>
+        </div>
+        <div class="col my-auto">
+            <h5 class="align-middle">{{accessory.name}}</h5>
+        </div>
+        <div class="col my-auto">
+            <h5 class="card-text">{{accessory.price}} €</h5>
+        </div>
+        <div class="col my-auto">
+            <h5 class="card-text">at: {{accessory.store.street}}</h5>
+        </div>
+        <div class="col my-auto">
+            <a class="btn btn-danger" href="/remove_accessory_from_basket?id={{ accessory.id }}" role="button">Remove from basket</a>
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="row" style="margin-top: 20px;">
+    <a class="btn btn-primary" style="margin-right: 10px;" href="/gallery" role="button">Back to gallery</a>
+    {% if has_items %}
+        {% if costumes_same_shop and accessory_same_shop %}
+            <a class="btn btn-success" href="/finish_borrowing" role="button">Book costumes</a>
+        {% else %}
+            <a class="btn btn-danger disabled" role="button">Can't book costumes placed from differnet shop</a>
+        {% endif %}
+    {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

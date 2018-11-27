@@ -41,7 +41,7 @@ urlpatterns = [
     path('accessories/<int:accessory_id>/delete', views.accessories_delete, name='accessories_delete'),
     path('add_accessory', views.add_accessory.as_view(success_url='/gallery'), name='add_accessory'),
 
-    path('basket', views.basket, name='backet'),
+    path('basket', views.basket, name='basket'),
     path('user', views.user, name='user'),
     path('settings', views.settings, name='setting'),
     path('borrowings', views.borrowings_gallery, name='borrowings_gallery'),
@@ -61,5 +61,7 @@ urlpatterns = [
     path('stores/<int:store_id>/delete', views.stores_delete, name='stores_delete'),
 
     path('add_costume_to_basket', views.add_costume_to_basket, name='add_costume_to_basket'),
-    path('add_accessory_to_basket', views.add_accessory_to_basket, name='add_accessory_to_basket')
+    path('add_accessory_to_basket', views.add_accessory_to_basket, name='add_accessory_to_basket'),
+    path('remove_costume_from_basket', views.remove_costume_from_basket, name='add_costume_to_basket'),
+    path('remove_accessory_from_basket', views.remove_accessory_from_basket, name='add_accessory_to_basket')
 ]

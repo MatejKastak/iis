@@ -242,8 +242,21 @@ def accessories_duplicate(request, accessory_id):
 
     return render(request, 'costumes/accessory_edit.html', {'form': form, 'accessory': accessory})
 
+
 def basket(request):
-    raise Http404('NOT YET IMPLEMENTED')
+    costumes = Costume.objects.filter(id__in=request.session['basket_costume'])
+    accessory = Accessory.objects.filter(id__in=request.session['basket_accessory'])
+    context = {}
+    context['costumes'] = costumes
+    context['accessory'] = accessory
+    if all(c == costumes[0] for c in costumes):
+        context['costumes_same_shop'] = True
+    if all(c == accessory[0] for c in accessory):
+        context['accessory_same_shop'] = True
+    if len(costumes) + len(accessory) > 0:
+        context['has_items'] = True
+    return render(request, 'costumes/basket.html', context)
+
 
 def logout_page(request):
     logout(request)
@@ -447,7 +460,35 @@ def add_accessory_to_basket(request):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
         else:
             raise Http404('UNKOWN GET ARGUMENTS FOR THIS REQUEST')
-    raise Http404('EXPECTED GET METHOD') 
+    raise Http404('EXPECTED GET METHOD')
+
+
+@login_required(login_url="/login_user")
+def remove_costume_from_basket(request):
+    if request.method == 'GET':
+        if request.GET.get('id'):
+            costume_id = int(request.GET.get('id'))
+            s = request.session['basket_costume']
+            s.remove(costume_id)
+            request.session['basket_costume'] = s
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        else:
+            raise Http404('UNKOWN GET ARGUMENTS FOR THIS REQUEST')
+    raise Http404('EXPECTED GET METHOD')
+
+
+@login_required(login_url="/login_user")
+def remove_accessory_from_basket(request):
+    if request.method == 'GET':
+        if request.GET.get('id'):
+            accessory_id = int(request.GET.get('id'))
+            s = request.session['basket_accessory']
+            s.remove(accessory_id)
+            request.session['basket_accessory'] = s
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        else:
+            raise Http404('UNKOWN GET ARGUMENTS FOR THIS REQUEST')
+    raise Http404('EXPECTED GET METHOD')
 
 
 def getMessages(request):

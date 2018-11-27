@@ -28,12 +28,15 @@
 	{% endfor %}
       </ul>
       <div class="my-2">
-  <!-- TODO: This should be a post request -->
   {% if request.user.customer %}
+  {% if costume.id in request.session.basket_costume %}
+  <a class="btn btn-primary disabled" href="#" role="button">Already in basket</a>
+  {% else %}
   <a class="btn btn-primary" href="/add_costume_to_basket?id={{ costume.id }}" role="button">Add to basket</a>
   {% endif %}
+  {% endif %}
 	<a class="btn btn-primary" href="{% url 'costume_templates' costume.costume_template.pk %}" role="button">Show other variants</a>
-	{% if request.user.employee.id == costume.employee.id %}
+	{% if request.user.employee or request.user.manager %}
 	<a class="btn btn-success" href="{% url 'costumes_edit' costume.pk %}" role="button">Edit</a>
   <a class="btn btn-danger" href="{% url 'costumes_delete' costume.pk %}" role="button">Delete</a>
   {% endif %}
