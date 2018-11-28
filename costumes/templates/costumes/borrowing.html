@@ -26,7 +26,7 @@
     <div class="col-sm">
       <p>Event: {{borrowing.event}}</p>
       <p>From: {{borrowing.borrowed_date}}</p>
-      <p>To: {{borrowing.return_date}}</p>
+      <p>To: {{borrowing.borrowed_date|add:borrowing.borrowing_expiration}}</p>
       <p>Price: {{borrowing.final_price}} €</p>
       <p>Customer: {{borrowing.customer.user.username}}</p>
       <p>Employee: {{borrowing.employee_borrowed.user.username}}</p>

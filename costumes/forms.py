@@ -99,3 +99,9 @@ class UserEditForm(Form):
 class ChangePasswordForm(Form):
     old_password = forms.CharField(label='old_password', max_length=50, min_length=6)
     new_password = forms.CharField(label='new_password', max_length=50, min_length=6)
+
+class UserBorrowingForm(Form):
+    store_id = forms.NumberInput()
+    price = forms.NumberInput()
+    duration = forms.NumberInput()
+    event = forms.CharField(max_length=100, required=False)

@@ -26,7 +26,11 @@
     {% if accessory.id in request.session.basket_accessory %}
       <a class="btn btn-primary disabled" href="#" style="pointer-events: none; display: inline-block;" role="button">Already in basket</a>
     {% else %}
+    {% if borrowed %}
+    <a class="btn btn-secondary disabled" role="button">Borrowed until {{ borrowed }}</a>
+    {% else %}
       <a class="btn btn-primary" href="/add_accessory_to_basket?id={{ accessory.id }}" role="button">Add to basket</a>
+    {% endif %}
     {% endif %}
   {% endif %}
 	{% if request.user.employee or request.user.manager %}

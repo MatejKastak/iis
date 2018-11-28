@@ -5,7 +5,6 @@
 {% block content %}
 
 <div class="container my-3">
-
     {% for costume in costumes.all %}
     <div class="row border-top border-bottom" style="height: 120px;">
         <div class="col-3">
@@ -49,17 +48,35 @@
       </div>
     {% endfor %}
 
-    <div class="row" style="margin-top: 20px;">
+
+    <div class="form-group" style="margin-top: 20px;">
+    {% if has_items %}
+        <form method="POST" action="/finish_borrowing" >
+        {% csrf_token %}
+        <input hidden type="number" name="store_id" value="{{ store.id }}" class="form-control">
+        <input hidden type="number" name="price" value="{{ total_price }}" class="form-control">
+        <div class="form-group">
+            <label>*Borrowing for number of days</label>
+            <input type="number" name="duration" value="14" step="1" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Event</label>
+            <input type="text" name="event" class="form-control is-valid" placeholder="Describtion of event with these costumes">
+        </div>
+        <div class="form-group">
+                <h5>Total price: {{ total_price }} €, located at: {{ store.street }}</h5>
+        </div>
+    {% endif %}
     <a class="btn btn-primary" style="margin-right: 10px;" href="/gallery" role="button">Back to gallery</a>
     {% if has_items %}
         {% if costumes_same_shop and accessory_same_shop %}
-            <a class="btn btn-success" href="/finish_borrowing" role="button">Book costumes</a>
+            <button class="btn btn-success" type="submit">Book costumes</button>
         {% else %}
             <a class="btn btn-danger disabled" role="button">Can't book costumes placed from differnet shop</a>
         {% endif %}
+        </form>
     {% endif %}
     </div>
-
 </div>
 
 {% endblock %}

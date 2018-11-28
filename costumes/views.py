@@ -9,7 +9,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView
 from django.db.models import Q
-from datetime import date
+from datetime import date, timedelta
+import random
 
 import logging
 
@@ -116,8 +117,12 @@ def index(request):
     return render(request, 'costumes/index.html', context)
 
 def costumes(request, costume_id):
-    costume = get_object_or_404(Costume, pk=costume_id)
-    return render(request, 'costumes/costume.html', {'costume': costume})
+    context = {}
+    context['costume'] = get_object_or_404(Costume, pk=costume_id)
+    is_borrowed = costume_is_borrowed(context['costume'].id)
+    if is_borrowed:
+        context['borrowed'] = is_borrowed
+    return render(request, 'costumes/costume.html', context)
 
 @login_required(login_url="/login")
 # TODO: @permission_required('costumes.accessories_edit', raise_exception=True)
@@ -226,8 +231,12 @@ def costume_templates_delete(request, costume_template_id):
     return HttpResponseRedirect('/')
 
 def accessories(request, accessory_id):
-    accessory = get_object_or_404(Accessory, pk=accessory_id)
-    return render(request, 'costumes/accessory.html', {'accessory': accessory})
+    context = {}
+    context['accessory'] = get_object_or_404(Accessory, pk=accessory_id)
+    is_borrowed = accessory_is_borrowed(accessory_id)
+    if is_borrowed:
+        context["borrowed"] = is_borrowed
+    return render(request, 'costumes/accessory.html', context)
 
 def accessories_duplicate(request, accessory_id):
     raise Http404('NOT YET IMPLEMENTED')
@@ -255,6 +264,16 @@ def basket(request):
         context['accessory_same_shop'] = True
     if len(costumes) + len(accessory) > 0:
         context['has_items'] = True
+    total_price = 0.0
+    store = None
+    for p in costumes:
+        total_price += float(p.price)
+        store = p.store
+    for a in accessory:
+        total_price += float(a.price)
+        store = a.store
+    context["total_price"] = total_price
+    context["store"] = store
     return render(request, 'costumes/basket.html', context)
 
 
@@ -491,6 +510,36 @@ def remove_accessory_from_basket(request):
     raise Http404('EXPECTED GET METHOD')
 
 
+@login_required(login_url="/login_user")
+def finish_borrowing(request):
+    if request.method == 'POST':
+        form = UserBorrowingForm(request.POST)
+        if form.is_valid():
+            store = Store.objects.get(id=int(form.data.get("store_id")))
+            e_list = Employee.objects.filter(store=store)
+            employee = e_list[random.randint(0,len(e_list)-1)]
+            borrowing = Borrowing(event=form.data.get("event"),
+                        borrowed_date=date.today(),
+                        borrowing_expiration=timedelta(days=int(form.data.get("duration"))),
+                        final_price=int(form.data.get("price").split(".")[0]),
+                        customer=request.user.customer,
+                        employee_borrowed=employee)
+            borrowing.save()
+            costumes = Costume.objects.filter(id__in=request.session['basket_costume'])
+            accessory = Accessory.objects.filter(id__in=request.session['basket_accessory'])
+            for c in costumes:
+                borrowing.costume.add(c)
+            for a in accessory:
+                borrowing.accessory.add(a)
+            borrowing.save()
+            request.session['basket_costume'] = []
+            request.session['basket_accessory'] = []
+            return redirect(index)
+        else:
+            raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST')
+    raise Http404('EXPECTED POST METHOD')
+
+
 def getMessages(request):
     storage = messages.get_messages(request)
     msgs = []
@@ -499,3 +548,20 @@ def getMessages(request):
     storage.used = True
     return msgs
         
+
+def costume_is_borrowed(costume_id):
+    costume = Costume.objects.get(id=costume_id)
+    borrowings = Borrowing.objects.filter(costume=costume)
+    for b in borrowings:
+        if b.return_date == None:
+            return b.borrowed_date + b.borrowing_expiration
+    return None
+
+
+def accessory_is_borrowed(accessory_id):
+    accessory = Accessory.objects.get(id=accessory_id)
+    borrowings = Borrowing.objects.filter(accessory=accessory)
+    for b in borrowings:
+        if b.return_date == None:
+            return b.borrowed_date + b.borrowing_expiration
+    return None

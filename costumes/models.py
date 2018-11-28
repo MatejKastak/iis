@@ -92,7 +92,7 @@ class Costume(models.Model):
 class Borrowing(models.Model):
     event = models.CharField(max_length=100, blank=True)
     borrowed_date = models.DateField('time borrowed')
-    return_date = models.DateField('date to return')
+    return_date = models.DateField('date to return', blank=True, null=True)
     borrowing_expiration = models.DurationField('borrowed for duration')
     final_price = models.IntegerField(default=0)
     employee_borrowed = models.ForeignKey(Employee, on_delete=models.CASCADE)
@@ -111,5 +111,5 @@ class Borrowing(models.Model):
         pass
 
     def __str__(self):
-        return 'Borrowing = ' + ' event: ' + self.event + ' borrowed_date: ' + str(self.borrowed_date) + ' return_date: ' + str(self.return_date) + ' borrowing_expiration: ' + str(self.borrowing_expiration) + ' final_price: ' + str(self.final_price) + ' employee_borrowed: ' + str(self.employee_borrowed) + ' customer: ' + str(self.customer) + ' costume: ' + str(self.costume) + ' accessory: ' + str(self.accessory)
+        return 'Borrowing = ' + ' borrowed_date: ' + str(self.borrowed_date) + ' return_date: ' + str(self.return_date) + ' borrowing_expiration: ' + str(self.borrowing_expiration) + ' final_price: ' + str(self.final_price) + ' employee_borrowed: ' + str(self.employee_borrowed) + ' customer: ' + str(self.customer)
 

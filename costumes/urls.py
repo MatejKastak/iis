@@ -63,5 +63,6 @@ urlpatterns = [
     path('add_costume_to_basket', views.add_costume_to_basket, name='add_costume_to_basket'),
     path('add_accessory_to_basket', views.add_accessory_to_basket, name='add_accessory_to_basket'),
     path('remove_costume_from_basket', views.remove_costume_from_basket, name='add_costume_to_basket'),
-    path('remove_accessory_from_basket', views.remove_accessory_from_basket, name='add_accessory_to_basket')
+    path('remove_accessory_from_basket', views.remove_accessory_from_basket, name='add_accessory_to_basket'),
+    path('finish_borrowing', views.finish_borrowing, name='add_accessory_to_basket')
 ]
