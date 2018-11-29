@@ -457,6 +457,8 @@ def add_costume_to_basket(request):
     if request.method == 'GET':
         if request.GET.get('id'):
             costume_id = int(request.GET.get('id'))
+            if costume_is_borrowed(costume_id):
+                raise Http404('THIS COSTUME IS ALREADY BORROWED')
             s = request.session['basket_costume']
             if not costume_id in s:
                 s.append(costume_id)
@@ -472,6 +474,8 @@ def add_accessory_to_basket(request):
     if request.method == 'GET':
         if request.GET.get('id'):
             accessory_id = int(request.GET.get('id'))
+            if accessory_is_borrowed(accessory_id):
+                raise Http404('THIS ACCESSORY IS ALREADY BORROWED')
             s = request.session['basket_accessory']
             if not accessory_id in s:
                 s.append(accessory_id)
@@ -538,6 +542,13 @@ def finish_borrowing(request):
         else:
             raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST')
     raise Http404('EXPECTED POST METHOD')
+
+
+@login_required(login_url="/login_user")
+def user_borrowings(request):
+    context = {}
+    context['borrowings'] = Borrowing.objects.filter(customer=request.user.customer)
+    return render(request, 'costumes/user_borrowings.html', context)
 
 
 def getMessages(request):

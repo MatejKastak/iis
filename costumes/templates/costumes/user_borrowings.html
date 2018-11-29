@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}IIS - gallery{% endblock %}
+
+{% block content %}
+<div class="container my-3">
+  <ul class="list-group">
+    <p class="list-group-item list-group-item-dark">Current borrowings in the system:</p>
+    {% for borrowing in borrowings %}
+    <li class="list-group-item"><a href="{% url 'borrowing' borrowing.pk %}">
+	Number: {{borrowing.pk}}
+	Event: {{borrowing.event}}
+	Costumes: {{borrowing.costume.all|length}}
+	Accesories: {{borrowing.accessory.all|length}}
+	From: {{borrowing.borrowed_date|date}}
+	To: {{borrowing.return_date|date}}
+    </a></li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
