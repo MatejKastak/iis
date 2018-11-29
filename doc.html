@@ -41,19 +41,21 @@
 </table>
 
 <h2>Implementace</h2>
-<p>Funkcie/triedy tzv. views zodpovedné za generovanie obsahu stránok sú v súbore views.py. Každá stránka aplikácie je reprezentovaná jednou funkciou/triedou.</p>
+<p>Informačný systém bol implementovaný pomocou frameworku <strong>django</strong>.</p>
+<p>Funkcie/triedy tzv. views zodpovedné za generovanie obsahu stránok sú v súbore costumes/views.py. Každá stránka aplikácie je reprezentovaná jednou funkciou/triedou.</p>
 <p>Mapovanie views na jednotivé cesty je nastavené v súbore costumes/urls.py. </p>
 <p>Súbor costumes/models.py obsahuje definície databázových modelov. K tým sa následne pristupuje pomocou django ORM.</p>
 
 <h2>Instalace</h2>
 <ul>
 <li>Stručně popište postup instalace na server</li>
-<li>Softwarové požadavky (verze PHP apod.)</li>
+<li>Výsledná inštalácia používa sqllite, no celá webová stránka bola vyvýjaná na marriaDB a je s touto databázou kompatibilná</li>
+<li>Python dependencies: django, django-filter, django-bootstrap4, pillow</li>
+<li>Konfigurácia projektu je v súbore iis/settings.py</li>
 <li>Jak rozbalit, konfigurovat, inicializovat databází, ...</li>
 </ul>
 
 <h2>Známé problémy</h2>
-<p>Zde popište, které body zadání (IDS a IIS) nejsou implementovány a z jakého důvodu. Např. &bdquo;Z časových důvodů nebyla implementována správa uživatelů.&rdquo; Pomůžete tím zrychlit opravování, když neimplementované funkce nebudeme muset dlouze hledat.</p>
 
 </body>
 </html>
