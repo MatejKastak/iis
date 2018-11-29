@@ -532,6 +532,12 @@ def finish_borrowing(request):
             costumes = Costume.objects.filter(id__in=request.session['basket_costume'])
             accessory = Accessory.objects.filter(id__in=request.session['basket_accessory'])
             for c in costumes:
+                if costume_is_borrowed(c.id):
+                    return HttpResponseRedirect('/costumes/' + str(c.id))
+            for a in accessory:
+                if accessory_is_borrowed(a.id):
+                    return HttpResponseRedirect('/accessories/' + str(a.id))
+            for c in costumes:
                 borrowing.costume.add(c)
             for a in accessory:
                 borrowing.accessory.add(a)
