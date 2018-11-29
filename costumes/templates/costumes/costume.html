@@ -20,7 +20,7 @@
       <p>Manufactured: {{costume.manufactured}}</p>
       <p>Manufacturer: {{costume.costume_template.manufacturer}}</p>
       <p>Wear-out: {{costume.wear_out}}</p>
-      <p>Store: <a href="{% url 'stores' costume.store.pk %}">{{costume.store.city}} {{costume.store.street}}</a></p>
+      <p>Store: <a href="{% url 'stores' costume.store.pk %}">{{costume.store.city}} {{costume.store.street}} {{costume.store.num}}</a></p>
       <ul class="list-group my-1">
 	<li class="list-group-item list-group-item-dark">Best with accessories:</li>
 	{% for accessory in costume.costume_template.accessory_set.all %}
