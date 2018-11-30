@@ -40,7 +40,7 @@ class Accessory(models.Model):
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     address = models.CharField(max_length=100)
-    tel_num = models.CharField(max_length=10)
+    tel_num = models.CharField(max_length=15)
 
     def __str__(self):
         return 'Customer = ' +  ' address: ' + self.address + ' tel_num: ' + self.tel_num
@@ -76,7 +76,7 @@ class Costume(models.Model):
         ('XXL', 'XXL - Extra Extra Large'),
     )
     color = models.CharField(max_length=100)
-    size = models.CharField(max_length=2, choices=COSTUME_SIZE)
+    size = models.CharField(max_length=3, choices=COSTUME_SIZE)
     manufactured = models.DateField('date created')
     wear_out = models.CharField(max_length=100)
     employee_manage = models.ForeignKey(Employee, on_delete=models.CASCADE)
