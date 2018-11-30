@@ -22,9 +22,15 @@
                 <input name="tel_num" class="form-control" value="{{ employee.employee.tel_num }}"><br>
                 <label>Working location</label>
                 <select name="store" class="form-control">
+                    {% if employee.employee.store.id %}{% else %}
                     <option disabled selected value>-- select a store --</option>
+                    {% endif %}
                     {% for s in store %}
-                    <option value="{{ s.id }}">{{ s.street }}</option>
+                    {% if s.id == employee.employee.store.id %}
+                        <option selected="selected" value="{{ s.id }}">{{ s.street }}</option>
+                    {% else %}
+                        <option value="{{ s.id }}">{{ s.street }}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
                 <div style="margin-top:40px;">

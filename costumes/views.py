@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic.edit import CreateView
 from django.db.models import Q
 from datetime import date, timedelta
@@ -125,7 +125,7 @@ def costumes(request, costume_id):
     return render(request, 'costumes/costume.html', context)
 
 @login_required(login_url="/login")
-# TODO: @permission_required('costumes.accessories_edit', raise_exception=True)
+@permission_required('costumes.change_costume', raise_exception=True)
 def costumes_edit(request, costume_id):
     costume = get_object_or_404(Costume, pk=costume_id)
     if request.method == 'POST':
@@ -139,7 +139,7 @@ def costumes_edit(request, costume_id):
     return render(request, 'costumes/costume_edit.html', {'form': form, 'costume': costume})
 
 @login_required(login_url="/login")
-# TODO: @permission_required('costumes.borrowings_edit', raise_exception=True)
+@permission_required('costumes.change_borrowing', raise_exception=True)
 def borrowings_edit(request, borrowing_id):
     borrowing = get_object_or_404(Borrowing, pk=borrowing_id)
     if request.method == 'POST':
@@ -153,7 +153,7 @@ def borrowings_edit(request, borrowing_id):
     return render(request, 'costumes/borrowing_edit.html', {'form': form, 'borrowing': borrowing})
 
 @login_required(login_url="/login")
-# TODO: @permission_required('costumes.accessories_edit', raise_exception=True)
+@permission_required('costumes.change_accessory', raise_exception=True)
 def accessories_edit(request, accessory_id):
     accessory = get_object_or_404(Accessory, pk=accessory_id)
     if request.method == 'POST':
@@ -167,7 +167,7 @@ def accessories_edit(request, accessory_id):
     return render(request, 'costumes/accessory_edit.html', {'form': form, 'accessory': accessory})
 
 @login_required(login_url="/login")
-# TODO: @permission_required('costumes.stores_edit', raise_exception=True)
+@permission_required('costumes.change_store', raise_exception=True)
 def stores_edit(request, store_id):
     store = get_object_or_404(Store, pk=store_id)
     if request.method == 'POST':
@@ -181,7 +181,7 @@ def stores_edit(request, store_id):
     return render(request, 'costumes/store_edit.html', {'form': form, 'store': store})
 
 @login_required(login_url="/login")
-# TODO: @permission_required('costume_templates.accessories_edit', raise_exception=True)
+@permission_required('costumes.change_costumetemplate', raise_exception=True)
 def costume_templates_edit(request, costume_template_id):
     costume_template = get_object_or_404(CostumeTemplate, pk=costume_template_id)
     if request.method == 'POST':
@@ -195,7 +195,7 @@ def costume_templates_edit(request, costume_template_id):
     return render(request, 'costumes/costume_template_edit.html', {'form': form, 'ct': costume_template})
 
 @login_required(login_url="/login")
-# TODO: @permission_required('costumes.borrowing_delete', raise_exception=True)
+@permission_required('costumes.delete_borrowing', raise_exception=True)
 def borrowings_delete(request, borrowing_id):
     # TODO: Maybe add confirmation dialog/ can be js?
     borrowing = get_object_or_404(Borrowing, pk=borrowing_id)
@@ -203,28 +203,28 @@ def borrowings_delete(request, borrowing_id):
     return HttpResponseRedirect('/')
 
 @login_required(login_url="/login")
-# TODO: @permission_required('costumes.costumes_delete', raise_exception=True)
+@permission_required('costumes.delete_costume', raise_exception=True)
 def costumes_delete(request, costume_id):
     costume = get_object_or_404(Costume, pk=costume_id)
     costume.delete()
     return HttpResponseRedirect('/')
 
 @login_required(login_url="/login")
-# TODO: @permission_required('costumes.accessories_delete', raise_exception=True)
+@permission_required('costumes.delete_accessory', raise_exception=True)
 def accessories_delete(request, accessory_id):
     accessory = get_object_or_404(Accessory, pk=accessory_id)
     accessory.delete()
     return HttpResponseRedirect('/')
 
 @login_required(login_url="/login")
-# TODO: @permission_required('stores.stores_delete', raise_exception=True)
+@permission_required('costumes.delete_store', raise_exception=True)
 def stores_delete(request, store_id):
     store = get_object_or_404(Store, pk=store_id)
     store.delete()
     return HttpResponseRedirect('/')
 
 @login_required(login_url="/login")
-# TODO: @permission_required('costumes.costume_templates_delete', raise_exception=True)
+@permission_required('costumes.delete_costumetemplate', raise_exception=True)
 def costume_templates_delete(request, costume_template_id):
     costume_template = get_object_or_404(CostumeTemplate, pk=costume_template_id)
     costume_template.delete()
@@ -238,20 +238,9 @@ def accessories(request, accessory_id):
         context["borrowed"] = is_borrowed
     return render(request, 'costumes/accessory.html', context)
 
-def accessories_duplicate(request, accessory_id):
-    raise Http404('NOT YET IMPLEMENTED')
-    accessory = get_object_or_404(Accessory, pk=accessory_id)
-    if request.method == 'POST':
-        form = AccessoryForm(request.POST, instance=accessory)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/accessories/' + str(accessory_id))
-    else:
-        form = AccessoryForm(instance=accessory)
 
-    return render(request, 'costumes/accessory_edit.html', {'form': form, 'accessory': accessory})
-
-
+@login_required(login_url="/login")
+@permission_required('costumes.view_borrowing', raise_exception=True)
 def basket(request):
     costumes = Costume.objects.filter(id__in=request.session['basket_costume'])
     accessory = Accessory.objects.filter(id__in=request.session['basket_accessory'])
@@ -327,12 +316,10 @@ def register_script(request):
             return redirect(index)
     raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST')
 
-def user(request):
-    raise Http404('NOT YET IMPLEMENTED')
 
-def settings(request):
-    raise Http404('NOT YET IMPLEMENTED')
 
+@login_required(login_url="/login")
+@permission_required('costumes.change_borrowing', raise_exception=True)
 def borrowings_gallery(request):
     # TODO: If user is manager or employee show all of the borrowings
     if True:
@@ -341,16 +328,23 @@ def borrowings_gallery(request):
         f = BorrowingUserFilter(request.GET, queryset=Borrowing.objects.filter(customer__user__pk=request.user.pk))
 
     return render(request, 'costumes/borrowings_gallery.html', {'filter': f})
-    
+
+
+@login_required(login_url="/login")
+@permission_required('costumes.view_costumetemplate', raise_exception=True)
 def costume_templates_gallery(request):
     f = CostumeTemplateFilter(request.GET, queryset=CostumeTemplate.objects.all())
     return render(request, 'costumes/costume_templates_gallery.html', {'filter': f})
 
+
+@login_required(login_url="/login")
+@permission_required('costumes.view_borrowing', raise_exception=True)
 def borrowings(request, borrowing_id):
     # TODO: Check permissions
     borrowing = get_object_or_404(Borrowing, pk=borrowing_id)
     if not True: # NOT Manager or employee
         # Check if the user has the same pk as the borrowing
+        # Already made different function for this
         if borrowing.user.pk != borrowing.customer.user.pk:
             pass
     else:
@@ -359,6 +353,9 @@ def borrowings(request, borrowing_id):
     context = {'borrowing': borrowing}
     return render(request, 'costumes/borrowing.html', context)
 
+
+@login_required(login_url="/login")
+@permission_required('costumes.view_costumetemplate', raise_exception=True)
 def costume_templates(request, ct_id):
     # TODO: Check permissions
     costume_template = get_object_or_404(CostumeTemplate, pk=ct_id)
@@ -376,30 +373,35 @@ def stores_gallery(request):
     context = {'stores': Store.objects}
     return render(request, 'costumes/stores.html', context)
 
-# TODO: Create priviledges 'costumes.costume_add'
-class add_costume(LoginRequiredMixin, CreateView):
+
+
+class add_costume(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = '/login'
+    permission_required = 'costumes.add_costume'
     redirect_field_name = '/add_costume'
     model = Costume
     form_class = CostumeForm
 
-# TODO: Create priviledges 'costumes.costume_template_add'
-class add_costume_template(LoginRequiredMixin, CreateView):
+
+class add_costume_template(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = '/login'
+    permission_required = 'costumes.add_costumetemplate'
     form_class = CostumeTemplateForm
     redirect_field_name = '/add_costume_template'
     model = CostumeTemplate
 
-# TODO: Create priviledges 'costumes.accessory_add'
-class add_accessory(LoginRequiredMixin, CreateView):
+
+class add_accessory(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = '/login'
+    permission_required = 'costumes.add_accessory'
     redirect_field_name = '/add_costume'
     model = Accessory
     form_class = AccessoryForm
 
-# TODO: Create priviledges 'stores.store_add'
-class add_store(LoginRequiredMixin, CreateView):
+
+class add_store(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     login_url = '/login'
+    permission_required = 'costumes.add_store'
     redirect_field_name = '/add_store'
     model = Store
     form_class = StoreForm
@@ -452,7 +454,9 @@ def change_password_script(request):
     raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST') 
 
 
-@login_required(login_url="/login_user")
+
+@login_required(login_url="/login")
+@permission_required('costumes.add_borrowing', raise_exception=True)
 def add_costume_to_basket(request):
     if request.method == 'GET':
         if request.GET.get('id'):
@@ -469,7 +473,8 @@ def add_costume_to_basket(request):
     raise Http404('EXPECTED GET METHOD') 
 
 
-@login_required(login_url="/login_user")
+@login_required(login_url="/login")
+@permission_required('costumes.add_borrowing', raise_exception=True)
 def add_accessory_to_basket(request):
     if request.method == 'GET':
         if request.GET.get('id'):
@@ -486,7 +491,8 @@ def add_accessory_to_basket(request):
     raise Http404('EXPECTED GET METHOD')
 
 
-@login_required(login_url="/login_user")
+@login_required(login_url="/login")
+@permission_required('costumes.add_borrowing', raise_exception=True)
 def remove_costume_from_basket(request):
     if request.method == 'GET':
         if request.GET.get('id'):
@@ -500,7 +506,8 @@ def remove_costume_from_basket(request):
     raise Http404('EXPECTED GET METHOD')
 
 
-@login_required(login_url="/login_user")
+@login_required(login_url="/login")
+@permission_required('costumes.add_borrowing', raise_exception=True)
 def remove_accessory_from_basket(request):
     if request.method == 'GET':
         if request.GET.get('id'):
@@ -514,7 +521,8 @@ def remove_accessory_from_basket(request):
     raise Http404('EXPECTED GET METHOD')
 
 
-@login_required(login_url="/login_user")
+@login_required(login_url="/login")
+@permission_required('costumes.add_borrowing', raise_exception=True)
 def finish_borrowing(request):
     if request.method == 'POST':
         form = UserBorrowingForm(request.POST)
@@ -550,7 +558,8 @@ def finish_borrowing(request):
     raise Http404('EXPECTED POST METHOD')
 
 
-@login_required(login_url="/login_user")
+@login_required(login_url="/login")
+@permission_required('costumes.view_borrowing', raise_exception=True)
 def user_borrowings(request):
     context = {}
     context['borrowings'] = Borrowing.objects.filter(customer=request.user.customer)

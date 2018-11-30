@@ -21,8 +21,12 @@
       </div>
       <!-- TODO: Show only when user has enough priviledges -->
       <div class="my-2">
-	<a class="btn btn-success" href="{% url 'stores_edit' store.pk %}" role="button">Edit</a>
-	<a class="btn btn-danger" href="{% url 'stores_delete' store.pk %}" role="button">Delete</a>
+        {% for group in request.user.groups.all %}
+        {% if group.name == "super_manager" %}
+	        <a class="btn btn-success" href="{% url 'stores_edit' store.pk %}" role="button">Edit</a>
+          <a class="btn btn-danger" href="{% url 'stores_delete' store.pk %}" role="button">Delete</a>
+        {% endif %}
+        {% endfor %}
       </div>
     </div>
   </div>

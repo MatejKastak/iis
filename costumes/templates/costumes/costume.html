@@ -33,21 +33,25 @@
       <a class="btn btn-primary disabled" href="#" role="button">Already in basket</a>
     {% else %}
       {% if borrowed %}
-      <a class="btn btn-secondary disabled" role="button">Borrowed until {{ borrowed }}</a>
+      <a class="btn btn-warning disabled" role="button">Borrowed until {{ borrowed }}</a>
       {% else %}
         <a class="btn btn-primary" href="/add_costume_to_basket?id={{ costume.id }}" role="button">Add to basket</a>
       {% endif %}
     {% endif %}
+    {% else %}
+    {% if borrowed %}
+    <a class="btn btn-warning disabled" role="button">Borrowed until {{ borrowed }}</a>
+    {% endif %}
   {% endif %}
 	<a class="btn btn-primary" href="{% url 'costume_templates' costume.costume_template.pk %}" role="button">Show other variants</a>
-	{% if request.user.employee or request.user.manager %}
+	{% if request.user.employee %}
 	  <a class="btn btn-success" href="{% url 'costumes_edit' costume.pk %}" role="button">Edit</a>
     <a class="btn btn-danger" href="{% url 'costumes_delete' costume.pk %}" role="button">Delete</a>
   {% endif %}
       </div>
     </div>
   </div>
-  {% if request.user.employee or request.user.manager %}
+  {% if request.user.employee %}
   <div class="row">
     <div class="col-sm">
       <ul class="list-group">

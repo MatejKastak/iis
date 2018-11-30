@@ -39,16 +39,12 @@
 	<ul class="navbar-nav mr-auto">
 
 	  <li class="nav-item active">
-
 	    <a class="nav-link" href="/">Gallery</a>
-
 	  </li>
 
-	  <li class="nav-item">
-
-	    <a class="nav-link" href="{% url 'costume_templates_gallery' %}">Costume Templates</a>
-
-	  </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/stores">Stores</a>
+      </li>
 
 	</ul>
 
@@ -70,56 +66,52 @@
 
 	<ul class="navbar-nav ml-auto">
 
-	  <li class="nav-item">
 
-	    <a class="nav-link" href="/stores">Stores</a>
-
-	  </li>
-
-
-  {% if user.manager or user.employee %}
+  {% if user.manager %}
   <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Staff actions
+      Manage Staff
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
     {% for group in request.user.groups.all %}
 
       {% if group.name == "super_manager" %}
         <a class="dropdown-item" href="/manage_manager">Manage manager</a>
-        <a class="dropdown-item" href="/manage_store">Manage store</a>
       {% endif %}
 
 	    {% if group.name == "manager" %}
 	      <a class="dropdown-item" href="/manage_employee">Manage employee</a>
       {% endif %}
-
-	    {% if group.name == "employee" %}
-	      <a class="dropdown-item" href="#">Add new costume</a>
-      {% endif %}
       
     {% endfor %}
     </div>
-    </div>
+  </div>
   {% endif %}
-
+  {% if user.employee %}
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Create Costumes
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="/add_costume_template">Add Costume Templates</a>
+      <a class="dropdown-item" href="/costume_templates">List Templates</a>
+      <a class="dropdown-item" href="/add_costume">Add Costume</a>
+      <a class="dropdown-item" href="/add_accessory">Add Accessory</a>
+    </div>
+  </div>
+  {% endif %}
 	  
 
 	  {% if request.user.is_authenticated %}
 	  
 	  <li class="nav-item">
-
 	    <a class="nav-link" href="/edit_user">Settings (logged as: {{ request.user.username}})</a>
-	    
-	  </li>
-
-	  <li class="nav-item">
-
-	    <a class="nav-link" href="{% url 'borrowings_gallery' %}">Borrowings</a>
-
 	  </li>
 
     {% if not request.user.employee and not request.user.manager %}
+    <li class="nav-item">
+	    <a class="nav-link" href="/user_borrowings">Borrowings</a>
+	  </li>
 	  <li class="nav-item">
       {% with request.session.basket_costume|length as c_len %}
       {% with request.session.basket_accessory|length as a_len %}
@@ -132,6 +124,10 @@
       {% endwith %}
 
     </li>
+    {% else %}
+    <li class="nav-item">
+	    <a class="nav-link" href="/borrowings">Search Borrowings</a>
+	  </li>
     {% endif %}
 
 	  <li class="nav-item">
