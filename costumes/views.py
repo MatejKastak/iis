@@ -331,7 +331,6 @@ def borrowings_gallery(request):
 
 
 @login_required(login_url="/login")
-@permission_required('costumes.view_costumetemplate', raise_exception=True)
 def costume_templates_gallery(request):
     f = CostumeTemplateFilter(request.GET, queryset=CostumeTemplate.objects.all())
     return render(request, 'costumes/costume_templates_gallery.html', {'filter': f})
