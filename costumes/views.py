@@ -129,7 +129,7 @@ def costumes(request, costume_id):
 def costumes_edit(request, costume_id):
     costume = get_object_or_404(Costume, pk=costume_id)
     if request.method == 'POST':
-        form = CostumeForm(request.POST, instance=costume)
+        form = CostumeForm(request.POST, request.FILES, instance=costume)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/costumes/' + str(costume_id))
@@ -157,7 +157,7 @@ def borrowings_edit(request, borrowing_id):
 def accessories_edit(request, accessory_id):
     accessory = get_object_or_404(Accessory, pk=accessory_id)
     if request.method == 'POST':
-        form = AccessoryForm(request.POST, instance=accessory)
+        form = AccessoryForm(request.POST, request.FILES, instance=accessory)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/accessories/' + str(accessory_id))

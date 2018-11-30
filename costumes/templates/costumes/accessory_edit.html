@@ -10,7 +10,7 @@
     <h1 class="detail-site-header">{{accessory.name}}</h1>
   </div>
   <div class="col-lg-12">
-    <form action="{% url 'accessories_edit' accessory.pk %}" method="post">
+    <form action="{% url 'accessories_edit' accessory.pk %}" enctype="multipart/form-data" method="post">
       {% csrf_token %}
       {% bootstrap_form form %}
       <button class="btn btn-primary" type="submit" value="Submit">Save</button>

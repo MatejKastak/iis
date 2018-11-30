@@ -10,7 +10,7 @@
     <h1 class="detail-site-header">{{costume.costume_template.name}}</h1>
   </div>
   <div class="col-lg-12">
-    <form action="{% url 'costumes_edit' costume.pk %}" method="post">
+    <form action="{% url 'costumes_edit' costume.pk %}" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {% bootstrap_form form %}
       <button class="btn btn-primary" type="submit" value="Submit">Save</button>
