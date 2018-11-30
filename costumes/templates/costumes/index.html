@@ -6,8 +6,8 @@
 {% block content %}
 <div class="container my-3">
   <div class="row">
-    <div class="col-lg-3">
-      <h1 class="my-4">Borrow a costume!</h1>
+    <div class="col-lg-3 my-4">
+      <h1 class="mb-3">Borrow a costume!</h1>
       <form>
 
 	<div class="form-group">
@@ -86,17 +86,27 @@
       {% endfor %}
       {% endif %}
 
-      <div class="row">
-      {% for costume in costumes %}
-      {% include "costumes/costume_card.html" with costume=costume %}
-      {% endfor %}
+      {% if costumes %}
+      <div class="row my-2">
+	<h1>Costumes</h1>
       </div>
+      <div class="row">
+	{% for costume in costumes %}
+	{% include "costumes/costume_card.html" with costume=costume %}
+	{% endfor %}
+      </div>
+      {% endif %}
 
-      <div class="row">
-      {% for accessory in accessories %}
-      {% include "costumes/accessory_card.html" with accessory=accessory %}
-      {% endfor %}
+      {% if accessories %}
+      <div class="row my-2">
+	<h1>Accessories</h1>
       </div>
+      <div class="row">
+	{% for accessory in accessories %}
+	{% include "costumes/accessory_card.html" with accessory=accessory %}
+	{% endfor %}
+      </div>
+      {% endif %}
 
     </div>
   </div>
