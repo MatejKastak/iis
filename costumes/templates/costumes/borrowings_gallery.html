@@ -20,7 +20,7 @@
 	Costumes: {{borrowing.costume.all|length}}
 	Accesories: {{borrowing.accessory.all|length}}
 	From: {{borrowing.borrowed_date|date}}
-	To: {{borrowing.return_date|date}}
+        To: {{borrowing.borrowed_date|add:borrowing.borrowing_expiration}}
     </a></li>
     {% endfor %}
   </ul>
