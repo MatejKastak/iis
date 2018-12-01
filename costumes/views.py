@@ -339,12 +339,9 @@ def borrowings_gallery(request):
 
     return render(request, 'costumes/borrowings_gallery.html', {'filter': f})
 
-
-@login_required(login_url="/login")
 def costume_templates_gallery(request):
     f = CostumeTemplateFilter(request.GET, queryset=CostumeTemplate.objects.all())
     return render(request, 'costumes/costume_templates_gallery.html', {'filter': f})
-
 
 @login_required(login_url="/login")
 @permission_required('costumes.view_borrowing', raise_exception=True)
@@ -363,17 +360,8 @@ def borrowings(request, borrowing_id):
     return render(request, 'costumes/borrowing.html', context)
 
 
-@login_required(login_url="/login")
-@permission_required('costumes.view_costumetemplate', raise_exception=True)
 def costume_templates(request, ct_id):
-    # TODO: Check permissions
     costume_template = get_object_or_404(CostumeTemplate, pk=ct_id)
-    if True: # Manager or employee
-        pass
-    else:
-        # Raise permission error
-        pass
-
     context = {'ct': costume_template}
     return render(request, 'costumes/costume_template.html', context)
 
