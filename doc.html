@@ -27,16 +27,15 @@
 		databázový subsystém
 	</dd>
 	<dt>URL aplikace</dt>
-	<dd><a href="http://www.stud.fit.vutbr.cz/~xautor01/IIS">http://www.stud.fit.vutbr.cz/~xautor01/IIS</a></dd>
-	<dd>(pokud má aplikace více vstupních stránek, napište obdobně další URL)</dd>
+        <dd><a href="http://xkasta02.pythonanywhere.com">http://xkasta02.pythonanywhere.com</a></dd>
+<p>Ako hosting sme zvolili pythonanywhere.com . Je na ňom spustený mysql. Obmedzenie miesta pevného disku je ~500Mb.</p>
 </dl>
 
 <h2>Uživatelé systému pro testování</h2>
-<p>Uveďte prosím existující zástupce <strong>všech rolí uživatelů</strong>.</p>
 <table>
 <tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
-<tr><td>admin</td><td>admin</td><td>Administrátor</td></tr>
-<tr><td>prodavac</td><td>prodavac</td><td>Prodavač</td></tr>
+<tr><td>admin</td><td>admin</td><td>Manažér</td></tr>
+<tr><td>prodavac</td><td>prodavac</td><td>Zamestnanec</td></tr>
 <tr><td>franta</td><td>franta</td><td>Zákazník</td></tr>
 </table>
 
@@ -44,18 +43,19 @@
 <p>Informačný systém bol implementovaný pomocou frameworku <strong>django</strong>.</p>
 <p>Funkcie/triedy tzv. views zodpovedné za generovanie obsahu stránok sú v súbore costumes/views.py. Každá stránka aplikácie je reprezentovaná jednou funkciou/triedou.</p>
 <p>Mapovanie views na jednotivé cesty je nastavené v súbore costumes/urls.py. </p>
-<p>Súbor costumes/models.py obsahuje definície databázových modelov. K tým sa následne pristupuje pomocou django ORM.</p>
+<p>Súbor costumes/models.py obsahuje definície databázových modelov. Ku ktorým sa následne pristupuje pomocou django ORM.</p>
 
 <h2>Instalace</h2>
 <ul>
-<li>Stručně popište postup instalace na server</li>
-<li>Výsledná inštalácia používa sqllite, no celá webová stránka bola vyvýjaná na marriaDB a je s touto databázou kompatibilná</li>
-<li>Python dependencies: django, django-filter, django-bootstrap4, pillow</li>
+<li>Python dependencies: django, django-filter, django-bootstrap4, pillow, mysqlclient</li>
 <li>Konfigurácia projektu je v súbore iis/settings.py</li>
-<li>Jak rozbalit, konfigurovat, inicializovat databází, ...</li>
+<li>Databázový backend je nastavený v settings.py a je inicializovaný pomocou ./manage.py makemigrations a ./manage.py migrate.</li>
+<li>Pri prvotnom spustení je vhodné inicializovať práva a manažérske účty pomoucou ./manage.py loaddata fixtures/permissions_and_super_manager.json</li>
 </ul>
 
-<h2>Známé problémy</h2>
+<h2>Známe problémy a rozšírenia</h2>
+<p>Zadanie bolo rozšírene o pobočky, na ktorých sú kostýmy dostupné.</p>
+<p>Ďalej bol návrh doplnený o manažérov a privilégiá.</p>
 
 </body>
 </html>
