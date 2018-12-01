@@ -423,7 +423,14 @@ def stores(request, store_id):
 
 @login_required(login_url="/login")
 def edit_user(request):
-    return render(request, 'registration/edit_user.html')
+    context = {}
+    if hasattr(request.user, 'customer'):
+        context['user_role'] = request.user.customer
+    if hasattr(request.user, 'employee'):
+        context['user_role'] = request.user.employee
+    if hasattr(request.user, 'manager'):
+        context['user_role'] = request.user.manager
+    return render(request, 'registration/edit_user.html', context)
 
 
 @login_required(login_url="/login_user")
@@ -434,6 +441,18 @@ def edit_user_script(request):
             request.user.first_name = form.data.get("first_name")
             request.user.last_name = form.data.get("last_name")
             request.user.email = form.data.get("email")
+            if hasattr(request.user, 'customer'):
+                request.user.customer.address = form.data.get("address")
+                request.user.customer.tel_num = form.data.get("tel_num")
+                request.user.customer.save()
+            if hasattr(request.user, 'employee'):
+                request.user.employee.address = form.data.get("address")
+                request.user.employee.tel_num = form.data.get("tel_num")
+                request.user.employee.save()
+            if hasattr(request.user, 'manager'):
+                request.user.manager.address = form.data.get("address")
+                request.user.manager.tel_num = form.data.get("tel_num")
+                request.user.manager.save()
             request.user.save()
             return redirect(index)
     raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST') 

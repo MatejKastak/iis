@@ -95,6 +95,8 @@ class UserEditForm(Form):
     first_name = forms.CharField(label='firs_name', max_length=50, required=False)
     last_name = forms.CharField(label='last_name', max_length=50, required=False)
     email = forms.CharField(label='email', max_length=50, required=False)
+    address = forms.CharField(max_length=15, required=False)
+    tel_num = forms.CharField(max_length=15, required=False)
 
 class ChangePasswordForm(Form):
     old_password = forms.CharField(label='old_password', max_length=50, min_length=6)
