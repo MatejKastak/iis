@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic.edit import CreateView
-from django.db.models import Q
+from django.db.models import Q, F
 from datetime import date, timedelta
 import random
 
@@ -33,8 +33,6 @@ def index(request):
 
     size_q = Q()
     store_q = Q()
-    aval_q = Q()
-    borrowed_q = Q()
 
     if request.method == 'GET':
 
@@ -78,17 +76,23 @@ def index(request):
                 else:
                     if 'aval' in request.GET.getlist('aval'):
                         context['available_checked'] = 'checked'
-                        aval_q = Q(borrowing__return_date__lte=today)
-                        costumes = costumes.exclude(borrowing__return_date__gt=today)
-                        accessories = accessories.exclude(borrowing__return_date__gt=today)
+                        # find the not returned borrowings
+                        borrowed_q = Borrowing.objects.filter(return_date=None)
+                        # filter all the costume with those borrowings
+                        costumes = costumes.exclude(borrowing__in=borrowed_q)
+                        accessories = accessories.exclude(borrowing__in=borrowed_q)
+                        # costumes = costumes.exclude(borrowing__return_date__gt=today)
+                        # accessories = accessories.exclude(borrowing__return_date__gt=today)
                     else:
                         context.pop('available_checked', None)
 
                     if 'borrowed' in request.GET.getlist('aval'):
                         context['borrowed_checked'] = 'checked'
-                        borrowed_q = Q(borrowing__return_date__gt=today)
-                        costumes = costumes.filter(borrowing__return_date__gt=today)
-                        accessories = accessories.filter(borrowing__return_date__gt=today)
+                        borrowed_b = Borrowing.objects.filter(return_date=None)
+                        costumes = costumes.filter(borrowing__in=borrowed_b)
+                        accessories = accessories.filter(borrowing__in=borrowed_b)
+                        # costumes = costumes.filter(borrowing__return_date__gt=today)
+                        # accessories = accessories.filter(borrowing__return_date__gt=today)
                     else:
                         context.pop('borrowed_checked', None)
             else:
