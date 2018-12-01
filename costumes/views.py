@@ -103,11 +103,17 @@ def index(request):
                 store_q = Q(store__pk__in=request.GET.getlist('store'))
                 for s in request.GET.getlist('store'):
                     stores_checked[int(s)] = 'checked'
+            else:
+                costumes = Costume.objects.none()
+                accessories = Accessory.objects.none()
 
             if request.GET.get('size'):
                 size_q = Q(size__in=request.GET.getlist('size'))
                 for s in request.GET.getlist('size'):
                     sizes_checked[s] = 'checked'
+            else:
+                costumes = Costume.objects.none()
+                accessories = Accessory.objects.none()
 
     costumes = costumes.filter(size_q & store_q)
     accessories = accessories.filter(store_q)
