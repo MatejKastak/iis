@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}IIS - gallery{% endblock %}
+{% block title %}IIS - user borrowings{% endblock %}
 
 {% block content %}
 <div class="container my-3">
   <ul class="list-group">
-    <p class="list-group-item list-group-item-dark">Current borrowings in the system:</p>
+    <p class="list-group-item list-group-item-dark">Current borrowings for user {{ user.username }}</p>
     {% for borrowing in borrowings %}
     <li class="list-group-item"><a href="{% url 'borrowing' borrowing.pk %}">
 	Number: {{borrowing.pk}}

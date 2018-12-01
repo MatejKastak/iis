@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}IIS - manage{% endblock %}
+{% block title %}IIS - edit manager{% endblock %}
 
 {% block content %}
 
@@ -22,9 +22,13 @@
                 <input name="tel_num" class="form-control" value="{{ manager.manager.tel_num }}"><br>
                 <label>Working location</label>
                 <select name="store" class="form-control">
-                    <option disabled selected value>-- select a store --</option>
+                    <option selected value>-- None --</option>
                     {% for s in store %}
-                    <option value="{{ s.id }}">{{ s.street }}</option>
+                    {% if s.id == employee.employee.store.id %}
+                        <option selected="selected" value="{{ s.id }}">{{ s.street }}</option>
+                    {% else %}
+                        <option value="{{ s.id }}">{{ s.street }}</option>
+                    {% endif %}
                     {% endfor %}
                 </select>
                 <input style="margin-top: 20px;" type="checkbox" name="super_manager" value="true" {% if is_super_manager %} checked {% endif %}> Is super manager<br>

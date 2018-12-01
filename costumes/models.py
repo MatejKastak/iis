@@ -95,7 +95,7 @@ class Borrowing(models.Model):
     return_date = models.DateField('date to return', blank=True, null=True)
     borrowing_expiration = models.DurationField('borrowed for duration')
     final_price = models.IntegerField(default=0)
-    employee_borrowed = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    employee_borrowed = models.ForeignKey(Employee, on_delete=models.CASCADE, blank=True, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     costume = models.ManyToManyField(Costume, blank=True)
     accessory = models.ManyToManyField(Accessory, blank=True)

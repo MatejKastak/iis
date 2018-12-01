@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}IIS - manage{% endblock %}
+{% block title %}IIS - edit employee{% endblock %}
 
 {% block content %}
 
@@ -22,9 +22,7 @@
                 <input name="tel_num" class="form-control" value="{{ employee.employee.tel_num }}"><br>
                 <label>Working location</label>
                 <select name="store" class="form-control">
-                    {% if employee.employee.store.id %}{% else %}
-                    <option disabled selected value>-- select a store --</option>
-                    {% endif %}
+                    <option selected value>-- None --</option>
                     {% for s in store %}
                     {% if s.id == employee.employee.store.id %}
                         <option selected="selected" value="{{ s.id }}">{{ s.street }}</option>

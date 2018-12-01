@@ -108,6 +108,8 @@ def create_manager_script(request):
             if form.data.get('store'):
                 s = Store.objects.get(id=int(form.data.get('store')))
                 m.store = s
+            else:
+                m.store = None
             m.save()
             g = Group.objects.get(name="manager")
             g.user_set.add(u)
@@ -155,6 +157,8 @@ def edit_employee_script(request):
             if form.data.get('store'):
                 s = Store.objects.get(id=int(form.data.get('store')))
                 m.store = s
+            else:
+                m.store = None
             u.save()
             m.save()
             return redirect(manage_employee)

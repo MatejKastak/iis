@@ -545,7 +545,10 @@ def finish_borrowing(request):
         if form.is_valid():
             store = Store.objects.get(id=int(form.data.get("store_id")))
             e_list = Employee.objects.filter(store=store)
-            employee = e_list[random.randint(0,len(e_list)-1)]
+            if e_list:
+                employee = e_list[random.randint(0,len(e_list)-1)]
+            else:
+                employee = None
             borrowing = Borrowing(event=form.data.get("event"),
                         borrowed_date=date.today(),
                         borrowing_expiration=timedelta(days=int(form.data.get("duration"))),
