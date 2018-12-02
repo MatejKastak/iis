@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Accessory detail{% endblock %}
+{% block title %}Your shopping cart{% endblock %}
 
 {% block content %}
 
@@ -9,7 +9,7 @@
     <div class="row border-top border-bottom">
         <div class="col-3">
             <a href="{% url 'costumes' costume.id %}">
-                <img class="card-img-top" src="{{costume.picture.url}}" alt="Card image cap" style="height: 100px;">
+                <img class="card-img-top" src="{{costume.picture.url}}" alt="Card image cap" style="max-height: 100px; width: auto;">
             </a>
         </div>
         <div class="col my-auto">
@@ -30,7 +30,7 @@
     <div class="row border-top border-bottom">
         <div class="col-3">
             <a href="{% url 'accessories' accessory.id %}">
-                <img class="card-img-top" src="{{accessory.picture.url}}" alt="Card image cap" style="height: 100px;">
+                <img class="card-img-top" src="{{accessory.picture.url}}" alt="Card image cap" style="max-height: 100px; width: auto;">
             </a>
         </div>
         <div class="col my-auto">
