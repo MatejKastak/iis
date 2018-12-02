@@ -24,7 +24,7 @@
                 <select name="store" class="form-control">
                     <option selected value>-- None --</option>
                     {% for s in store %}
-                    {% if s.id == employee.employee.store.id %}
+                    {% if s.id == manager.manager.store.id %}
                         <option selected="selected" value="{{ s.id }}">{{ s.street }}</option>
                     {% else %}
                         <option value="{{ s.id }}">{{ s.street }}</option>

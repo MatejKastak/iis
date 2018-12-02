@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}User detail{% endblock %}
+
+{% block content %}
+<div class="container my-3">
+  <div class="row">
+    <h1 class="detail-site-header">User detail</h1>
+  </div>
+  <div class="row">
+
+    <div class="col-sm">
+      <p>Login: {{ customer.username }}</p>
+      <p>First name: {{ customer.first_name }}</p>
+      <p>Last name: {{ customer.last_name }}</p>
+      <p>Email: {{ customer.email }}</p>
+      <p>Address: {{ customer.customer.address }}</p>
+      <p>Tel. num.: {{ customer.customer.tel_num }}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}

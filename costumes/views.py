@@ -584,6 +584,14 @@ def user_borrowings(request):
     return render(request, 'costumes/user_borrowings.html', context)
 
 
+@login_required(login_url="/login")
+@permission_required('costumes.view_borrowing', raise_exception=True)
+def user_detail(request, user_id):
+    context = {}
+    context['customer'] = User.objects.get(pk=user_id)
+    return render(request, 'costumes/user_detail.html', context)
+
+
 def getMessages(request):
     storage = messages.get_messages(request)
     msgs = []

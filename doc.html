@@ -22,9 +22,11 @@
 	  - pridávanie, upravovanie, vymazávanie a detail {kostýmov, vzorov kostýmov, doplnokov, obchodov, výpožičiek}</br>
 	  - galéria + filtrovanie, výpožičky + filtrovanie</br>
 	</dd>
-	<dd>Druhé jméno <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
-	    <a href="mailto:xautor02@stud.fit.vutbr.cz">xautor02@stud.fit.vutbr.cz</a> - 
-		databázový subsystém
+	<dd>Peter Lukáč
+	    <a href="mailto:xlukac11@stud.fit.vutbr.cz">xlukac11@stud.fit.vutbr.cz</a><br>
+		- tvorba a sprava uzivatelov, rozdelenie skupin: customers, employee, manager
+		- prava pre skupiny, obmedzenie pristupu do casti systemu na zaklade prihlasenia a prav skupiny
+		- pridavanie poloziek do nakupneho kosika, vytvorenie objednavky
 	</dd>
 	<dt>URL aplikace</dt>
         <dd><a href="http://xkasta02.pythonanywhere.com">http://xkasta02.pythonanywhere.com</a></dd>
@@ -44,6 +46,13 @@
 <p>Funkcie/triedy tzv. views zodpovedné za generovanie obsahu stránok sú v súbore costumes/views.py. Každá stránka aplikácie je reprezentovaná jednou funkciou/triedou.</p>
 <p>Mapovanie views na jednotivé cesty je nastavené v súbore costumes/urls.py. </p>
 <p>Súbor costumes/models.py obsahuje definície databázových modelov. Ku ktorým sa následne pristupuje pomocou django ORM.</p>
+<p>Pre skupiny užívateľov(customers, employee, manager) sú priradené práva obmedzujúce prístup k modelom(databázový model).
+	Práva sa overujú pred generovaním obsahu v tzv. views. Každý kritický view ma priradený dekorátor ktorý vyhodnotí, či má užívateľ práva pre daný obsah na základe príslušnosti k skupine.
+
+</p>
+<p>Skupina "customers": bežní užívatelia, môžu používať košík, vytvárať objednávku a prezerať obsah okrem prezerania ostatných užívate%lov.</p>
+<p>Skupina "employee": zamestnanci môžu editovať kostými, doplnky, prehľadávať, editovať, vybavovať objednávky.</p>
+<p>Skupina "manager": dokážu vytvárť/editovať obchody, vytvárť/editovať employee a tiež prehľadávať, editovať, vybavovať objednávky. Existuje navyše podskupina "super_manager" ktorý dokážu vytvárať ostatných managerov.</p>
 
 <h2>Instalace</h2>
 <ul>

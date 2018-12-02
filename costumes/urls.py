@@ -63,5 +63,6 @@ urlpatterns = [
     path('remove_accessory_from_basket', views.remove_accessory_from_basket, name='add_accessory_to_basket'),
     path('finish_borrowing', views.finish_borrowing, name='add_accessory_to_basket'),
     path('user_borrowings', views.user_borrowings, name='add_accessory_to_basket'),
+    path('user_detail/<int:user_id>', views.user_detail, name='add_accessory_to_basket'),
     path('basket', views.basket, name='basket')
 ]

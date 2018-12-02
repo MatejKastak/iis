@@ -60,6 +60,8 @@ def edit_manager_script(request):
             if form.data.get('store'):
                 s = Store.objects.get(id=int(form.data.get('store')))
                 m.store = s
+            else:
+                m.store = None
             if form.data.get('super_manager'):
                 g = Group.objects.get(name="super_manager")
                 g.user_set.add(u)

@@ -33,8 +33,12 @@
       <p class="text-danger">Not Returned</p>
       {% endif %}
       <p>Price: {{borrowing.final_price}} €</p>
+      {% if request.user.employee or request.user.manager %}
+      <a href="/user_detail/{{borrowing.customer.user.id}}"><p>Customer: {{borrowing.customer.user.username}}</p></a>
+      {% else %}
       <p>Customer: {{borrowing.customer.user.username}}</p>
-      <p>Employee: {{borrowing.employee_borrowed.user.username}}</p>
+      {% endif %}
+      <p>Employee: {{borrowing.employee_borrowed.user.username}} ({{borrowing.employee_borrowed.store.street}}, {{borrowing.employee_borrowed.store.city}})</p>
       <p>Store: {{borrowing.employee_borrowed.store.street}}, {{borrowing.employee_borrowed.store.city}}</p>
       
       {% if request.user.employee or request.user.manager %}
