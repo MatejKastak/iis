@@ -62,7 +62,7 @@ class EditManagerForm(Form):
 
 class CreateManagerForm(Form):
     login = forms.CharField(label='login', max_length=50)
-    password = forms.CharField(label='password', max_length=50)
+    password = forms.CharField(label='password', max_length=50, min_length=6)
     first_name = forms.CharField(label='first_name', max_length=50, required=False)
     last_name = forms.CharField(label='last_name', max_length=50, required=False)
     email = forms.CharField(label='email', max_length=50, required=False)
@@ -82,7 +82,7 @@ class EditEmployeeForm(Form):
 
 class CreateEmployeeForm(Form):
     login = forms.CharField(label='login', max_length=50)
-    password = forms.CharField(label='password', max_length=50)
+    password = forms.CharField(label='password', max_length=50, min_length=6)
     first_name = forms.CharField(label='first_name', max_length=50, required=False)
     last_name = forms.CharField(label='last_name', max_length=50, required=False)
     email = forms.CharField(label='email', max_length=50, required=False)
