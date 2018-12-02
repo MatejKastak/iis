@@ -331,7 +331,6 @@ def register_script(request):
 @login_required(login_url="/login")
 @permission_required('costumes.change_borrowing', raise_exception=True)
 def borrowings_gallery(request):
-    # TODO: If user is manager or employee show all of the borrowings
     if True:
         f = BorrowingAdminFilter(request.GET, queryset=Borrowing.objects.all())
     else:

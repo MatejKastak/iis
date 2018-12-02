@@ -2,7 +2,7 @@
 
 {% load bootstrap4 %}
 
-{% block title %}IIS - gallery{% endblock %}
+{% block title %}Borrinwgs{% endblock %}
 
 {% block content %}
 <div class="container my-3">
@@ -15,6 +15,9 @@
     <p class="list-group-item list-group-item-dark">Current borrowings in the system:</p>
     {% for borrowing in filter.qs %}
     <li class="list-group-item"><a href="{% url 'borrowing' borrowing.pk %}">
+	{% if borrowing.employee_borrowed == None %}
+	<span class="badge badge-danger">Missing employee</span>
+	{% endif %}
 	Number: {{borrowing.pk}}
 	Event: {{borrowing.event}}
 	Costumes: {{borrowing.costume.all|length}}
