@@ -1,81 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-{% load static %}
-<head>
-	<title>IIS - Sign Up</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="{% static 'costumes/images/icons/favicon.ico' %}"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/bootstrap/css/bootstrap.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/animate/animate.css' %}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/css-hamburgers/hamburgers.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/animsition/css/animsition.min.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/select2/select2.min.css' %}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/vendor/daterangepicker/daterangepicker.css' %}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/css/util.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'costumes/css/main.css' %}">
-<!--===============================================================================================-->
-</head>
-<body style="background-color: #666666;">
-	
-	<div class="limiter">
-		<div class="container-login100">
-			<form action="register/script" method="POST">
-				{% csrf_token %}
-				{% if user_exists %}
-				<div class="form-group">
-					<label for="exampleInput" class="btn btn-danger">This user already exists</label>
-				</div>
-				{% endif %}
-				<div class="form-group">
-					<label for="exampleInput">First Name</label>
-					<input name="first_name" class="form-control">
-				</div>
-				<div class="form-group">
-					<label for="exampleInput">Last Name</label>
-					<input name="last_name" class="form-control">
-				</div>
-				<div class="form-group">
-					<label for="exampleInput">*Login</label>
-					<input name="login" class="form-control" required>
-				</div>
-				<div class="form-group">
-				  <label for="exampleInputEmail1">Email address</label>
-				  <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="someone@example.com">
-				</div>
-				<div class="form-group">
-				  <label for="exampleInputPassword1">*Password</label>
-				  <input minlength="6" name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
-				  <small class="form-text text-muted">Must be at least 6 characters long</small>
-				</div>
+  {% load static %}
+  <head>
+    <title>IIS - Sign Up</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->	
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--===============================================================================================-->	
+    <link rel="stylesheet" type="text/css" href="{% static 'costumes/css/main.css' %}">
+    <!--===============================================================================================-->
+  </head>
+  <body style="background-color: #666666;">
+    
+    <div class="limiter">
+      <div class="container-login100">
+	<form action="register/script" method="POST">
+	  {% csrf_token %}
+	  {% if user_exists %}
+	  <div class="form-group">
+	    <label for="exampleInput" class="btn btn-danger">This user already exists</label>
+	  </div>
+	  {% endif %}
+	  <div class="form-group">
+	    <label for="exampleInput">First Name</label>
+	    <input name="first_name" class="form-control">
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInput">Last Name</label>
+	    <input name="last_name" class="form-control">
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInput">*Login</label>
+	    <input name="login" class="form-control" required>
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">Email address</label>
+	    <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="someone@example.com">
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputPassword1">*Password</label>
+	    <input minlength="6" name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+	    <small class="form-text text-muted">Must be at least 6 characters long</small>
+	  </div>
 
-				<button type="submit" class="btn btn-primary btn-block">Register</button>
-				<small class="form-text text-muted">Fields marked as * are required</small>
-			  </form>
-		</div>
-	</div>
-	
-	<script src="{% static 'costumes/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
-	<script src="{% static 'costumes/vendor/animsition/js/animsition.min.js' %}"></script>
-	<script src="{% static 'costumes/vendor/bootstrap/js/popper.js' %}"></script>
-	<script src="{% static 'costumes/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
-	<script src="{% static 'costumes/vendor/select2/select2.min.js' %}"></script>
-	<script src="{% static 'costumes/vendor/daterangepicker/moment.min.js' %}"></script>
-	<script src="{% static 'costumes/vendor/daterangepicker/daterangepicker.js' %}"></script>
-	<script src="{% static 'costumes/vendor/countdowntime/countdowntime.js' %}"></script>
-	<script src="{% static 'costumes/js/main.js' %}"></script>
+	  <button type="submit" class="btn btn-primary btn-block">Register</button>
+	  <small class="form-text text-muted">Fields marked as * are required</small>
+	</form>
+      </div>
+    </div>
 
-</body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+  </body>
 </html>
