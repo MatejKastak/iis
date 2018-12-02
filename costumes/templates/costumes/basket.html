@@ -6,10 +6,10 @@
 
 <div class="container my-3">
     {% for costume in costumes.all %}
-    <div class="row border-top border-bottom" style="height: 120px;">
+    <div class="row border-top border-bottom">
         <div class="col-3">
             <a href="{% url 'costumes' costume.id %}">
-                <img class="card-img-top" src="{{costume.picture.url}}" alt="Card image cap">
+                <img class="card-img-top" src="{{costume.picture.url}}" alt="Card image cap" style="height: 100px;">
             </a>
         </div>
         <div class="col my-auto">
@@ -27,10 +27,10 @@
       </div>
     {% endfor %}
     {% for accessory in accessory.all %}
-    <div class="row border-top border-bottom" style="height: 120px;">
+    <div class="row border-top border-bottom">
         <div class="col-3">
             <a href="{% url 'accessories' accessory.id %}">
-                <img class="card-img-top" src="{{accessory.picture.url}}" alt="Card image cap">
+                <img class="card-img-top" src="{{accessory.picture.url}}" alt="Card image cap" style="height: 100px;">
             </a>
         </div>
         <div class="col my-auto">
