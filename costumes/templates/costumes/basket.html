@@ -51,7 +51,7 @@
 
     <div class="form-group" style="margin-top: 20px;">
     {% if has_items %}
-        <form method="POST" action="/finish_borrowing" >
+        <form onsubmit="return confirm('Do you confirm this order ?');" method="POST" action="/finish_borrowing" >
         {% csrf_token %}
         <input hidden type="number" name="store_id" value="{{ store.id }}" class="form-control">
         <input hidden type="number" name="price" value="{{ total_price }}" class="form-control">
@@ -72,7 +72,7 @@
         {% if costumes_same_shop and accessory_same_shop %}
             <button class="btn btn-success" type="submit">Book costumes</button>
         {% else %}
-            <a class="btn btn-danger disabled" role="button">Can't book costumes placed from differnet shop</a>
+            <a class="btn btn-danger disabled" role="button">Can't book costumes placed at differnet shops</a>
         {% endif %}
         </form>
     {% endif %}

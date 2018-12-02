@@ -59,10 +59,10 @@ urlpatterns = [
 
     path('add_costume_to_basket', views.add_costume_to_basket, name='add_costume_to_basket'),
     path('add_accessory_to_basket', views.add_accessory_to_basket, name='add_accessory_to_basket'),
-    path('remove_costume_from_basket', views.remove_costume_from_basket, name='add_costume_to_basket'),
-    path('remove_accessory_from_basket', views.remove_accessory_from_basket, name='add_accessory_to_basket'),
-    path('finish_borrowing', views.finish_borrowing, name='add_accessory_to_basket'),
-    path('user_borrowings', views.user_borrowings, name='add_accessory_to_basket'),
-    path('user_detail/<int:user_id>', views.user_detail, name='add_accessory_to_basket'),
+    path('remove_costume_from_basket', views.remove_costume_from_basket, name='remove_costume_from_basket'),
+    path('remove_accessory_from_basket', views.remove_accessory_from_basket, name='remove_accessory_from_basket'),
+    path('finish_borrowing', views.finish_borrowing, name='finish_borrowing'),
+    path('user_borrowings', views.user_borrowings, name='user_borrowings'),
+    path('user_detail/<int:user_id>', views.user_detail, name='user_detail'),
     path('basket', views.basket, name='basket')
 ]
