@@ -29,6 +29,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# session is saved every time request is processed, this allow logout after inacivity
+SESSION_SAVE_EVERY_REQUEST = True
+
 
 # Application definition
 

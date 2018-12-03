@@ -36,11 +36,13 @@ def manage_manager(request):
 @permission_required('costumes.change_manager', raise_exception=True)
 def edit_manager(request, manager_id):
     context = {}
-    context['manager'] = User.objects.get(pk=manager_id)
+    #context['manager'] = User.objects.get(pk=manager_id)
+    context['manager'] = get_object_or_404(User, pk=manager_id)
     for g in User.objects.get(pk=manager_id).groups.all():
         if g.name == "super_manager":
             context['is_super_manager'] = True
     context['store'] = Store.objects.all()
+    m = get_object_or_404(Manager, user=context['manager'])
     return render(request, 'manage/edit_manager.html', context)
 
 
@@ -50,15 +52,18 @@ def edit_manager_script(request):
     if request.method == 'POST':
         form = EditManagerForm(request.POST)
         if form.is_valid():
-            u = User.objects.get(id=int(form.data.get('id')))
-            m = Manager.objects.get(user=u)
+            #u = User.objects.get(id=int(form.data.get('id')))
+            u = get_object_or_404(User, id=int(form.data.get('id')))
+            #m = Manager.objects.get(user=u)
+            m = get_object_or_404(Manager, user=u)
             u.first_name = form.data.get('first_name')
             u.last_name = form.data.get('last_name')
             u.email = form.data.get('email')
             m.address = form.data.get('address')
             m.tel_num = form.data.get('tel_num')
             if form.data.get('store'):
-                s = Store.objects.get(id=int(form.data.get('store')))
+                #s = Store.objects.get(id=int(form.data.get('store')))
+                s = get_object_or_404(Store, id=int(form.data.get('store')))
                 m.store = s
             else:
                 m.store = None
@@ -108,7 +113,8 @@ def create_manager_script(request):
             m.tel_num = form.data.get("tel_num")
             m.store
             if form.data.get('store'):
-                s = Store.objects.get(id=int(form.data.get('store')))
+                #s = Store.objects.get(id=int(form.data.get('store')))
+                s = get_object_or_404(Store, id=int(form.data.get('store')))
                 m.store = s
             else:
                 m.store = None
@@ -128,7 +134,8 @@ def create_manager_script(request):
 @permission_required('costumes.delete_manager', raise_exception=True)
 def delete_manager(request):
     if request.GET.get("id"):
-        u = User.objects.get(id=int(request.GET.get("id")))
+        #u = User.objects.get(id=int(request.GET.get("id")))
+        u = get_object_or_404(User, id=int(request.GET.get("id")))
         u.delete()
         return redirect(manage_manager)
     return Http404('UNKOWN GET ARGUMENTS FOR THIS REQUEST')
@@ -138,7 +145,9 @@ def delete_manager(request):
 @permission_required('costumes.change_employee', raise_exception=True)
 def edit_employee(request, employee_id):
     context = {}
-    context['employee'] = User.objects.get(pk=employee_id)
+    #context['employee'] = User.objects.get(pk=employee_id)
+    context['employee'] = get_object_or_404(User, pk=employee_id)
+    m = get_object_or_404(Employee, user=context['employee'])
     context['store'] = Store.objects.all()
     return render(request, 'manage/edit_employee.html', context)
 
@@ -149,15 +158,18 @@ def edit_employee_script(request):
     if request.method == 'POST':
         form = EditEmployeeForm(request.POST)
         if form.is_valid():
-            u = User.objects.get(id=int(form.data.get('id')))
-            m = Employee.objects.get(user=u)
+            #u = User.objects.get(id=int(form.data.get('id')))
+            u = get_object_or_404(User, id=int(form.data.get('id')))
+            #m = Employee.objects.get(user=u)
+            m = get_object_or_404(Employee, user=u)
             u.first_name = form.data.get('first_name')
             u.last_name = form.data.get('last_name')
             u.email = form.data.get('email')
             m.address = form.data.get('address')
             m.tel_num = form.data.get('tel_num')
             if form.data.get('store'):
-                s = Store.objects.get(id=int(form.data.get('store')))
+                #s = Store.objects.get(id=int(form.data.get('store')))
+                s = get_object_or_404(Store, id=int(form.data.get('store')))
                 m.store = s
             else:
                 m.store = None
@@ -198,7 +210,8 @@ def create_employee_script(request):
             m.tel_num = form.data.get("tel_num")
             m.store
             if form.data.get('store'):
-                s = Store.objects.get(id=int(form.data.get('store')))
+                #s = Store.objects.get(id=int(form.data.get('store')))
+                s = get_object_or_404(Store, id=int(form.data.get('store')))
                 m.store = s
             m.save()
             g = Group.objects.get(name="employee")
@@ -212,7 +225,8 @@ def create_employee_script(request):
 @permission_required('costumes.delete_employee', raise_exception=True)
 def delete_employee(request):
     if request.GET.get("id"):
-        u = User.objects.get(id=int(request.GET.get("id")))
+        #u = User.objects.get(id=int(request.GET.get("id")))
+        u = get_object_or_404(User, id=int(request.GET.get("id")))
         u.delete()
         return redirect(manage_employee)
     return Http404('UNKOWN GET ARGUMENTS FOR THIS REQUEST')

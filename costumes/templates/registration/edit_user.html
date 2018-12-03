@@ -10,15 +10,15 @@
             <form method="POST" action="/edit_user/script">
                 {% csrf_token %}
                 <label>First name</label>
-                <input name="first_name" class="form-control" value="{{ user.first_name }}"><br>
+                <input maxlength="50" name="first_name" class="form-control" value="{{ user.first_name }}"><br>
                 <label>Last name</label>
-                <input name="last_name" class="form-control" value="{{ user.last_name }}"><br>
+                <input maxlength="50" name="last_name" class="form-control" value="{{ user.last_name }}"><br>
                 <label>Email</label>
-                <input name="email" type="email" class="form-control" value="{{ user.email }}"><br>
+                <input maxlength="50" name="email" type="email" class="form-control" value="{{ user.email }}"><br>
                 <label>Address</label>
-                <input name="address" class="form-control" value="{{ user_role.address }}"><br>
+                <input maxlength="50" name="address" class="form-control" value="{{ user_role.address }}"><br>
                 <label>Tel. num.</label>
-                <input name="tel_num" class="form-control" value="{{ user_role.tel_num }}"><br>
+                <input maxlength="15" name="tel_num" class="form-control" value="{{ user_role.tel_num }}"><br>
                 <div style="margin-top:20px;">
                 <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
                 <a href="/user_change_password"><button type="button" class="btn btn-primary btn-block" style="margin-top:20px;">Change password</button></a>

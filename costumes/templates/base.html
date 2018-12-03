@@ -30,7 +30,12 @@
 
 	  <li class="nav-item">
 	    <a class="nav-link" href="/stores">Stores</a>
-	  </li>
+		</li>
+		{% if user.manager %}
+		<li class="nav-item">
+	    <a class="nav-link" href="/show_user">Show customers</a>
+		</li>
+		{% endif %}
 	</ul>
 
       </div>

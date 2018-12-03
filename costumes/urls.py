@@ -64,5 +64,7 @@ urlpatterns = [
     path('finish_borrowing', views.finish_borrowing, name='finish_borrowing'),
     path('user_borrowings', views.user_borrowings, name='user_borrowings'),
     path('user_detail/<int:user_id>', views.user_detail, name='user_detail'),
-    path('basket', views.basket, name='basket')
+    path('basket', views.basket, name='basket'),
+    path('show_user', views.show_user, name='show_user'),
+    path('delete_user/<int:user_id>', views.delete_user, name='delete_user')
 ]

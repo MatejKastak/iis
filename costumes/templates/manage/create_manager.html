@@ -15,20 +15,20 @@
 				</div>
 				{% endif %}
                 <label>*Login</label>
-                <input name="login" class="form-control" required><br>
+                <input maxlength="50" name="login" class="form-control" required><br>
                 <label>*Password</label>
-                <input minlength="6" name="password" type="password" class="form-control" required>
+                <input maxlength="50" minlength="6" name="password" type="password" class="form-control" required>
                 <small class="form-text text-muted">Must be at least 6 characters long</small><br>
                 <label>First name</label>
-                <input name="first_name" class="form-control"><br>
+                <input maxlength="50" name="first_name" class="form-control"><br>
                 <label>Last name</label>
-                <input name="last_name" class="form-control"><br>
+                <input maxlength="50" name="last_name" class="form-control"><br>
                 <label>Email</label>
-                <input name="email" type="email" class="form-control"><br>
+                <input maxlength="50" name="email" type="email" class="form-control"><br>
                 <label>Address</label>
-                <input name="address" class="form-control"><br>
+                <input maxlength="50" name="address" class="form-control"><br>
                 <label>Tel. number</label>
-                <input name="tel_num" class="form-control"><br>
+                <input maxlength="15" name="tel_num" class="form-control"><br>
                 <label>Working location</label>
                 <select name="store" class="form-control">
                     <option disabled selected value>-- select a store --</option>
@@ -38,7 +38,8 @@
                 </select>
                 <input style="margin-top: 20px;" type="checkbox" name="super_manager" value="true"> Is super manager<br>
                 <div style="margin-top:40px;">
-                <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+                <button type="submit" class="btn btn-primary btn-block">Create</button>
+                <small class="form-text text-muted">Fields marked as * are required</small>
                 </div>
             </form>
         </div>

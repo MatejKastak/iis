@@ -296,6 +296,7 @@ def login_script(request):
             login(request, user)
             request.session['basket_costume'] = []
             request.session['basket_accessory'] = []
+            request.session.set_expiry(300) # sign out user atomaticaly after 5 min
             return redirect(index)
     raise Http404('UNKOWN POST ARGUMENTS FOR THIS REQUEST')
 
@@ -542,7 +543,8 @@ def finish_borrowing(request):
     if request.method == 'POST':
         form = UserBorrowingForm(request.POST)
         if form.is_valid():
-            store = Store.objects.get(id=int(form.data.get("store_id")))
+            #store = Store.objects.get(id=int(form.data.get("store_id")))
+            store = get_object_or_404(Store, id=int(form.data.get("store_id")))
             e_list = Employee.objects.filter(store=store)
             if e_list:
                 employee = e_list[random.randint(0,len(e_list)-1)]
@@ -588,8 +590,22 @@ def user_borrowings(request):
 @permission_required('costumes.view_borrowing', raise_exception=True)
 def user_detail(request, user_id):
     context = {}
-    context['customer'] = User.objects.get(pk=user_id)
+    context['customer'] = get_object_or_404(User, pk=user_id)
     return render(request, 'costumes/user_detail.html', context)
+
+
+@login_required(login_url="/login")
+@permission_required('costumes.change_employee', raise_exception=True)
+def show_user(request):
+    context = { 'customers': Customer.objects.all()}
+    return render(request, 'costumes/show_user.html', context)
+
+@login_required(login_url="/login")
+@permission_required('costumes.change_employee', raise_exception=True)
+def delete_user(request, user_id):
+    u = get_object_or_404(User, pk=user_id)
+    u.delete()
+    return redirect(show_user)
 
 
 def getMessages(request):
@@ -602,7 +618,8 @@ def getMessages(request):
         
 
 def costume_is_borrowed(costume_id):
-    costume = Costume.objects.get(id=costume_id)
+    #costume = Costume.objects.get(id=costume_id)
+    costume = get_object_or_404(Costume, id=costume_id)
     borrowings = Borrowing.objects.filter(costume=costume)
     for b in borrowings:
         if b.return_date == None:
@@ -611,7 +628,8 @@ def costume_is_borrowed(costume_id):
 
 
 def accessory_is_borrowed(accessory_id):
-    accessory = Accessory.objects.get(id=accessory_id)
+    #accessory = Accessory.objects.get(id=accessory_id)
+    accessory= get_object_or_404(Accessory, id=accessory_id)
     borrowings = Borrowing.objects.filter(accessory=accessory)
     for b in borrowings:
         if b.return_date == None:

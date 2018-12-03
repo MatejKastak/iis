@@ -11,15 +11,15 @@
                 {% csrf_token %}
                 <input hidden name="id" value="{{ employee.id }}">
                 <label>First name</label>
-                <input name="first_name" class="form-control" value="{{ employee.first_name }}"><br>
+                <input maxlength="50" name="first_name" class="form-control" value="{{ employee.first_name }}"><br>
                 <label>Last name</label>
-                <input name="last_name" class="form-control" value="{{ employee.last_name }}"><br>
+                <input maxlength="50" name="last_name" class="form-control" value="{{ employee.last_name }}"><br>
                 <label>Email</label>
-                <input name="email" type="email" class="form-control" value="{{ employee.email }}"><br>
+                <input maxlength="50" name="email" type="email" class="form-control" value="{{ employee.email }}"><br>
                 <label>Address</label>
-                <input name="address" class="form-control" value="{{ employee.employee.address }}"><br>
+                <input maxlength="50" name="address" class="form-control" value="{{ employee.employee.address }}"><br>
                 <label>Tel. number</label>
-                <input name="tel_num" class="form-control" value="{{ employee.employee.tel_num }}"><br>
+                <input maxlength="15" name="tel_num" class="form-control" value="{{ employee.employee.tel_num }}"><br>
                 <label>Working location</label>
                 <select name="store" class="form-control">
                     <option selected value>-- None --</option>

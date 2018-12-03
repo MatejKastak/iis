@@ -55,8 +55,8 @@ class EditManagerForm(Form):
     first_name = forms.CharField(label='first_name', max_length=50, required=False)
     last_name = forms.CharField(label='last_name', max_length=50, required=False)
     email = forms.CharField(label='email', max_length=50, required=False)
-    address = forms.CharField(label='address', max_length=50, required=False)
-    tel_num = forms.CharField(label='tel_num', max_length=50, required=False)
+    address = forms.CharField(label='address', max_length=100, required=False)
+    tel_num = forms.CharField(label='tel_num', max_length=15, required=False)
     store = forms.CharField(label='store', max_length=50, required=False)
     super_manager = forms.CharField(label='super_manager', max_length=50, required=False)
 
@@ -66,8 +66,8 @@ class CreateManagerForm(Form):
     first_name = forms.CharField(label='first_name', max_length=50, required=False)
     last_name = forms.CharField(label='last_name', max_length=50, required=False)
     email = forms.CharField(label='email', max_length=50, required=False)
-    address = forms.CharField(label='address', max_length=50, required=False)
-    tel_num = forms.CharField(label='tel_num', max_length=50, required=False)
+    address = forms.CharField(label='address', max_length=100, required=False)
+    tel_num = forms.CharField(label='tel_num', max_length=15, required=False)
     store = forms.CharField(label='store', max_length=50, required=False)
     super_manager = forms.CharField(label='super_manager', max_length=50, required=False)
 
@@ -76,8 +76,8 @@ class EditEmployeeForm(Form):
     first_name = forms.CharField(label='first_name', max_length=50, required=False)
     last_name = forms.CharField(label='last_name', max_length=50, required=False)
     email = forms.CharField(label='email', max_length=50, required=False)
-    address = forms.CharField(label='address', max_length=50, required=False)
-    tel_num = forms.CharField(label='tel_num', max_length=50, required=False)
+    address = forms.CharField(label='address', max_length=100, required=False)
+    tel_num = forms.CharField(label='tel_num', max_length=15, required=False)
     store = forms.CharField(label='store', max_length=50, required=False)
 
 class CreateEmployeeForm(Form):
@@ -86,8 +86,8 @@ class CreateEmployeeForm(Form):
     first_name = forms.CharField(label='first_name', max_length=50, required=False)
     last_name = forms.CharField(label='last_name', max_length=50, required=False)
     email = forms.CharField(label='email', max_length=50, required=False)
-    address = forms.CharField(label='address', max_length=50, required=False)
-    tel_num = forms.CharField(label='tel_num', max_length=50, required=False)
+    address = forms.CharField(label='address',max_length=100, required=False)
+    tel_num = forms.CharField(label='tel_num', max_length=15, required=False)
     store = forms.CharField(label='store', max_length=50, required=False)
 
 
@@ -95,7 +95,7 @@ class UserEditForm(Form):
     first_name = forms.CharField(label='firs_name', max_length=50, required=False)
     last_name = forms.CharField(label='last_name', max_length=50, required=False)
     email = forms.CharField(label='email', max_length=50, required=False)
-    address = forms.CharField(max_length=15, required=False)
+    address = forms.CharField(max_length=100, required=False)
     tel_num = forms.CharField(max_length=15, required=False)
 
 class ChangePasswordForm(Form):

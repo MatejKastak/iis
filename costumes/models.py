@@ -49,7 +49,7 @@ class Customer(models.Model):
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     address = models.CharField(max_length=100)
-    tel_num = models.CharField(max_length=10)
+    tel_num = models.CharField(max_length=15)
     store = models.ForeignKey(Store, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
@@ -59,7 +59,7 @@ class Employee(models.Model):
 class Manager(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     address = models.CharField(max_length=100)
-    tel_num = models.CharField(max_length=10)
+    tel_num = models.CharField(max_length=15)
     store = models.ForeignKey(Store, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
