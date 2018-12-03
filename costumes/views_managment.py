@@ -136,6 +136,7 @@ def delete_manager(request):
     if request.GET.get("id"):
         #u = User.objects.get(id=int(request.GET.get("id")))
         u = get_object_or_404(User, id=int(request.GET.get("id")))
+        m = get_object_or_404(Manager, user=u)
         u.delete()
         return redirect(manage_manager)
     return Http404('UNKOWN GET ARGUMENTS FOR THIS REQUEST')
@@ -227,6 +228,7 @@ def delete_employee(request):
     if request.GET.get("id"):
         #u = User.objects.get(id=int(request.GET.get("id")))
         u = get_object_or_404(User, id=int(request.GET.get("id")))
+        m = get_object_or_404(Employee, user=u)
         u.delete()
         return redirect(manage_employee)
     return Http404('UNKOWN GET ARGUMENTS FOR THIS REQUEST')
